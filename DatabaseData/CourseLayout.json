@@ -1,0 +1,702 @@
+[
+	{
+		"course_code": "FL5515",
+		"course_name": "nisl sem, consequat nec, mollis",
+		"min_students": 25,
+		"max_students": 43,
+		"hp": 12.5
+	},
+	{
+		"course_code": "CG8871",
+		"course_name": "lacinia at,",
+		"min_students": 13,
+		"max_students": 177,
+		"hp": 9.5
+	},
+	{
+		"course_code": "HG2650",
+		"course_name": "vitae, sodales at, velit.",
+		"min_students": 22,
+		"max_students": 47,
+		"hp": 8.5
+	},
+	{
+		"course_code": "AD5321",
+		"course_name": "iaculis odio. Nam",
+		"min_students": 27,
+		"max_students": 55,
+		"hp": 11.5
+	},
+	{
+		"course_code": "OP0884",
+		"course_name": "eu tellus eu",
+		"min_students": 12,
+		"max_students": 171,
+		"hp": 6.5
+	},
+	{
+		"course_code": "XE6540",
+		"course_name": "magna a tortor. Nunc",
+		"min_students": 11,
+		"max_students": 145,
+		"hp": 5.5
+	},
+	{
+		"course_code": "IQ3222",
+		"course_name": "orci luctus et ultrices",
+		"min_students": 19,
+		"max_students": 169,
+		"hp": 13.5
+	},
+	{
+		"course_code": "YL4227",
+		"course_name": "mauris. Morbi non sapien molestie",
+		"min_students": 14,
+		"max_students": 107,
+		"hp": "0.5"
+	},
+	{
+		"course_code": "EF6152",
+		"course_name": "quis diam luctus lobortis. Class",
+		"min_students": 13,
+		"max_students": 63,
+		"hp": 9.5
+	},
+	{
+		"course_code": "PR2407",
+		"course_name": "eleifend nec, malesuada",
+		"min_students": 22,
+		"max_students": 129,
+		"hp": 8.5
+	},
+	{
+		"course_code": "CI8661",
+		"course_name": "est, vitae sodales",
+		"min_students": 24,
+		"max_students": 55,
+		"hp": 8.5
+	},
+	{
+		"course_code": "DU3666",
+		"course_name": "dolor, tempus non,",
+		"min_students": 11,
+		"max_students": 193,
+		"hp": 14.5
+	},
+	{
+		"course_code": "CH7153",
+		"course_name": "vulputate mauris",
+		"min_students": 29,
+		"max_students": 115,
+		"hp": 9.5
+	},
+	{
+		"course_code": "DL5813",
+		"course_name": "id risus quis",
+		"min_students": 29,
+		"max_students": 137,
+		"hp": 8.5
+	},
+	{
+		"course_code": "IT2238",
+		"course_name": "egestas. Sed pharetra,",
+		"min_students": 22,
+		"max_students": 198,
+		"hp": 5.5
+	},
+	{
+		"course_code": "XV8530",
+		"course_name": "in magna. Phasellus",
+		"min_students": 24,
+		"max_students": 145,
+		"hp": 1.5
+	},
+	{
+		"course_code": "YV6456",
+		"course_name": "Nunc pulvinar arcu",
+		"min_students": 21,
+		"max_students": 121,
+		"hp": 4.5
+	},
+	{
+		"course_code": "RC0362",
+		"course_name": "In condimentum. Donec at",
+		"min_students": 25,
+		"max_students": 194,
+		"hp": 13.5
+	},
+	{
+		"course_code": "VQ7828",
+		"course_name": "fermentum vel, mauris. Integer",
+		"min_students": 10,
+		"max_students": 48,
+		"hp": 8.5
+	},
+	{
+		"course_code": "RA5004",
+		"course_name": "eget nisi dictum augue",
+		"min_students": 11,
+		"max_students": 196,
+		"hp": 1.5
+	},
+	{
+		"course_code": "OL1548",
+		"course_name": "mauris blandit mattis. Cras",
+		"min_students": 18,
+		"max_students": 125,
+		"hp": 14.5
+	},
+	{
+		"course_code": "XF9948",
+		"course_name": "Donec sollicitudin",
+		"min_students": 26,
+		"max_students": 106,
+		"hp": 5.5
+	},
+	{
+		"course_code": "ZG8168",
+		"course_name": "libero. Donec consectetuer mauris",
+		"min_students": 13,
+		"max_students": 156,
+		"hp": 12.5
+	},
+	{
+		"course_code": "LI9708",
+		"course_name": "mauris sapien,",
+		"min_students": 16,
+		"max_students": 190,
+		"hp": 11.5
+	},
+	{
+		"course_code": "BM5502",
+		"course_name": "pede blandit congue. In scelerisque",
+		"min_students": 14,
+		"max_students": 82,
+		"hp": 11.5
+	},
+	{
+		"course_code": "CW8296",
+		"course_name": "diam. Duis mi enim, condimentum",
+		"min_students": 13,
+		"max_students": 48,
+		"hp": 7.5
+	},
+	{
+		"course_code": "HI4916",
+		"course_name": "Mauris ut",
+		"min_students": 14,
+		"max_students": 147,
+		"hp": 11.5
+	},
+	{
+		"course_code": "DQ8107",
+		"course_name": "justo faucibus lectus, a sollicitudin",
+		"min_students": 12,
+		"max_students": 170,
+		"hp": 14.5
+	},
+	{
+		"course_code": "BU8754",
+		"course_name": "eu, eleifend",
+		"min_students": 11,
+		"max_students": 131,
+		"hp": 13.5
+	},
+	{
+		"course_code": "HP4353",
+		"course_name": "ac libero nec",
+		"min_students": 18,
+		"max_students": 199,
+		"hp": 7.5
+	},
+	{
+		"course_code": "OB0221",
+		"course_name": "auctor velit. Aliquam nisl. Nulla",
+		"min_students": 27,
+		"max_students": 149,
+		"hp": 1.5
+	},
+	{
+		"course_code": "PV3759",
+		"course_name": "purus sapien, gravida",
+		"min_students": 22,
+		"max_students": 106,
+		"hp": 5.5
+	},
+	{
+		"course_code": "QI3643",
+		"course_name": "felis eget",
+		"min_students": 29,
+		"max_students": 103,
+		"hp": 5.5
+	},
+	{
+		"course_code": "FN2133",
+		"course_name": "fermentum fermentum arcu.",
+		"min_students": 14,
+		"max_students": 47,
+		"hp": 4.5
+	},
+	{
+		"course_code": "JO7578",
+		"course_name": "a purus.",
+		"min_students": 19,
+		"max_students": 183,
+		"hp": 4.5
+	},
+	{
+		"course_code": "PR1623",
+		"course_name": "sagittis. Duis gravida. Praesent eu",
+		"min_students": 27,
+		"max_students": 133,
+		"hp": 5.5
+	},
+	{
+		"course_code": "XW7786",
+		"course_name": "eu, ultrices",
+		"min_students": 13,
+		"max_students": 80,
+		"hp": 9.5
+	},
+	{
+		"course_code": "NM4852",
+		"course_name": "libero at auctor",
+		"min_students": 26,
+		"max_students": 168,
+		"hp": 7.5
+	},
+	{
+		"course_code": "XS4871",
+		"course_name": "molestie sodales. Mauris",
+		"min_students": 26,
+		"max_students": 129,
+		"hp": 2.5
+	},
+	{
+		"course_code": "RH9102",
+		"course_name": "sit amet metus.",
+		"min_students": 27,
+		"max_students": 151,
+		"hp": 4.5
+	},
+	{
+		"course_code": "QV8858",
+		"course_name": "ligula consectetuer rhoncus.",
+		"min_students": 30,
+		"max_students": 78,
+		"hp": 3.5
+	},
+	{
+		"course_code": "GT3084",
+		"course_name": "aliquam, enim nec tempus",
+		"min_students": 13,
+		"max_students": 162,
+		"hp": 5.5
+	},
+	{
+		"course_code": "BI8086",
+		"course_name": "taciti sociosqu ad litora",
+		"min_students": 18,
+		"max_students": 129,
+		"hp": 7.5
+	},
+	{
+		"course_code": "PR0396",
+		"course_name": "at lacus. Quisque purus",
+		"min_students": 12,
+		"max_students": 104,
+		"hp": 13.5
+	},
+	{
+		"course_code": "UV4215",
+		"course_name": "vel, convallis in,",
+		"min_students": 15,
+		"max_students": 138,
+		"hp": 12.5
+	},
+	{
+		"course_code": "DJ5385",
+		"course_name": "conubia nostra,",
+		"min_students": 17,
+		"max_students": 56,
+		"hp": 2.5
+	},
+	{
+		"course_code": "VD4543",
+		"course_name": "Donec nibh enim,",
+		"min_students": 18,
+		"max_students": 144,
+		"hp": 11.5
+	},
+	{
+		"course_code": "YE6453",
+		"course_name": "sociis natoque penatibus",
+		"min_students": 26,
+		"max_students": 163,
+		"hp": 7.5
+	},
+	{
+		"course_code": "IR3355",
+		"course_name": "Nullam lobortis quam a felis",
+		"min_students": 11,
+		"max_students": 163,
+		"hp": 11.5
+	},
+	{
+		"course_code": "TI5596",
+		"course_name": "blandit enim consequat purus.",
+		"min_students": 11,
+		"max_students": 155,
+		"hp": 6.5
+	},
+	{
+		"course_code": "CP5962",
+		"course_name": "convallis erat, eget tincidunt dui",
+		"min_students": 19,
+		"max_students": 172,
+		"hp": 10.5
+	},
+	{
+		"course_code": "BT3667",
+		"course_name": "sociis natoque penatibus",
+		"min_students": 27,
+		"max_students": 49,
+		"hp": 1.5
+	},
+	{
+		"course_code": "FU7357",
+		"course_name": "Mauris nulla. Integer urna.",
+		"min_students": 22,
+		"max_students": 173,
+		"hp": 4.5
+	},
+	{
+		"course_code": "PE6718",
+		"course_name": "facilisis vitae,",
+		"min_students": 24,
+		"max_students": 141,
+		"hp": 14.5
+	},
+	{
+		"course_code": "MM7845",
+		"course_name": "Duis elementum,",
+		"min_students": 26,
+		"max_students": 155,
+		"hp": 4.5
+	},
+	{
+		"course_code": "VH9328",
+		"course_name": "Mauris magna. Duis",
+		"min_students": 15,
+		"max_students": 69,
+		"hp": 5.5
+	},
+	{
+		"course_code": "PD1406",
+		"course_name": "id nunc interdum feugiat.",
+		"min_students": 27,
+		"max_students": 131,
+		"hp": 7.5
+	},
+	{
+		"course_code": "YW7578",
+		"course_name": "egestas nunc sed",
+		"min_students": 22,
+		"max_students": 77,
+		"hp": 10.5
+	},
+	{
+		"course_code": "NL5952",
+		"course_name": "vel arcu eu odio tristique",
+		"min_students": 19,
+		"max_students": 66,
+		"hp": 4.5
+	},
+	{
+		"course_code": "GV1397",
+		"course_name": "at sem molestie sodales.",
+		"min_students": 21,
+		"max_students": 161,
+		"hp": 8.5
+	},
+	{
+		"course_code": "LS5902",
+		"course_name": "posuere at, velit.",
+		"min_students": 13,
+		"max_students": 52,
+		"hp": 2.5
+	},
+	{
+		"course_code": "TR9269",
+		"course_name": "ut cursus luctus,",
+		"min_students": 15,
+		"max_students": 82,
+		"hp": 7.5
+	},
+	{
+		"course_code": "BE5321",
+		"course_name": "magna. Suspendisse tristique neque",
+		"min_students": 22,
+		"max_students": 196,
+		"hp": 12.5
+	},
+	{
+		"course_code": "IW6884",
+		"course_name": "Curabitur massa. Vestibulum",
+		"min_students": 19,
+		"max_students": 84,
+		"hp": 8.5
+	},
+	{
+		"course_code": "AG7135",
+		"course_name": "lorem eu metus.",
+		"min_students": 20,
+		"max_students": 190,
+		"hp": 8.5
+	},
+	{
+		"course_code": "UM5454",
+		"course_name": "suscipit nonummy. Fusce fermentum",
+		"min_students": 20,
+		"max_students": 171,
+		"hp": "0.5"
+	},
+	{
+		"course_code": "YR5005",
+		"course_name": "purus sapien, gravida non, sollicitudin",
+		"min_students": 25,
+		"max_students": 106,
+		"hp": 5.5
+	},
+	{
+		"course_code": "VY5587",
+		"course_name": "erat vitae risus. Duis a",
+		"min_students": 25,
+		"max_students": 146,
+		"hp": 12.5
+	},
+	{
+		"course_code": "GV6105",
+		"course_name": "sed libero. Proin",
+		"min_students": 23,
+		"max_students": 133,
+		"hp": 3.5
+	},
+	{
+		"course_code": "PN0164",
+		"course_name": "mattis velit justo nec ante.",
+		"min_students": 16,
+		"max_students": 190,
+		"hp": 13.5
+	},
+	{
+		"course_code": "QL7747",
+		"course_name": "diam at pretium aliquet, metus",
+		"min_students": 19,
+		"max_students": 128,
+		"hp": 3.5
+	},
+	{
+		"course_code": "NF3317",
+		"course_name": "nascetur ridiculus",
+		"min_students": 13,
+		"max_students": 55,
+		"hp": 7.5
+	},
+	{
+		"course_code": "TI6674",
+		"course_name": "aliquet nec, imperdiet",
+		"min_students": 24,
+		"max_students": 190,
+		"hp": 5.5
+	},
+	{
+		"course_code": "UR8342",
+		"course_name": "vel quam dignissim pharetra.",
+		"min_students": 23,
+		"max_students": 122,
+		"hp": 6.5
+	},
+	{
+		"course_code": "BB8605",
+		"course_name": "Ut nec urna",
+		"min_students": 23,
+		"max_students": 181,
+		"hp": 9.5
+	},
+	{
+		"course_code": "ZN7181",
+		"course_name": "diam lorem, auctor",
+		"min_students": 27,
+		"max_students": 177,
+		"hp": 6.5
+	},
+	{
+		"course_code": "LN2257",
+		"course_name": "dui. Fusce aliquam, enim",
+		"min_students": 28,
+		"max_students": 171,
+		"hp": 2.5
+	},
+	{
+		"course_code": "GD3565",
+		"course_name": "facilisis. Suspendisse commodo",
+		"min_students": 27,
+		"max_students": 127,
+		"hp": 4.5
+	},
+	{
+		"course_code": "IZ5165",
+		"course_name": "consectetuer euismod",
+		"min_students": 18,
+		"max_students": 105,
+		"hp": 13.5
+	},
+	{
+		"course_code": "XP0866",
+		"course_name": "sit amet, dapibus id, blandit",
+		"min_students": 14,
+		"max_students": 188,
+		"hp": 1.5
+	},
+	{
+		"course_code": "NB4548",
+		"course_name": "Aliquam vulputate ullamcorper magna. Sed",
+		"min_students": 20,
+		"max_students": 184,
+		"hp": 12.5
+	},
+	{
+		"course_code": "NT9793",
+		"course_name": "tincidunt adipiscing. Mauris molestie",
+		"min_students": 12,
+		"max_students": 129,
+		"hp": 2.5
+	},
+	{
+		"course_code": "EZ7504",
+		"course_name": "nisi. Cum sociis",
+		"min_students": 23,
+		"max_students": 102,
+		"hp": 4.5
+	},
+	{
+		"course_code": "PE2977",
+		"course_name": "nonummy ipsum non",
+		"min_students": 19,
+		"max_students": 50,
+		"hp": 7.5
+	},
+	{
+		"course_code": "KF5619",
+		"course_name": "nisi. Mauris nulla.",
+		"min_students": 13,
+		"max_students": 180,
+		"hp": 8.5
+	},
+	{
+		"course_code": "QY7174",
+		"course_name": "nostra, per inceptos",
+		"min_students": 27,
+		"max_students": 54,
+		"hp": 8.5
+	},
+	{
+		"course_code": "OD1103",
+		"course_name": "ac libero",
+		"min_students": 14,
+		"max_students": 164,
+		"hp": 13.5
+	},
+	{
+		"course_code": "RP7754",
+		"course_name": "lorem ipsum sodales purus,",
+		"min_students": 23,
+		"max_students": 199,
+		"hp": 13.5
+	},
+	{
+		"course_code": "GD4077",
+		"course_name": "aliquet odio. Etiam ligula",
+		"min_students": 14,
+		"max_students": 168,
+		"hp": 14.5
+	},
+	{
+		"course_code": "SM3117",
+		"course_name": "Aliquam ultrices iaculis odio. Nam",
+		"min_students": 11,
+		"max_students": 162,
+		"hp": 13.5
+	},
+	{
+		"course_code": "HW2248",
+		"course_name": "nibh enim, gravida",
+		"min_students": 29,
+		"max_students": 131,
+		"hp": 5.5
+	},
+	{
+		"course_code": "CW1365",
+		"course_name": "sit amet, consectetuer",
+		"min_students": 23,
+		"max_students": 171,
+		"hp": 10.5
+	},
+	{
+		"course_code": "XB3211",
+		"course_name": "urna, nec luctus felis",
+		"min_students": 27,
+		"max_students": 72,
+		"hp": 3.5
+	},
+	{
+		"course_code": "ES8000",
+		"course_name": "eu neque pellentesque massa",
+		"min_students": 16,
+		"max_students": 78,
+		"hp": 9.5
+	},
+	{
+		"course_code": "WU6879",
+		"course_name": "risus. Donec egestas. Aliquam",
+		"min_students": 14,
+		"max_students": 157,
+		"hp": 5.5
+	},
+	{
+		"course_code": "SL5348",
+		"course_name": "arcu. Sed",
+		"min_students": 13,
+		"max_students": 50,
+		"hp": 3.5
+	},
+	{
+		"course_code": "SX4583",
+		"course_name": "Nunc mauris elit, dictum",
+		"min_students": 17,
+		"max_students": 139,
+		"hp": 2.5
+	},
+	{
+		"course_code": "UO1702",
+		"course_name": "ligula. Aenean",
+		"min_students": 21,
+		"max_students": 141,
+		"hp": 13.5
+	},
+	{
+		"course_code": "TT4031",
+		"course_name": "risus a ultricies",
+		"min_students": 13,
+		"max_students": 84,
+		"hp": 6.5
+	},
+	{
+		"course_code": "XK5661",
+		"course_name": "Phasellus ornare. Fusce",
+		"min_students": 15,
+		"max_students": 146,
+		"hp": 6.5
+	}
+]

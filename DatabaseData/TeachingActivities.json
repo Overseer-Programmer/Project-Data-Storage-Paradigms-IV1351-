@@ -1,0 +1,18 @@
+[
+    {
+        "activity_name": "Lecture",
+        "factor": 3.6
+    },
+    {
+        "activity_name": "Lab",
+        "factor": 2.4
+    },
+    {
+        "activity_name": "Tutorial",
+        "factor": 2.4
+    },
+    {
+        "activity_name": "Seminar",
+        "factor": 1.8
+    }
+]

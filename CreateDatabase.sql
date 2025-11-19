@@ -13,7 +13,7 @@ ALTER TABLE course_layout ADD CONSTRAINT PK_course_layout PRIMARY KEY (id);
 CREATE TABLE department (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  department_name VARCHAR(500) UNIQUE NOT NULL,
- manager_id INT NOT NULL
+ manager_id INT
 );
 
 ALTER TABLE department ADD CONSTRAINT PK_department PRIMARY KEY (id);
@@ -27,7 +27,7 @@ CREATE TABLE employee (
  department_id INT NOT NULL,
  person_id INT NOT NULL,
  job_title_id INT NOT NULL,
- supervisor_id INT NOT NULL
+ supervisor_id INT
 );
 
 ALTER TABLE employee ADD CONSTRAINT PK_employee PRIMARY KEY (id);
@@ -55,15 +55,6 @@ CREATE TABLE person (
 ALTER TABLE person ADD CONSTRAINT PK_person PRIMARY KEY (id);
 
 
-CREATE TABLE study_period (
- id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
- start_time TIMESTAMP(10) NOT NULL,
- end_time TIMESTAMP(10) NOT NULL
-);
-
-ALTER TABLE study_period ADD CONSTRAINT PK_study_period PRIMARY KEY (id);
-
-
 CREATE TABLE teaching_activity (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  activity_name VARCHAR(250) UNIQUE NOT NULL,
@@ -84,18 +75,10 @@ CREATE TABLE course_instance (
 ALTER TABLE course_instance ADD CONSTRAINT PK_course_instance PRIMARY KEY (id);
 
 
-CREATE TABLE course_instance_study_period (
- course_instance_id INT NOT NULL,
- study_period_id INT NOT NULL
-);
-
-ALTER TABLE course_instance_study_period ADD CONSTRAINT PK_course_instance_study_period PRIMARY KEY (course_instance_id,study_period_id);
-
-
 CREATE TABLE planned_activity (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  planned_hours INT NOT NULL,
- course_instace_id INT NOT NULL,
+ course_instance_id INT NOT NULL,
  teaching_activity_id INT NOT NULL
 );
 
@@ -122,15 +105,29 @@ ALTER TABLE employee ADD CONSTRAINT FK_employee_3 FOREIGN KEY (supervisor_id) RE
 ALTER TABLE course_instance ADD CONSTRAINT FK_course_instance_0 FOREIGN KEY (course_layout_id) REFERENCES course_layout (id);
 
 
-ALTER TABLE course_instance_study_period ADD CONSTRAINT FK_course_instance_study_period_0 FOREIGN KEY (course_instance_id) REFERENCES course_instance (id);
-ALTER TABLE course_instance_study_period ADD CONSTRAINT FK_course_instance_study_period_1 FOREIGN KEY (study_period_id) REFERENCES study_period (id);
-
-
-ALTER TABLE planned_activity ADD CONSTRAINT FK_planned_activity_0 FOREIGN KEY (course_instace_id) REFERENCES course_instance (id);
+ALTER TABLE planned_activity ADD CONSTRAINT FK_planned_activity_0 FOREIGN KEY (course_instance_id) REFERENCES course_instance (id);
 ALTER TABLE planned_activity ADD CONSTRAINT FK_planned_activity_1 FOREIGN KEY (teaching_activity_id) REFERENCES teaching_activity (id);
 
 
 ALTER TABLE employee_planned_activity ADD CONSTRAINT FK_employee_planned_activity_0 FOREIGN KEY (employee_id) REFERENCES employee (id);
 ALTER TABLE employee_planned_activity ADD CONSTRAINT FK_employee_planned_activity_1 FOREIGN KEY (planned_activity_id) REFERENCES planned_activity (id);
 
+-- Triggers for Application Constraints --
+-- No more than 4 course instances for a teacher/employee
+/* CREATE FUNCTION prevent_teaching_overload()
+RETURNS trigger AS $$
+BEGIN
+    -- On update the application constraint cannot be violated if course_instance_id has not been changed
+    IF OLD IS NOT NULL AND NEW.course_instance_id = OLD.course_instance_id THEN
+        RETURN NEW;
+    END IF;
 
+    
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER limit_employee_load
+BEFORE UPDATE OR INSERT
+ON planned_activity
+FOR EACH ROW
+EXECUTE FUNCTION prevent_teaching_overload(); */
