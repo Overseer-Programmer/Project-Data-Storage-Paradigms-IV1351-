@@ -21,8 +21,8 @@ FROM jsonb_populate_recordset(NULL::person, :'content'::jsonb);
 
 -- Create tables with foreign keys
 \set content `cat DatabaseData/CourseInstance.json`
-INSERT INTO course_instance (instance_id, num_students, study_year, course_layout_id)
-SELECT ci.instance_id, ci.num_students, ci.study_year, (
+INSERT INTO course_instance (instance_id, num_students, study_year, study_period, course_layout_id)
+SELECT ci.instance_id, ci.num_students, ci.study_year, ci.study_period, (
     SELECT id FROM course_layout
     WHERE ci.id IS NULL  -- Dummy reference to outer table
     ORDER BY RANDOM() LIMIT 1
@@ -128,19 +128,21 @@ SET supervisor_id = (
 
 -- Create final employee_planned_activity cross reference table
 DO $$
+DECLARE
+    employee_list int[];
+    employee_id int;
+    random_planned_activities int[];
 BEGIN
-    FOR i IN 1..1000 LOOP
-        INSERT INTO employee_planned_activity (employee_id, planned_activity_id)
-        VALUES (
-            (
-            SELECT id FROM employee
-            ORDER BY RANDOM() LIMIT 1
-            ),
-            (
-                SELECT id FROM planned_activity
-                ORDER BY RANDOM() LIMIT 1
-            )
+    employee_list := ARRAY(SELECT id FROM employee);
+    FOREACH employee_id IN ARRAY employee_list LOOP
+        random_planned_activities := ARRAY(
+            SELECT id FROM planned_activity
+            ORDER BY RANDOM() LIMIT 4
         );
+        FOR i IN 1..floor(random() * 4 + 1)::int LOOP
+            INSERT INTO employee_planned_activity (employee_id, planned_activity_id)
+            VALUES (employee_id, random_planned_activities[i]);
+        END LOOP;
     END LOOP;
 END;
 $$ LANGUAGE plpgsql
