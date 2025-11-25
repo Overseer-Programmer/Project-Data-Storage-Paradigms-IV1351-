@@ -4,7 +4,7 @@ CREATE TABLE course_layout (
  course_name VARCHAR(250) NOT NULL,
  min_students INT NOT NULL,
  max_students INT NOT NULL,
- hp DECIMAL(10) NOT NULL
+ hp DECIMAL(10, 1) NOT NULL
 );
 
 ALTER TABLE course_layout ADD CONSTRAINT PK_course_layout PRIMARY KEY (id);
@@ -58,18 +58,19 @@ ALTER TABLE person ADD CONSTRAINT PK_person PRIMARY KEY (id);
 CREATE TABLE teaching_activity (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  activity_name VARCHAR(250) UNIQUE NOT NULL,
- factor DECIMAL(10) NOT NULL
+ factor DECIMAL(10, 1) NOT NULL
 );
 
 ALTER TABLE teaching_activity ADD CONSTRAINT PK_teaching_activity PRIMARY KEY (id);
 
+CREATE TYPE academic_period AS ENUM ('P1', 'P2', 'P3', 'P4');   
 
 CREATE TABLE course_instance (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  instance_id VARCHAR(300) UNIQUE NOT NULL,
  num_students INT NOT NULL,
  study_year INT NOT NULL,
- study_period INT NOT NULL,
+ study_period academic_period NOT NULL,
  course_layout_id INT NOT NULL
 );
 

@@ -1,3002 +1,3502 @@
 [
 	{
-		"instance_id": "0EEE6A3A-EBB8-C56C-99B7-70E2C12C828D",
-		"num_students": 111,
-		"study_year": 2020,
-		"study_period": 3
-	},
-	{
-		"instance_id": "864EA955-7C70-14C7-D678-393B26DE41A5",
-		"num_students": 58,
-		"study_year": 2024,
-		"study_period": 1
-	},
-	{
-		"instance_id": "838CA814-F445-35AE-D15E-4CAB2CD6B52B",
-		"num_students": 87,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "A6EE327A-C27D-72E1-ACB0-E8295E29647A",
-		"num_students": 177,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "2F359568-C64F-17C7-4B3D-32BDC53D6639",
-		"num_students": 114,
-		"study_year": 2027,
-		"study_period": 2
-	},
-	{
-		"instance_id": "8903AD99-1B50-72D2-DEB1-BE7911C56633",
-		"num_students": 133,
-		"study_year": 2027,
-		"study_period": 4
-	},
-	{
-		"instance_id": "B934868B-C808-5B87-4928-894A8E4CCF51",
-		"num_students": 49,
 		"study_year": 2025,
-		"study_period": 2
+		"application_code": 91033,
+		"instance_id": "2025-91033",
+		"num_students": 34,
+		"study_period": "P1"
 	},
 	{
-		"instance_id": "2BAE6C19-472D-3988-B44C-91E7727FBBDC",
-		"num_students": 191,
-		"study_year": 2027,
-		"study_period": 4
-	},
-	{
-		"instance_id": "9202356A-7B34-1176-31A3-BBA4A20654FD",
+		"study_year": 2025,
+		"application_code": "02714",
+		"instance_id": "2025-02714",
 		"num_students": 116,
+		"study_period": "P1"
+	},
+	{
 		"study_year": 2025,
-		"study_period": 3
+		"application_code": 21608,
+		"instance_id": "2025-21608",
+		"num_students": 195,
+		"study_period": "P3"
 	},
 	{
-		"instance_id": "EDAABFAC-17D1-11AC-831B-98C40DA66C85",
-		"num_students": 71,
-		"study_year": 2026,
-		"study_period": 1
-	},
-	{
-		"instance_id": "8541CAD0-A30F-4769-7113-62FA3AA9CD2E",
-		"num_students": 144,
-		"study_year": 2027,
-		"study_period": 4
-	},
-	{
-		"instance_id": "19150687-687C-9A76-9674-2BBBE8774D66",
-		"num_students": 29,
 		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "3E61BC11-A764-28C7-844B-5BBE66233AD2",
-		"num_students": 20,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "57351BAA-1995-3756-EAA2-4417E37297F7",
-		"num_students": 105,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "09591312-11E2-E24A-F3BD-DDDDFBA032AC",
-		"num_students": 53,
-		"study_year": 2027,
-		"study_period": 1
-	},
-	{
-		"instance_id": "913C4A36-ACDC-3B19-5F50-6E73FDB43477",
-		"num_students": 11,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "AC6427F2-F6BB-BAB8-B388-D4B292A179B6",
-		"num_students": 65,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "8B8CB71B-5262-9AD5-C727-EE143544FACC",
-		"num_students": 61,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "34278465-1CB9-CB92-E3BC-818B51907636",
-		"num_students": 30,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "8FE72A16-BB5B-5EC5-2626-A9BDAE0B2188",
-		"num_students": 98,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "13EC4A63-1CA1-9778-3D43-43E9A7D84A88",
-		"num_students": 110,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "AFAAB2CA-2A45-EA87-BECD-114E8E37B613",
-		"num_students": 133,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "1B1BCCCF-4BB7-662C-237C-8D80A4A7A1B3",
-		"num_students": 103,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "823C8255-D5C7-0EDC-F3D8-2D33932869DB",
-		"num_students": 53,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "9768DF7A-02DF-2BEA-937C-DAAFD12DA718",
-		"num_students": 106,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "9B807498-284B-B9C6-C644-A9816D9970E9",
-		"num_students": 41,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "986A9525-4434-8BD5-6D1C-ADF1C980DCBB",
-		"num_students": 106,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "8D1CB9B1-A831-7150-E9E8-54011842C39E",
-		"num_students": 153,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "87677B48-8E86-DB24-CF63-221746B6552E",
-		"num_students": 29,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "DE4B2B32-D72B-B9D5-E369-BB112DEA6336",
-		"num_students": 138,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "B95BA5B3-04F8-720A-09EA-8B61B2716562",
+		"application_code": 44763,
+		"instance_id": "2025-44763",
 		"num_students": 199,
-		"study_year": 2022,
-		"study_period": 3
+		"study_period": "P2"
 	},
 	{
-		"instance_id": "496D5C65-5B73-51A9-CA3F-C9B847A4E17F",
-		"num_students": 161,
-		"study_year": 2022,
-		"study_period": 3
+		"study_year": 2027,
+		"application_code": 65438,
+		"instance_id": "2027-65438",
+		"num_students": 109,
+		"study_period": "P2"
 	},
 	{
-		"instance_id": "B33A727A-69B9-DE17-AB8D-EEED7CEC9FA8",
-		"num_students": 148,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "DD5849D9-376E-A70C-4545-2A5444BC8BF2",
-		"num_students": 130,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "1C5F551C-80A4-452D-8968-92CBB846A820",
-		"num_students": 34,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "9D164651-6125-9924-84D4-189381655BE6",
-		"num_students": 19,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "358A484B-87BE-E35D-66AA-1ED157E646B6",
+		"study_year": 2027,
+		"application_code": 53047,
+		"instance_id": "2027-53047",
 		"num_students": 51,
-		"study_year": 2023,
-		"study_period": 4
+		"study_period": "P3"
 	},
 	{
-		"instance_id": "40F85270-EDB6-FDA2-9C25-68DB0C0B751A",
-		"num_students": 149,
 		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "09FA2D8A-1967-BE91-427A-89E8E733DF39",
-		"num_students": 192,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "49C1AC97-5E9B-3111-CCD4-7751F91EB157",
-		"num_students": 72,
-		"study_year": 2024,
-		"study_period": 1
-	},
-	{
-		"instance_id": "317B14CB-D70A-4DC9-74C3-C78E45A159F1",
-		"num_students": 42,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "A8142D63-821C-A913-4E2B-53E7B25B45B3",
-		"num_students": 47,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "E66A2176-DE56-24BC-A990-4877453A875C",
-		"num_students": 32,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "55649FC6-1150-EFD3-A9D6-40B004635ED4",
-		"num_students": 107,
-		"study_year": 2026,
-		"study_period": 1
-	},
-	{
-		"instance_id": "85679AD9-4231-346D-F58E-A91981EBE4E1",
-		"num_students": 175,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "DB3F7228-7D33-BA34-26E5-4632AFE11E2D",
-		"num_students": 89,
-		"study_year": 2025,
-		"study_period": 4
-	},
-	{
-		"instance_id": "BDCADC17-0483-0E27-8B93-C5D1BE96B1F5",
-		"num_students": 64,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "AA16F3A5-952C-AAC4-2BA2-3E80B8438657",
-		"num_students": 155,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "9E6AA9C4-D6DC-688B-9E7C-45FC914BB6F7",
-		"num_students": 52,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "81A56D5D-4595-5768-C92E-BFE8C18DC191",
-		"num_students": 27,
-		"study_year": 2021,
-		"study_period": 4
-	},
-	{
-		"instance_id": "A62C1E67-7DC1-BCBD-383E-5CD91CC47810",
-		"num_students": 179,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "1A8E3419-CFC1-3222-9AB2-927C35D74E65",
-		"num_students": 157,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "9C5793E6-DE37-5418-9F15-EF07DE5E6D94",
-		"num_students": 68,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "596B9345-9E33-6795-5BA8-4C6044618195",
-		"num_students": 149,
-		"study_year": 2022,
-		"study_period": 4
-	},
-	{
-		"instance_id": "575E2E88-D44D-D1B7-8DBF-5E6BE3C364B4",
-		"num_students": 94,
-		"study_year": 2022,
-		"study_period": 1
-	},
-	{
-		"instance_id": "ADCC143D-821C-34FB-9E4B-29543D749514",
-		"num_students": 176,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "BAD8EEAF-276C-433C-782B-7F671C9132AA",
-		"num_students": 27,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "D12418BF-9678-14F0-BE33-DFD258E1535E",
-		"num_students": 181,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "51604034-579C-FA7E-BCEE-F13E6A8A8612",
-		"num_students": 127,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "6F2B6E4A-8E78-8E10-9A16-5999D6BC24BF",
-		"num_students": 48,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "CC734917-AE23-8604-1243-93B381977DF9",
-		"num_students": 119,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "EA0DD58B-7818-3D83-AEC0-2148AB77CEBC",
-		"num_students": 12,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "A2244353-899E-A493-45A5-6E27B668E9A8",
-		"num_students": 93,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "2865BF76-52C7-41D7-738C-3E72D19C97D6",
-		"num_students": 132,
-		"study_year": 2025,
-		"study_period": 4
-	},
-	{
-		"instance_id": "C1081C56-D597-7A1B-C392-B8E5AE4D32F9",
-		"num_students": 71,
-		"study_year": 2026,
-		"study_period": 1
-	},
-	{
-		"instance_id": "6A38FD9B-2B38-30FE-4513-56FD3AF52B28",
-		"num_students": 18,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "F816E4BB-1EB9-EE45-80DD-C6E8984D4685",
-		"num_students": 195,
-		"study_year": 2022,
-		"study_period": 4
-	},
-	{
-		"instance_id": "5DC26385-E1A3-982F-D582-AB5386895218",
-		"num_students": 16,
-		"study_year": 2026,
-		"study_period": 1
-	},
-	{
-		"instance_id": "9701DBE9-1284-2A95-8793-1851F8C48401",
-		"num_students": 126,
-		"study_year": 2021,
-		"study_period": 4
-	},
-	{
-		"instance_id": "05A3C1CE-AB18-A732-1084-E9EC149CA2C9",
-		"num_students": 141,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "A2A3A85E-5634-61EE-2583-95D394C71917",
-		"num_students": 136,
-		"study_year": 2022,
-		"study_period": 1
-	},
-	{
-		"instance_id": "96769BE5-1B37-557B-D5DB-C1DAE47AAA37",
-		"num_students": 18,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "36F6C897-926E-6617-992B-3EB4775B70A7",
-		"num_students": 62,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "29895AE6-E744-E9D6-D9D2-5A60F59134D4",
-		"num_students": 150,
-		"study_year": 2026,
-		"study_period": 1
-	},
-	{
-		"instance_id": "68F4EC25-D86E-96E7-994C-2F599B8A1835",
-		"num_students": 79,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "27D7A655-7472-49EB-98DB-48AA9719D4BB",
-		"num_students": 96,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "0CE8EE18-196B-7139-DA7C-A8792899F7E9",
-		"num_students": 134,
-		"study_year": 2027,
-		"study_period": 1
-	},
-	{
-		"instance_id": "D4132ED3-2B1B-392D-7819-61AAC5493DD3",
-		"num_students": 109,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "CDBC4D2B-517A-6CC1-3725-1D497218895A",
-		"num_students": 128,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "83A9E732-3155-618C-B7C5-5A9566173C49",
-		"num_students": 57,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "8D5163F9-C297-9C83-DB97-D1C8E02AD815",
-		"num_students": 43,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "A4783265-139E-B54D-0E31-586273B1BAC1",
-		"num_students": 145,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "4B28E64B-BE91-B73A-1C4D-B0D68C1ACA6A",
-		"num_students": 117,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "36B8CC2D-26B9-F563-8B46-C5C2A268BC6A",
-		"num_students": 85,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "AE585C47-AD73-912E-891E-3D36798AB65E",
-		"num_students": 13,
-		"study_year": 2026,
-		"study_period": 4
-	},
-	{
-		"instance_id": "22D51A22-CB26-C3C3-982A-57C8E9EA9B88",
-		"num_students": 158,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "2D659D9D-2321-C77E-8AC3-D6163C6327A9",
-		"num_students": 128,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "954235B0-9100-9A46-4B47-83CCAD898AE2",
-		"num_students": 130,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "99322E44-7E53-AEEC-289A-1585AFD81732",
-		"num_students": 174,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "E55CCC02-C273-0396-EE7E-4A33E6715741",
-		"num_students": 153,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "3E334E4E-84D6-CD23-28EB-EC4CB5027E3A",
-		"num_students": 78,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "CA679D67-84E9-A663-51B9-F53136A72DE7",
-		"num_students": 166,
-		"study_year": 2026,
-		"study_period": 4
-	},
-	{
-		"instance_id": "A2E1B39B-A0BB-7120-CD9D-8E1CAEA6A9DC",
-		"num_students": 62,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "B7C33EC8-26A9-4C9C-4121-D79DBEB8C058",
-		"num_students": 136,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "BD0485B9-82E9-D72D-6077-ED94D5D58E84",
-		"num_students": 46,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "E55036C6-9A3F-C74E-58E9-2758709D9822",
-		"num_students": 148,
-		"study_year": 2022,
-		"study_period": 4
-	},
-	{
-		"instance_id": "25603BA4-15E5-394E-24A8-45540F851B7A",
-		"num_students": 102,
-		"study_year": 2022,
-		"study_period": 1
-	},
-	{
-		"instance_id": "C1A881D3-986D-2341-F82C-57DA450243DB",
-		"num_students": 130,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "65E3BD54-5615-99B2-A8A3-833072D543D3",
-		"num_students": 17,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "B7BB39A0-D87A-60DA-6F3D-F316B7327394",
-		"num_students": 167,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "28746AB7-D4CB-53DB-633D-A2265D941318",
-		"num_students": 80,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "BD383389-383B-E8F7-2BC3-D34A3FECE847",
-		"num_students": 36,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "52847943-7587-B5A9-1787-D27DAD8ED191",
-		"num_students": 64,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "EDA8C859-4A2A-7A5C-4540-84904D573735",
-		"num_students": 149,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "60472DD0-2E8C-DC64-92B9-7457A67229D3",
-		"num_students": 165,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "FCC6BA7E-3980-1A49-3976-C776717EEA35",
-		"num_students": 66,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "042921E9-B2F4-9DC2-C96A-9DFB9D1CCCED",
-		"num_students": 159,
-		"study_year": 2024,
-		"study_period": 4
-	},
-	{
-		"instance_id": "7BD9E51E-3F93-CD6A-565D-64882D464178",
-		"num_students": 29,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "964BA430-3EEB-4EF2-7DD7-65E20C79A389",
-		"num_students": 36,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "A1348D9F-F37E-9243-854A-5E75E69A10C5",
-		"num_students": 179,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "E5F2F364-BFAC-5898-1A8A-3E2249E1595D",
-		"num_students": 191,
-		"study_year": 2025,
-		"study_period": 4
-	},
-	{
-		"instance_id": "38C92A48-547D-5910-3B97-9978EAACBA27",
-		"num_students": 154,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "16406076-E215-E3AA-5ECC-84564CA13BD3",
-		"num_students": 120,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "7C83C47D-5E3B-4BCA-AF25-23B9294CB3BA",
-		"num_students": 13,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "445D0CAE-C8D9-5AE5-4297-57A17C318D63",
-		"num_students": 34,
-		"study_year": 2022,
-		"study_period": 4
-	},
-	{
-		"instance_id": "D96AD9C5-BF70-E74A-F611-0199C54DD95A",
-		"num_students": 49,
-		"study_year": 2022,
-		"study_period": 1
-	},
-	{
-		"instance_id": "2E2D87B8-D95C-6101-DACE-7691C3D99386",
-		"num_students": 96,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "5D4D29D5-7436-9AC7-A875-1B7CABAD9EFB",
-		"num_students": 30,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "5BD1F3D9-D52A-E377-A4FB-68886BD66088",
-		"num_students": 30,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "B292B8E7-B991-E8A7-3D7D-C5B49B859758",
-		"num_students": 177,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "4C8869AC-93D1-65B0-654C-76B61F3A7E6E",
-		"num_students": 142,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "867EB9AC-D3DF-CBC1-5769-9A1515703151",
-		"num_students": 157,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "471F4576-D471-CB73-A31E-72B966A8AA99",
-		"num_students": 67,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "6E4FDC84-C266-D423-8537-34B731D94FE2",
-		"num_students": 32,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "75C775CD-9FCA-30E7-F614-F35171CBB2D2",
-		"num_students": 149,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "E187D96F-36B5-7F1B-AEB4-F32BB8E147CF",
-		"num_students": 34,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "531CF7C7-AAF9-C7D7-1497-B9C4C2C73B43",
-		"num_students": 12,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "D5D48AAD-5CD7-5AF6-AF30-1AA88AB646A3",
-		"num_students": 31,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "E485C767-B5BC-6FCC-198E-B9852EC03843",
-		"num_students": 76,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "44E21AB8-4CAA-0513-C81E-32A68CA7DB55",
-		"num_students": 76,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "C3D6772A-C6DE-3683-5BEC-6A594E393204",
-		"num_students": 178,
-		"study_year": 2027,
-		"study_period": 1
-	},
-	{
-		"instance_id": "5F2417FA-4498-3397-247F-D7CD8F941253",
-		"num_students": 187,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "55F6C184-4D10-5B5B-FC18-5AC0AF20C1A6",
-		"num_students": 93,
-		"study_year": 2022,
-		"study_period": 4
-	},
-	{
-		"instance_id": "D8EDCB92-8C9B-BC47-2E33-31D4F23418E1",
-		"num_students": 123,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "954B826A-596C-115D-31C5-24B6B77823C8",
-		"num_students": 124,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "C524476A-2811-A044-13BB-045B671C2BB1",
-		"num_students": 66,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "8599E08A-8B4B-1BB1-D2C1-3D7DBA5BE874",
-		"num_students": 106,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "61113E18-5105-DDB6-D667-B45392538BEE",
-		"num_students": 161,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "70DBEAB1-A482-3E94-9C73-B737E0BE7C2E",
-		"num_students": 149,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "1C822697-EC3A-57C8-36FC-3515D75318C6",
-		"num_students": 60,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "36D4848A-DAB1-D1E6-63B0-DA5A61973538",
-		"num_students": 112,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "FD1EC716-1708-445D-ECB9-0BCAC277B69F",
-		"num_students": 109,
-		"study_year": 2024,
-		"study_period": 4
-	},
-	{
-		"instance_id": "551643B7-DB1F-B4FE-D9D3-754C577A05D7",
-		"num_students": 112,
-		"study_year": 2026,
-		"study_period": 1
-	},
-	{
-		"instance_id": "A66520E7-E2A7-5C28-E38E-58AED037EDB3",
-		"num_students": 180,
-		"study_year": 2027,
-		"study_period": 2
-	},
-	{
-		"instance_id": "AC2E8324-9441-A1B1-AF22-6463C2942945",
-		"num_students": 52,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "D1BA5B75-9857-B1F5-84D7-13F530457A17",
-		"num_students": 15,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "FE9BE1D7-EB31-CCCC-DF77-180E1EA4DE51",
-		"num_students": 130,
-		"study_year": 2025,
-		"study_period": 4
-	},
-	{
-		"instance_id": "225BDE03-0418-1FB4-C05A-6354111986B7",
-		"num_students": 69,
-		"study_year": 2027,
-		"study_period": 1
-	},
-	{
-		"instance_id": "E0E5BD94-D4CA-A3C3-6D64-58AE70139372",
-		"num_students": 135,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "05847352-27B1-0E8D-75BD-8C03B7A58B5F",
-		"num_students": 142,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "B0397749-1ED0-CB2D-BCB6-7DF62A1F1C2E",
-		"num_students": 198,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "04803AF5-E557-6454-C86C-F7D949C9C512",
-		"num_students": 24,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "D16E8B6C-F2B3-0C2C-3732-97A584C7A119",
-		"num_students": 42,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "462D4D54-BA2E-3981-BD91-A5761222C2C4",
-		"num_students": 128,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "5CCE8486-CEAE-2A56-764F-9F2EB0C82869",
-		"num_students": 101,
-		"study_year": 2025,
-		"study_period": 4
-	},
-	{
-		"instance_id": "765997E9-A086-4A1C-129E-107AD175A409",
-		"num_students": 115,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "22389EAE-9DAF-A8D4-6E29-54656AE03E14",
-		"num_students": 62,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "3AC5A27A-3FAD-D604-18D3-F71A626311BE",
-		"num_students": 52,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "C356F16A-5B64-C3D3-6A12-C2D39791991C",
-		"num_students": 119,
-		"study_year": 2020,
-		"study_period": 1
-	},
-	{
-		"instance_id": "467FDF65-BC8C-C351-9193-483BF1E6F37A",
-		"num_students": 105,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "3BFA75CD-695F-83D6-8CCF-DA228277926B",
-		"num_students": 11,
-		"study_year": 2020,
-		"study_period": 2
-	},
-	{
-		"instance_id": "49D26092-151F-99D2-91C7-D6845EDDAD98",
-		"num_students": 47,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "224DBD23-3575-C299-D327-876241AB2C2A",
-		"num_students": 71,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "5F890B02-1C0C-8BDC-AB63-4843A5557481",
-		"num_students": 76,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "ED1A28B2-23F3-F06C-1F1B-A4AAF162FCBB",
-		"num_students": 24,
-		"study_year": 2022,
-		"study_period": 1
-	},
-	{
-		"instance_id": "DE0CEBE9-E6DD-408C-94FA-638DD9994650",
-		"num_students": 117,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "377ADB59-B126-125A-AF01-09021104768C",
-		"num_students": 83,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "532B5989-82AB-EA51-4A44-F13B013F1338",
-		"num_students": 126,
-		"study_year": 2020,
-		"study_period": 1
-	},
-	{
-		"instance_id": "ECC63023-EBCC-3AD8-3DE5-4023C77C2BDB",
-		"num_students": 123,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "8E24C6AB-22DF-84C5-8B79-AE1DAB7D483B",
-		"num_students": 72,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "92C72C98-4425-3688-4BB8-ED5613AA31D9",
-		"num_students": 34,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "C46D01E4-02AB-C494-3178-C1A252ABB416",
-		"num_students": 45,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "7B1E6377-707B-5125-54F8-EA37179C00CF",
-		"num_students": 108,
-		"study_year": 2027,
-		"study_period": 2
-	},
-	{
-		"instance_id": "ED695676-502E-0313-DA3C-D2DF8AC1B664",
-		"num_students": 129,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "B78858AE-CAED-9A8B-112A-91597A8C254B",
-		"num_students": 92,
-		"study_year": 2026,
-		"study_period": 4
-	},
-	{
-		"instance_id": "FEFF6188-C321-D5CC-F5B4-42D11586ACF5",
-		"num_students": 120,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "A783DE5B-AC38-AFC9-5E25-AB6531C1691E",
-		"num_students": 37,
-		"study_year": 2027,
-		"study_period": 1
-	},
-	{
-		"instance_id": "118834D3-2EA5-468B-5AE6-6AE93109A8D3",
-		"num_students": 38,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "5D78F61A-F9B9-6953-86EC-6BE26B65419D",
-		"num_students": 37,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "4D2B8E37-ECD8-2A84-24BA-56180BEE6F02",
-		"num_students": 150,
-		"study_year": 2026,
-		"study_period": 4
-	},
-	{
-		"instance_id": "6C96934F-9D74-D638-D2C3-8C5F4FB7353E",
+		"application_code": 10855,
+		"instance_id": "2026-10855",
 		"num_students": 70,
-		"study_year": 2026,
-		"study_period": 1
+		"study_period": "P3"
 	},
 	{
-		"instance_id": "669D2273-A23B-7AA1-98F3-256CDB7DAC72",
-		"num_students": 157,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "3D3B0A73-32BF-BA8A-43F4-B266F77E2D2A",
-		"num_students": 113,
-		"study_year": 2024,
-		"study_period": 1
-	},
-	{
-		"instance_id": "1B7DA877-75C6-50D2-EF22-837E83A44A5C",
-		"num_students": 109,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "D595634D-406E-6484-4C23-843198573C41",
-		"num_students": 61,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "2BCBF414-CEE2-4543-CAD3-636D5AF513EA",
-		"num_students": 115,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "2D5A9124-029C-5727-8DEB-B1EA4A6E98AD",
-		"num_students": 95,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "752B1E78-3DA8-63AE-86F0-62089F6A9A35",
-		"num_students": 100,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "E376CD32-49A0-6177-5E54-72DCE336D2D0",
-		"num_students": 124,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "E191BEBD-D6C3-AE29-59C8-461CEE2ABDE6",
-		"num_students": 24,
 		"study_year": 2027,
-		"study_period": 2
+		"application_code": 24244,
+		"instance_id": "2027-24244",
+		"num_students": 51,
+		"study_period": "P2"
 	},
 	{
-		"instance_id": "0196475C-9939-6DEF-F438-195A0FC2D717",
-		"num_students": 189,
 		"study_year": 2025,
-		"study_period": 2
+		"application_code": 22744,
+		"instance_id": "2025-22744",
+		"num_students": 145,
+		"study_period": "P2"
 	},
 	{
-		"instance_id": "B24AD0B4-5B77-5BF1-834C-70DB0ABD22F3",
-		"num_students": 167,
 		"study_year": 2025,
-		"study_period": 3
+		"application_code": 56823,
+		"instance_id": "2025-56823",
+		"num_students": 133,
+		"study_period": "P1"
 	},
 	{
-		"instance_id": "3C873C19-8613-FC4D-71A4-867FBE61D9D1",
-		"num_students": 144,
-		"study_year": 2027,
-		"study_period": 2
-	},
-	{
-		"instance_id": "680D7C4A-2B24-EB40-D5A6-C396791EB753",
-		"num_students": 139,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "AC5A71C8-B772-6989-BD7F-218F036EA9AD",
-		"num_students": 57,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "9E1E306A-3BAC-3557-1262-72412BC8A0A6",
-		"num_students": 174,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "E173E75C-3B1A-7368-E2C3-79B7695CEB4F",
-		"num_students": 100,
-		"study_year": 2024,
-		"study_period": 4
-	},
-	{
-		"instance_id": "2C032B9F-1B4A-CAEA-F30B-103FC1AB2A6B",
-		"num_students": 107,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "9EDEEDB2-2751-88D5-67BA-A67AA2C12B8F",
-		"num_students": 76,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "96261A99-F6B0-BD3C-AB5C-908C1F79CA3E",
-		"num_students": 56,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "AD5DD5C0-5DAA-850B-D43F-C723FC6DC2DB",
-		"num_students": 82,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "194E1533-7AC4-8C41-F636-7A5AC3FB6B35",
-		"num_students": 124,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "F1BE9EC8-2E21-C43E-67DB-58A878D70A38",
-		"num_students": 153,
 		"study_year": 2026,
-		"study_period": 1
+		"application_code": 75843,
+		"instance_id": "2026-75843",
+		"num_students": 20,
+		"study_period": "P2"
 	},
 	{
-		"instance_id": "3EE39A7E-95FE-F4EC-4B59-15CAB9E2A9AB",
-		"num_students": 15,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "DC56491D-392C-4D41-B2EC-AA34C75E2A97",
+		"study_year": 2024,
+		"application_code": 64146,
+		"instance_id": "2024-64146",
 		"num_students": 106,
-		"study_year": 2026,
-		"study_period": 3
+		"study_period": "P3"
 	},
 	{
-		"instance_id": "E5AD2EE3-5DE4-23CE-DDE6-DC145B037319",
-		"num_students": 130,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "CCC87DC1-9760-A9D4-47B6-ED1827853BEB",
-		"num_students": 66,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "3CC213E2-A661-C36A-6A31-A96B32177D7E",
-		"num_students": 62,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "41E00C5D-04E6-F6B4-BF95-47D6B458BC00",
-		"num_students": 86,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "BB7BD9A0-3D24-F2C2-374E-08A3AAEEBE66",
-		"num_students": 75,
-		"study_year": 2026,
-		"study_period": 4
-	},
-	{
-		"instance_id": "341E1D8D-EF7B-B5CA-BCBD-AE15D18B1372",
-		"num_students": 166,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "C61A9AC6-A5E8-AA6D-3294-9EF036F405C2",
-		"num_students": 174,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "60159668-27A0-F897-D4B5-ED7366ED7B4C",
-		"num_students": 13,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "BA4432E6-7A44-777D-684B-5E17195C6218",
-		"num_students": 133,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "E2341187-6432-B0E5-066B-A0A8C437724A",
-		"num_students": 144,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "562040B9-8AB7-D5F1-3DDE-73965D89B351",
-		"num_students": 145,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "B533397B-9CD7-CCF4-DBD9-E3848E7CB6ED",
-		"num_students": 98,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "314A1591-FDEE-F61C-D739-C25EE97D4E78",
-		"num_students": 153,
-		"study_year": 2024,
-		"study_period": 4
-	},
-	{
-		"instance_id": "9D6D694A-58A7-896E-5C5C-B1E9A4136C7D",
-		"num_students": 136,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "338478E8-5E8C-ACBE-B35B-5CB92778C7BB",
-		"num_students": 99,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "064CEB99-6702-317C-3118-4AC91D8EA3C4",
-		"num_students": 187,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "BC445524-827E-28DA-F952-8A4D90D35A15",
-		"num_students": 176,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "39AA3F8B-14C9-CBA7-6E4D-08B8C644C8C7",
-		"num_students": 162,
-		"study_year": 2024,
-		"study_period": 1
-	},
-	{
-		"instance_id": "7B0631D6-492C-81CD-42DE-7315FD1ED319",
-		"num_students": 20,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "C8C634A3-25BC-7A76-4382-2A030400F1B7",
-		"num_students": 141,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "CA2AD3B5-47A9-C57A-6ACB-FADD21872948",
-		"num_students": 17,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "FC656E92-0C53-39D2-D3EA-3C7F25B6C254",
-		"num_students": 47,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "5E9DB6DA-5610-A8A6-9C46-35BCB4574CDB",
-		"num_students": 145,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "3E7E6638-62D0-88C3-BBA5-5A6FB04C255E",
-		"num_students": 121,
 		"study_year": 2027,
-		"study_period": 2
-	},
-	{
-		"instance_id": "01A166FC-D1CF-C672-A1D4-B6EC297DB0CE",
-		"num_students": 32,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "5420ACF6-84B9-BE48-4E76-F7F372C5CCB2",
-		"num_students": 157,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "62D77D5E-5692-5ED3-BD37-497C6168D168",
-		"num_students": 169,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "5895C235-A2AA-07C7-8A61-BEA1DEA7E6CB",
-		"num_students": 157,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "59E06D8B-E5C5-D115-6B37-3BD002AEE3D5",
-		"num_students": 42,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "781807D2-8BDB-C767-4C72-74753737982E",
-		"num_students": 161,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "954F5C3D-7C79-AB75-3C66-A0BD428C987B",
-		"num_students": 139,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "BED24041-DD97-124B-D605-88B67B6A91A5",
-		"num_students": 92,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "2A0AD2DA-DEEE-C754-5160-F5C5EA73CD86",
-		"num_students": 62,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "5D9C7C6D-1E10-8B6D-6334-95A6EEBD4698",
-		"num_students": 12,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "4616DE06-A625-A867-ADC2-A1EC563E4474",
-		"num_students": 145,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "3D33ED7B-9FEB-DB05-D563-EA4B9860699A",
-		"num_students": 191,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "AC9F8630-DCF7-4312-CADA-7A58785F99BA",
-		"num_students": 26,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "32854474-B9F5-4311-56DA-5B64AD8B94C5",
-		"num_students": 156,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "670EAB38-6EEC-A4CC-F33F-A7F28523DA5C",
-		"num_students": 83,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "8ECA4D5A-E4BE-1917-956F-1C375F9DDD67",
-		"num_students": 157,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "A522CAA7-CB50-B693-83C2-388AC33D3B46",
-		"num_students": 128,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "4A34487B-BD09-B66E-A454-D98DAB5DD482",
-		"num_students": 82,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "0C784B68-DADC-8383-0DB1-EDE7DEEFCACA",
-		"num_students": 103,
-		"study_year": 2024,
-		"study_period": 4
-	},
-	{
-		"instance_id": "71A87979-3384-8611-6D4E-ECC1C6F0C16D",
-		"num_students": 133,
-		"study_year": 2027,
-		"study_period": 4
-	},
-	{
-		"instance_id": "DA510E29-E5BF-6A8B-47BB-23550D9407E2",
-		"num_students": 79,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "E2D33913-14C6-A177-6C39-65C3660AB950",
-		"num_students": 101,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "9CE1ADA1-194B-7452-DD27-AA59BB29E70F",
-		"num_students": 102,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "8926D2A8-5790-E835-6C18-EA6E1DD654B4",
-		"num_students": 76,
-		"study_year": 2022,
-		"study_period": 1
-	},
-	{
-		"instance_id": "EDC61D14-7CFF-E2AE-5CBA-D1C7C62AD7A0",
-		"num_students": 193,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "AD1C59EE-6548-027D-B1F1-2387B6CE21C2",
-		"num_students": 168,
-		"study_year": 2026,
-		"study_period": 1
-	},
-	{
-		"instance_id": "896CA694-0DED-579C-D31D-881045DDDD84",
-		"num_students": 170,
-		"study_year": 2027,
-		"study_period": 1
-	},
-	{
-		"instance_id": "D812C694-647C-B793-554D-7F39D3D7F8E1",
-		"num_students": 83,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "E2555099-9D6B-61B3-FC1A-F1F75EC4DB39",
-		"num_students": 12,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "49526642-5818-AC0C-AC6D-EC64674ECBD8",
-		"num_students": 181,
-		"study_year": 2027,
-		"study_period": 2
-	},
-	{
-		"instance_id": "264DA29C-1769-2AEB-A8F9-65A1296163A1",
-		"num_students": 164,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "D659E36B-59B4-3A55-14A7-CBDB3A387095",
-		"num_students": 149,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "E7DA6435-F217-A7D9-4936-DBDC55AC8876",
-		"num_students": 143,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "2B99BB59-2886-2F38-EFFC-376E83D67BFB",
-		"num_students": 67,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "D24889EA-3E62-184C-6A3D-207E778A82DB",
-		"num_students": 135,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "81D259B4-8A63-9894-9D7D-D96D97D92A6D",
-		"num_students": 78,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "2F32F1A4-56FF-C6D3-D5C7-2C9C905E15E3",
-		"num_students": 81,
-		"study_year": 2027,
-		"study_period": 2
-	},
-	{
-		"instance_id": "B9C9966E-E8EC-A1E4-A72A-16759DCBFDC7",
-		"num_students": 74,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "413F838E-992B-28CE-DF8B-F55127F8E91F",
-		"num_students": 67,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "892AE248-4918-4C52-A53D-3390D383267E",
-		"num_students": 185,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "4D8239D7-B2A8-9AB7-2228-B61E6F53AC13",
-		"num_students": 124,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "A6B636E4-37BA-24AE-3B8F-B119031A275B",
-		"num_students": 168,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "5384C95C-2524-431C-9204-254109AC7194",
-		"num_students": 80,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "6DA616B2-FD7C-4311-C542-BEDB49998192",
-		"num_students": 86,
-		"study_year": 2024,
-		"study_period": 1
-	},
-	{
-		"instance_id": "9393A047-4419-A6E9-029E-44442E4F3372",
-		"num_students": 61,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "2AA61529-4DBE-373C-9942-2FB55BF38ABF",
-		"num_students": 128,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "C35A7742-F1E3-D1A3-D8D1-C6D4373B44A2",
-		"num_students": 17,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "19A628E8-72D6-4DD8-E0D1-8D381A1112DA",
-		"num_students": 185,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "D8BC756C-18E1-97B7-ECFF-C6B443E1D786",
-		"num_students": 119,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "E9C9A93D-C666-C932-F6E2-D431368EBAC2",
-		"num_students": 163,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "BCEBF151-1B74-C46E-999E-AC9951D1DC58",
-		"num_students": 22,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "EBEA73F9-64EA-EABE-794A-6621922899A9",
-		"num_students": 111,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "E238B6D6-92CF-FA39-4197-57A966F236D5",
-		"num_students": 84,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "DB397380-DA76-EE8C-6407-D284CC2B4888",
-		"num_students": 96,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "4359DDE4-E45A-6844-F433-D8F703C8BB10",
-		"num_students": 36,
-		"study_year": 2024,
-		"study_period": 1
-	},
-	{
-		"instance_id": "5D6E1979-E66E-1D32-5DBD-44A63C4CA9D6",
-		"num_students": 141,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "47D9D569-3152-9BED-8C54-53728D96311C",
-		"num_students": 183,
-		"study_year": 2024,
-		"study_period": 4
-	},
-	{
-		"instance_id": "D98F7539-7471-61BF-119B-A5FC8D26DCAE",
-		"num_students": 102,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "77A63845-18FD-551C-A3B9-6A78B37AA96E",
-		"num_students": 105,
-		"study_year": 2021,
-		"study_period": 4
-	},
-	{
-		"instance_id": "4528A95B-E977-8A4E-E8AD-AA194B94998E",
-		"num_students": 57,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "645246B1-2BBD-A637-E173-9BAC84C1D67C",
-		"num_students": 124,
-		"study_year": 2020,
-		"study_period": 3
-	},
-	{
-		"instance_id": "D8A1D885-5B66-468C-9AEB-E653B5E323CF",
-		"num_students": 183,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "F7989ABE-4D20-4C91-5CB2-B879BB543C8B",
-		"num_students": 137,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "CC986066-7CD9-0DA3-C246-ADC25E9B8C7A",
-		"num_students": 160,
-		"study_year": 2020,
-		"study_period": 3
-	},
-	{
-		"instance_id": "15286997-171F-C215-3B27-D711AD2A5DB2",
-		"num_students": 136,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "78586E91-392B-BF21-F238-FD7C051645DE",
-		"num_students": 125,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "E4EE1B9C-7587-D146-B9E3-DC38A5BCEBBB",
-		"num_students": 60,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "BAC8D971-6AB7-32E4-CE6F-DFA2BE2264F8",
-		"num_students": 160,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "1ADE5841-7499-851D-174E-D9819C1CC5E9",
-		"num_students": 139,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "19E9A1E8-25E0-365C-AC74-9357B8A7AA17",
-		"num_students": 129,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "2133B53D-AF56-05B9-264A-4C435BBA461B",
-		"num_students": 186,
-		"study_year": 2024,
-		"study_period": 1
-	},
-	{
-		"instance_id": "3A65778B-3A76-1341-BF0E-DD138A68B474",
-		"num_students": 58,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "53164D64-7559-7439-8E7A-10B2CC11E617",
-		"num_students": 147,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "7B834E4D-350A-5DC4-E37E-8E4AA7ED34FD",
-		"num_students": 168,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "D715680C-38A9-E862-E2E5-7AB2A5578383",
-		"num_students": 163,
-		"study_year": 2022,
-		"study_period": 4
-	},
-	{
-		"instance_id": "2A2EE9AD-7643-745C-75C9-B6B590FDCA26",
-		"num_students": 24,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "4C51DF36-8925-7BE2-440B-646D2E124BC6",
-		"num_students": 35,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "5A3BA284-2AB3-4B08-6239-1ADA97D13820",
-		"num_students": 39,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "94795617-E555-CF46-C396-27A5E6126B2B",
-		"num_students": 54,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "0B6A1DC6-5488-7A15-73AA-5122391EB353",
-		"num_students": 80,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "FC4F112C-CD06-5B4B-3B0E-A8C5BBC86837",
-		"num_students": 135,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "2CA223C1-8793-68C9-26C4-31DEAAA57EC5",
-		"num_students": 111,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "756EA62C-9342-70BB-EE3B-E4DCBBD33C1C",
-		"num_students": 15,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "21492225-17B8-6A81-6371-BDAE779B0D76",
-		"num_students": 191,
-		"study_year": 2021,
-		"study_period": 4
-	},
-	{
-		"instance_id": "EE71F966-DCCA-E6BC-6BA6-B0517343B914",
-		"num_students": 99,
-		"study_year": 2021,
-		"study_period": 4
-	},
-	{
-		"instance_id": "69733A49-0DB3-5338-A826-96F9357CC45C",
-		"num_students": 57,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "B7EF859D-5EDD-DE18-0681-2F795D460FB6",
-		"num_students": 188,
-		"study_year": 2026,
-		"study_period": 4
-	},
-	{
-		"instance_id": "26997D8C-7AA7-A134-F789-86A19DEE3547",
-		"num_students": 117,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "00D9BADE-20F3-BEF5-C156-DC042388CE95",
-		"num_students": 186,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "1A885556-A6B0-A125-1775-D5B1869D0EE9",
-		"num_students": 46,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "95611183-A1DC-B763-DB43-71B216215747",
-		"num_students": 157,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "CBDF2234-D8BD-5FB9-E829-0CBC28B8788D",
-		"num_students": 167,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "6119BD25-A2E5-204E-BB7B-352FA07DB352",
-		"num_students": 66,
-		"study_year": 2027,
-		"study_period": 2
-	},
-	{
-		"instance_id": "8F6D7BCF-43C1-AE44-D459-5522EB3C71E6",
-		"num_students": 125,
-		"study_year": 2027,
-		"study_period": 2
-	},
-	{
-		"instance_id": "923D6004-1581-6DA5-CD9C-FB9888A75A78",
-		"num_students": 75,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "1E053E85-DD51-A453-0177-8A8ABBE89F87",
-		"num_students": 168,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "81A84848-414E-8D8F-3216-A835A16FA9D7",
-		"num_students": 170,
-		"study_year": 2022,
-		"study_period": 4
-	},
-	{
-		"instance_id": "7935678E-9283-D561-2366-8C1CDC792772",
-		"num_students": 112,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "A9550CEB-2708-C842-E36F-1B0AE701493D",
-		"num_students": 128,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "361974FD-119E-028F-4EB4-746E234504C8",
-		"num_students": 50,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "B9339FA9-E29E-BF26-8347-9B564C4CAA22",
-		"num_students": 139,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "B538CD1C-3963-CE9D-B10F-C86724993B39",
-		"num_students": 157,
-		"study_year": 2021,
-		"study_period": 4
-	},
-	{
-		"instance_id": "54484A46-148D-BBC2-C87A-74A78B6084CA",
-		"num_students": 92,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "AE17C998-AE4C-BA23-A911-B9B65C6356CD",
-		"num_students": 195,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "BA2AE24B-3BE6-89A2-E3AE-BCCCE5D3B4ED",
-		"num_students": 64,
-		"study_year": 2027,
-		"study_period": 4
-	},
-	{
-		"instance_id": "2C41AB19-80F8-881B-7CBA-25622B21E518",
-		"num_students": 84,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "F1B58DE7-9757-8A21-9667-5E1AAD9BBED6",
-		"num_students": 161,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "147CE868-506C-D851-4F57-84E1CBC7AE74",
-		"num_students": 26,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "B1F85976-19A3-B3F8-7B22-864F888840D0",
-		"num_students": 153,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "E0E868A7-4C2E-C42E-2F63-56B45A618C64",
-		"num_students": 22,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "A96C77B8-4E28-31D4-45EA-97672FEA28B8",
-		"num_students": 125,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "4A7378C0-9885-2616-B075-18DA2452CE8D",
-		"num_students": 175,
-		"study_year": 2026,
-		"study_period": 1
-	},
-	{
-		"instance_id": "818AFE49-4BFB-4635-18FB-87C5A81A439C",
-		"num_students": 171,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "745DA1E4-65E2-1621-4FE3-54BACCE5E6D1",
-		"num_students": 50,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "44B3D7D6-A4E5-785F-CACC-8D295A6C9A94",
-		"num_students": 28,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "5744DB5D-6F74-B07C-1DD4-14155EAAE69F",
-		"num_students": 20,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "7ECF33DB-CC19-2E72-AC1C-6D517F853C3E",
-		"num_students": 130,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "669B19DD-0456-3E9A-1A1F-3869D2864414",
-		"num_students": 43,
-		"study_year": 2021,
-		"study_period": 4
-	},
-	{
-		"instance_id": "EDB82818-A9E9-3D20-49A6-2B50B85CA579",
-		"num_students": 128,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "13ED5971-DA2D-4EBB-855A-C1E4075864A9",
-		"num_students": 166,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "40CA9A37-D84E-8A78-1B1A-9A5142ADC64E",
-		"num_students": 121,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "04022829-55A5-B248-9B86-1D1F43B279BE",
-		"num_students": 112,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "43EA5913-4A80-36FC-6215-28EBCC437DA8",
-		"num_students": 92,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "799DB36E-6695-B489-D4ED-742C7CA76336",
-		"num_students": 58,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "740739E1-6D4D-AEA1-FF8F-21E2A8B259D5",
-		"num_students": 146,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "0ED1B95E-276A-0581-A25D-D6DDA0968560",
-		"num_students": 23,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "9F6EA161-4829-420E-AA49-37726A5F36BC",
-		"num_students": 121,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "E1E13184-B87C-D065-F19D-76F4ED74D371",
-		"num_students": 197,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "C12B4CD8-45E3-B71C-6548-3C55C06C2D73",
-		"num_students": 23,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "C5B8E6BE-2EF6-0E77-8CE8-70C6D8FB6138",
-		"num_students": 89,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "4B72B6B2-1D54-184C-6285-142D8435FD1E",
-		"num_students": 102,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "A71AACC5-5EC3-E0AC-0B52-C902DE83E55E",
-		"num_students": 162,
-		"study_year": 2025,
-		"study_period": 4
-	},
-	{
-		"instance_id": "75534DEE-1593-1925-2477-5B973CCF6B2D",
-		"num_students": 123,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "D1B54F10-1A07-23E9-EE74-04FBB23B72A0",
-		"num_students": 171,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "7E216431-C8B5-2987-B249-4322630EFDAB",
-		"num_students": 22,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "141FB3FF-F2BA-378A-BBAF-A833B7559A61",
-		"num_students": 40,
-		"study_year": 2027,
-		"study_period": 4
-	},
-	{
-		"instance_id": "FE175644-A678-43BB-264B-3D7AC97E721A",
-		"num_students": 48,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "4988284A-54FB-9C1A-84C7-13436D63DA5B",
-		"num_students": 94,
-		"study_year": 2020,
-		"study_period": 3
-	},
-	{
-		"instance_id": "8DA7EC89-4A51-174D-6C84-28ECA25AA3CB",
-		"num_students": 79,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "E2AA86AC-74B4-410C-B62E-4A8699A872EE",
-		"num_students": 107,
-		"study_year": 2022,
-		"study_period": 4
-	},
-	{
-		"instance_id": "2BBF7D6F-A1A1-4E85-42B2-11B11D3D289D",
-		"num_students": 193,
-		"study_year": 2027,
-		"study_period": 1
-	},
-	{
-		"instance_id": "BD1C33E9-1AEB-82F3-EC3D-17D15621ED04",
-		"num_students": 97,
-		"study_year": 2027,
-		"study_period": 4
-	},
-	{
-		"instance_id": "4A54E62C-486E-2DAB-5946-4C8862292802",
-		"num_students": 143,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "7419FA6C-E7D5-58EE-F097-95C65FBDCED4",
-		"num_students": 42,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "01659D26-2FF1-8C9D-6A84-BED93DA8A94B",
-		"num_students": 25,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "2AC62219-ACB9-954D-079A-1C5BE7C325E8",
-		"num_students": 48,
-		"study_year": 2025,
-		"study_period": 4
-	},
-	{
-		"instance_id": "771BC266-39BE-2B12-87E3-9D4A41641666",
-		"num_students": 160,
-		"study_year": 2020,
-		"study_period": 1
-	},
-	{
-		"instance_id": "B35A79BA-C4E7-07AA-6ABA-2EC11A7FE7A3",
+		"application_code": 17928,
+		"instance_id": "2027-17928",
 		"num_students": 33,
-		"study_year": 2024,
-		"study_period": 1
+		"study_period": "P4"
 	},
 	{
-		"instance_id": "CCC272B0-5E4F-8622-57E5-104542DB7304",
-		"num_students": 12,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "2309B8D3-BAB9-69AA-D842-D579B64A48DA",
-		"num_students": 128,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "FD844C7B-34D8-D80A-5D27-F73843050E4E",
-		"num_students": 55,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "47B5796F-177B-73A2-AA2C-C8341316D155",
-		"num_students": 127,
-		"study_year": 2024,
-		"study_period": 1
-	},
-	{
-		"instance_id": "8C4AC7C6-4CB4-0993-BC93-DBD88D2AEBE0",
-		"num_students": 40,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "52B4C728-8E52-882C-7115-1DA4C08C0362",
-		"num_students": 16,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "8AE70966-9FD8-BDA5-581D-AD2958DD7CF5",
-		"num_students": 187,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "778BAA52-8608-5140-3C75-131449B3A6DB",
-		"num_students": 113,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "DA238610-F3CC-1688-CB69-2E11F29B42D7",
-		"num_students": 114,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "6328474B-B318-143F-0A70-7CBC14F3DAC6",
-		"num_students": 64,
 		"study_year": 2026,
-		"study_period": 3
+		"application_code": 63383,
+		"instance_id": "2026-63383",
+		"num_students": 76,
+		"study_period": "P3"
 	},
 	{
-		"instance_id": "B1FBE874-61D1-9231-257E-68B8D6580F88",
-		"num_students": 112,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "4417EC1A-5D27-617A-83CB-E829A3BB7BD7",
-		"num_students": 21,
-		"study_year": 2022,
-		"study_period": 1
-	},
-	{
-		"instance_id": "14436E6E-51AB-4A89-A4C7-2E5A264DE4BB",
-		"num_students": 156,
 		"study_year": 2027,
-		"study_period": 2
+		"application_code": 11205,
+		"instance_id": "2027-11205",
+		"num_students": 155,
+		"study_period": "P3"
 	},
 	{
-		"instance_id": "0CBFC88B-869A-F283-477E-93BCF12A1424",
-		"num_students": 23,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "24BDF37F-FD02-5A22-CB5A-5E7C4683BDE5",
-		"num_students": 97,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "7E8C2AB7-6F19-5B73-B6D1-FFE0D1BDEF88",
-		"num_students": 184,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "4EF32607-D54C-219B-B5D3-A48527C9E184",
-		"num_students": 179,
-		"study_year": 2022,
-		"study_period": 1
-	},
-	{
-		"instance_id": "E169EBD4-DCD9-EAF3-8657-75E559EB9653",
-		"num_students": 123,
-		"study_year": 2022,
-		"study_period": 1
-	},
-	{
-		"instance_id": "7998E71E-8C2B-6ED8-52B1-347EB6295ED7",
-		"num_students": 16,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "3C35D94B-BE56-BB56-0BD7-242C52AF44C8",
-		"num_students": 91,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "4A155D8B-E61D-C195-2889-740928E2DA42",
-		"num_students": 198,
-		"study_year": 2024,
-		"study_period": 1
-	},
-	{
-		"instance_id": "955DE882-21EC-261C-D297-43F1C9D90E1A",
-		"num_students": 85,
-		"study_year": 2020,
-		"study_period": 3
-	},
-	{
-		"instance_id": "C856175E-5949-852C-F7C2-CC5B64D16D08",
-		"num_students": 67,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "6DB4C877-5B82-E75E-E94E-9D83A383107A",
-		"num_students": 50,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "2112D2D9-84E7-C90D-2D41-6DCACDAA39AE",
-		"num_students": 43,
 		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "282AB84A-808C-C49E-B8E9-6769C69E2688",
-		"num_students": 86,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "8132E033-F84D-9CB8-4B98-7EC5DEA26AB8",
-		"num_students": 151,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "36218AF2-DE8F-F48C-EF27-2B7712093A52",
-		"num_students": 166,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "2DB81276-3FEA-E966-82CB-DB96533AA731",
-		"num_students": 175,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "D50DD0C6-8967-EAB5-E4FF-BABD6A43215C",
-		"num_students": 179,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "E4DC8EA8-EF7C-6881-CB12-9CE44A2879B4",
-		"num_students": 50,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "FD6977E2-A9DA-AB48-AD24-567A062EFAD7",
-		"num_students": 188,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "3E6C5836-6DA3-6614-E13E-FA04AC0ED78A",
-		"num_students": 196,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "758B5F38-9E3A-1945-99D4-687EEB8B7A35",
-		"num_students": 82,
-		"study_year": 2022,
-		"study_period": 1
-	},
-	{
-		"instance_id": "8E1228B4-5130-8922-C8D3-5680D228555C",
-		"num_students": 118,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "49B71461-BD44-A457-6E9A-81B68ACC052E",
-		"num_students": 98,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "E156749D-47E9-F511-5A36-A7C9D617E273",
-		"num_students": 72,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "B256B6BE-CBB5-7177-96E3-B206FC287A9C",
-		"num_students": 180,
-		"study_year": 2024,
-		"study_period": 1
-	},
-	{
-		"instance_id": "BEE89B2A-5BEB-7297-315B-F0F27A33F51C",
-		"num_students": 159,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "6F9D647E-C95E-B9AA-E020-5B31182B2B86",
-		"num_students": 35,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "73918773-56FD-A9B6-98A8-998472111780",
-		"num_students": 36,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "A6DBDA62-4BED-88F0-9AA3-9335B53BF9C2",
-		"num_students": 82,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "31C17B42-A4F1-1FB1-A5CD-F2231EA7E2DC",
-		"num_students": 184,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "2261F554-9DC1-02E1-B7C5-524A9C14CC12",
-		"num_students": 118,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "D553E9D4-E711-E2BA-B146-C366848938D2",
-		"num_students": 185,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "C4433B40-25A5-BEAB-5E6E-E687980D96E1",
-		"num_students": 28,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "33ECC475-C4D9-8837-A7E6-BEABB4206A26",
-		"num_students": 39,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "13BB0BDB-E1DF-ACE4-CFE6-8F116351B447",
-		"num_students": 68,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "2B99D196-CAEB-7B81-3433-6497D996025A",
-		"num_students": 148,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "A1025867-F6F3-DB47-D700-76B51DA9BECB",
-		"num_students": 180,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "5B585458-BAAA-8D39-5AD9-C0D1E06AC158",
-		"num_students": 24,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "B81D40B7-F5C8-EC61-2C1A-E1D3D4601B9C",
-		"num_students": 175,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "51E8DECA-E824-F8C8-A43F-03365A766318",
-		"num_students": 81,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "87C55EEA-A963-EBD3-BCA8-831772536EB2",
-		"num_students": 189,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "61BF196A-8CAD-4FB2-004F-B8ABFB767B86",
-		"num_students": 79,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "356EFFB6-1072-C127-FB24-22BA87CB8AFE",
-		"num_students": 160,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "D11C9584-D484-4A8A-B7B2-E156A84247BC",
-		"num_students": 112,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "6DDC9A38-0782-67AB-2254-40BE281B7B59",
-		"num_students": 151,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "506F48BD-6184-CD73-2551-285F557F8FE1",
-		"num_students": 113,
-		"study_year": 2025,
-		"study_period": 1
-	},
-	{
-		"instance_id": "AB5A3CF9-BCF7-6D4E-145D-318D5A1B2222",
-		"num_students": 128,
-		"study_year": 2024,
-		"study_period": 4
-	},
-	{
-		"instance_id": "5115E2B9-7A34-E6B3-4BF7-782ABE828AB3",
-		"num_students": 104,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "A91DDAB3-4DD2-5384-E04E-79CD8918D111",
-		"num_students": 55,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "44926387-673E-9438-8D54-E11D65B3EC61",
-		"num_students": 162,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "48E97714-4AEB-22DA-A659-C5DE2203222D",
-		"num_students": 11,
-		"study_year": 2021,
-		"study_period": 2
-	},
-	{
-		"instance_id": "A63AD52A-1D54-5622-A41A-A8DB9DC89C14",
-		"num_students": 161,
-		"study_year": 2026,
-		"study_period": 1
-	},
-	{
-		"instance_id": "1DAD3AE5-AED6-4204-EF20-1829A72C0A2B",
-		"num_students": 176,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "32E515DD-0A1E-4D87-95ED-849561597FD9",
-		"num_students": 27,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "A4CA881D-6D84-33EA-9828-1688D2E80C92",
-		"num_students": 58,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "A42C16C4-517E-BD80-59A1-7A327B4B07A7",
-		"num_students": 53,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "937E3F32-A574-352B-6534-5C5ABAEC8714",
-		"num_students": 75,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "784158AD-50D4-7B3A-AA0D-BCD9BE481CC1",
-		"num_students": 70,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "A6889B37-FE81-1AA9-D8D6-91D343251FD2",
-		"num_students": 41,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "4FEB589C-9DA4-AEDD-76A7-2359D028A6B0",
-		"num_students": 108,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "1D6BA37E-34AE-1E7B-F3E3-1D2814D5D82E",
-		"num_students": 41,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "471BC684-9511-1868-B8FA-B1C14E9E5D77",
-		"num_students": 49,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "89165BEE-B7CD-08EB-C5D7-ECD9D3B27476",
-		"num_students": 71,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "4478C1F3-D157-7124-DBCC-0D57BD5A6BBD",
-		"num_students": 136,
-		"study_year": 2024,
-		"study_period": 4
-	},
-	{
-		"instance_id": "37928BA1-8244-6D8C-E454-95235FEBDB10",
-		"num_students": 14,
-		"study_year": 2025,
-		"study_period": 4
-	},
-	{
-		"instance_id": "2CBF1C9D-7170-CC06-C812-6930049B2B1D",
-		"num_students": 156,
-		"study_year": 2026,
-		"study_period": 1
-	},
-	{
-		"instance_id": "439E7769-3FCD-C5C7-C925-05D41C336DD2",
-		"num_students": 16,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "5582097A-032B-145C-69D6-85014CA499E2",
-		"num_students": 40,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "3799CBDC-89EA-73C5-8ECA-FCEE946CD672",
-		"num_students": 158,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "ABF78316-6025-F5D3-CEB3-DE188218BD63",
-		"num_students": 39,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "A11CB371-7F88-BD71-3871-39DB57AEC0BA",
-		"num_students": 81,
-		"study_year": 2027,
-		"study_period": 3
-	},
-	{
-		"instance_id": "C4BA5BE5-DD55-1260-C639-DB77E8C64D4B",
-		"num_students": 109,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "42A3E97F-ADEB-1911-B84E-293732EC6171",
-		"num_students": 75,
-		"study_year": 2022,
-		"study_period": 3
-	},
-	{
-		"instance_id": "65163432-1BC9-916A-B1BC-F182A7532E76",
-		"num_students": 35,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "8B6C648B-A81F-B89D-BBE8-761FE55597EB",
-		"num_students": 95,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "B6C5E217-5E73-9C19-7B3A-7C7B3735786F",
-		"num_students": 133,
-		"study_year": 2026,
-		"study_period": 4
-	},
-	{
-		"instance_id": "D5A137E4-A24B-3822-A12A-A2CBB42415BF",
-		"num_students": 182,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "B0739344-30EE-E4A7-B955-7A8FE2823FEC",
-		"num_students": 39,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "9E84AB67-13CA-2DA2-53DC-8C8D9CDCD945",
+		"application_code": 23586,
+		"instance_id": "2026-23586",
 		"num_students": 139,
+		"study_period": "P4"
+	},
+	{
 		"study_year": 2027,
-		"study_period": 3
+		"application_code": 62313,
+		"instance_id": "2027-62313",
+		"num_students": 158,
+		"study_period": "P1"
 	},
 	{
-		"instance_id": "25E3D01F-8584-714E-5F96-7D2407BB27BA",
-		"num_students": 38,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "457698B7-63A9-8AD8-F5C1-FE593FBE3C11",
-		"num_students": 109,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "3274127D-154E-43C8-5D67-A1735C40F59B",
-		"num_students": 188,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "7117506B-2A55-B4B2-E0C2-0B0E7883F9E0",
-		"num_students": 28,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "411BC72C-46D7-BB3B-8769-CF4925D2123F",
-		"num_students": 91,
-		"study_year": 2023,
-		"study_period": 1
-	},
-	{
-		"instance_id": "ADF8C562-933B-0464-C345-81E30558BDA5",
-		"num_students": 91,
-		"study_year": 2022,
-		"study_period": 2
-	},
-	{
-		"instance_id": "6B59CC41-70DB-B13C-A267-B9CD65536A68",
-		"num_students": 156,
-		"study_year": 2026,
-		"study_period": 4
-	},
-	{
-		"instance_id": "782858EE-162E-7D0A-80C3-19F4DA91C924",
-		"num_students": 25,
 		"study_year": 2027,
-		"study_period": 4
-	},
-	{
-		"instance_id": "52F83BE1-8E1F-948C-3529-9153CAE97518",
-		"num_students": 45,
-		"study_year": 2025,
-		"study_period": 3
-	},
-	{
-		"instance_id": "086DC1BF-AD3C-B4B7-7DDB-49563E3F2D3B",
-		"num_students": 129,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "5E545F94-906E-1CA8-876E-1F95D5B56DAB",
-		"num_students": 64,
-		"study_year": 2024,
-		"study_period": 2
-	},
-	{
-		"instance_id": "88128DA8-C607-922B-6D8D-B949121F6781",
-		"num_students": 27,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "90789F92-7B7D-4C31-64AF-B6031FC42CA3",
-		"num_students": 151,
-		"study_year": 2021,
-		"study_period": 3
-	},
-	{
-		"instance_id": "D5A4B89E-C459-21C9-748E-E91413AC173B",
-		"num_students": 104,
-		"study_year": 2021,
-		"study_period": 1
-	},
-	{
-		"instance_id": "B2415498-9BE6-E6DC-A660-6B9EB778AEC7",
-		"num_students": 69,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "D9B93754-E8D9-553C-885F-11AA739C9252",
-		"num_students": 151,
-		"study_year": 2027,
-		"study_period": 1
-	},
-	{
-		"instance_id": "D3591A5E-A773-C8E2-02F7-F8A27450AB82",
-		"num_students": 28,
-		"study_year": 2024,
-		"study_period": 4
-	},
-	{
-		"instance_id": "14710E22-7ECC-4C89-608F-82721850DC28",
-		"num_students": 166,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "239722E0-0E8C-78C2-4678-C5FB68493987",
-		"num_students": 22,
-		"study_year": 2026,
-		"study_period": 3
-	},
-	{
-		"instance_id": "2A04A58A-39E1-EE23-341E-F8D5144D735B",
-		"num_students": 67,
-		"study_year": 2023,
-		"study_period": 2
-	},
-	{
-		"instance_id": "235EA819-894E-18D4-30B5-315FB7A99DF2",
-		"num_students": 50,
-		"study_year": 2026,
-		"study_period": 2
-	},
-	{
-		"instance_id": "CFB7D911-83CE-DD0A-C13D-E55B2431C739",
-		"num_students": 63,
-		"study_year": 2027,
-		"study_period": 1
-	},
-	{
-		"instance_id": "CA6CDC1F-47C4-5849-2352-988F861436AC",
-		"num_students": 135,
-		"study_year": 2023,
-		"study_period": 4
-	},
-	{
-		"instance_id": "CF076891-6514-7DBB-275A-2308F36B8E47",
-		"num_students": 137,
-		"study_year": 2024,
-		"study_period": 1
-	},
-	{
-		"instance_id": "24B777B4-3FCF-7A46-2203-DAEC2C9B0C41",
-		"num_students": 175,
-		"study_year": 2025,
-		"study_period": 2
-	},
-	{
-		"instance_id": "CCF64837-8F09-A5FB-3692-E65E63B468BA",
-		"num_students": 184,
-		"study_year": 2024,
-		"study_period": 3
-	},
-	{
-		"instance_id": "808FC328-B802-C77B-0081-4C6558F1EEA3",
+		"application_code": 27752,
+		"instance_id": "2027-27752",
 		"num_students": 173,
-		"study_year": 2023,
-		"study_period": 3
+		"study_period": "P2"
 	},
 	{
-		"instance_id": "78E93AEC-24E8-7AB8-1EAD-D9C10555D2BB",
-		"num_students": 73,
-		"study_year": 2020,
-		"study_period": 2
-	},
-	{
-		"instance_id": "5A9D15A2-3171-A598-2FA0-C874C914641D",
-		"num_students": 144,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "F978A9BA-3039-55A4-BDB7-78F7995B4434",
-		"num_students": 150,
-		"study_year": 2023,
-		"study_period": 3
-	},
-	{
-		"instance_id": "C4425A3C-3E7A-5501-596E-E5861075077C",
-		"num_students": 30,
 		"study_year": 2026,
-		"study_period": 4
+		"application_code": 47517,
+		"instance_id": "2026-47517",
+		"num_students": 163,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 98895,
+		"instance_id": "2027-98895",
+		"num_students": 171,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 26248,
+		"instance_id": "2025-26248",
+		"num_students": 144,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 83459,
+		"instance_id": "2025-83459",
+		"num_students": 83,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 66712,
+		"instance_id": "2025-66712",
+		"num_students": 137,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 88901,
+		"instance_id": "2026-88901",
+		"num_students": 24,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 47272,
+		"instance_id": "2027-47272",
+		"num_students": 172,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 82213,
+		"instance_id": "2027-82213",
+		"num_students": 178,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 37070,
+		"instance_id": "2026-37070",
+		"num_students": 189,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 53075,
+		"instance_id": "2025-53075",
+		"num_students": 183,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 11575,
+		"instance_id": "2025-11575",
+		"num_students": 119,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 29423,
+		"instance_id": "2026-29423",
+		"num_students": 102,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 26635,
+		"instance_id": "2026-26635",
+		"num_students": 83,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 59324,
+		"instance_id": "2025-59324",
+		"num_students": 185,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 71562,
+		"instance_id": "2025-71562",
+		"num_students": 71,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 36041,
+		"instance_id": "2027-36041",
+		"num_students": 139,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 52869,
+		"instance_id": "2025-52869",
+		"num_students": 174,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 88913,
+		"instance_id": "2025-88913",
+		"num_students": 149,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 83617,
+		"instance_id": "2024-83617",
+		"num_students": 118,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 23663,
+		"instance_id": "2025-23663",
+		"num_students": 15,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 52582,
+		"instance_id": "2027-52582",
+		"num_students": 38,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 85625,
+		"instance_id": "2026-85625",
+		"num_students": 145,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 65613,
+		"instance_id": "2025-65613",
+		"num_students": 28,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 43168,
+		"instance_id": "2026-43168",
+		"num_students": 64,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 52748,
+		"instance_id": "2026-52748",
+		"num_students": 90,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 48740,
+		"instance_id": "2026-48740",
+		"num_students": 150,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 93276,
+		"instance_id": "2026-93276",
+		"num_students": 180,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 32753,
+		"instance_id": "2026-32753",
+		"num_students": 64,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 74847,
+		"instance_id": "2027-74847",
+		"num_students": 95,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 42333,
+		"instance_id": "2026-42333",
+		"num_students": 167,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 15688,
+		"instance_id": "2026-15688",
+		"num_students": 109,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 42738,
+		"instance_id": "2025-42738",
+		"num_students": 18,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 65681,
+		"instance_id": "2026-65681",
+		"num_students": 166,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 84190,
+		"instance_id": "2027-84190",
+		"num_students": 190,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 20118,
+		"instance_id": "2026-20118",
+		"num_students": 113,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 89113,
+		"instance_id": "2026-89113",
+		"num_students": 44,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 77231,
+		"instance_id": "2027-77231",
+		"num_students": 73,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 73314,
+		"instance_id": "2027-73314",
+		"num_students": 182,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 25611,
+		"instance_id": "2026-25611",
+		"num_students": 94,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 16232,
+		"instance_id": "2024-16232",
+		"num_students": 68,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 55746,
+		"instance_id": "2027-55746",
+		"num_students": 136,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 82508,
+		"instance_id": "2026-82508",
+		"num_students": 122,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 52035,
+		"instance_id": "2026-52035",
+		"num_students": 132,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 75163,
+		"instance_id": "2027-75163",
+		"num_students": 131,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 50668,
+		"instance_id": "2025-50668",
+		"num_students": 130,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 32576,
+		"instance_id": "2027-32576",
+		"num_students": 125,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 23274,
+		"instance_id": "2026-23274",
+		"num_students": 141,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 47213,
+		"instance_id": "2024-47213",
+		"num_students": 134,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": "02475",
+		"instance_id": "2026-02475",
+		"num_students": 59,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 84324,
+		"instance_id": "2026-84324",
+		"num_students": 167,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 26693,
+		"instance_id": "2025-26693",
+		"num_students": 160,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 98818,
+		"instance_id": "2026-98818",
+		"num_students": 158,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 92492,
+		"instance_id": "2025-92492",
+		"num_students": 20,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 72811,
+		"instance_id": "2025-72811",
+		"num_students": 195,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 51811,
+		"instance_id": "2025-51811",
+		"num_students": 102,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": "05612",
+		"instance_id": "2027-05612",
+		"num_students": 114,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 84364,
+		"instance_id": "2025-84364",
+		"num_students": 103,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 56333,
+		"instance_id": "2025-56333",
+		"num_students": 169,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 24354,
+		"instance_id": "2025-24354",
+		"num_students": 170,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 82248,
+		"instance_id": "2026-82248",
+		"num_students": 191,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 81534,
+		"instance_id": "2026-81534",
+		"num_students": 199,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 75274,
+		"instance_id": "2026-75274",
+		"num_students": 37,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 25292,
+		"instance_id": "2026-25292",
+		"num_students": 133,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 24268,
+		"instance_id": "2027-24268",
+		"num_students": 60,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": "01948",
+		"instance_id": "2025-01948",
+		"num_students": 174,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 31360,
+		"instance_id": "2026-31360",
+		"num_students": 78,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 46653,
+		"instance_id": "2027-46653",
+		"num_students": 191,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 54153,
+		"instance_id": "2025-54153",
+		"num_students": 157,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 50377,
+		"instance_id": "2026-50377",
+		"num_students": 35,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 54791,
+		"instance_id": "2027-54791",
+		"num_students": 34,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 79968,
+		"instance_id": "2026-79968",
+		"num_students": 138,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 85368,
+		"instance_id": "2025-85368",
+		"num_students": 56,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 77573,
+		"instance_id": "2026-77573",
+		"num_students": 139,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 82181,
+		"instance_id": "2025-82181",
+		"num_students": 34,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 22136,
+		"instance_id": "2026-22136",
+		"num_students": 96,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 13818,
+		"instance_id": "2026-13818",
+		"num_students": 147,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 78248,
+		"instance_id": "2026-78248",
+		"num_students": 156,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 57642,
+		"instance_id": "2026-57642",
+		"num_students": 31,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 46265,
+		"instance_id": "2027-46265",
+		"num_students": 167,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 21120,
+		"instance_id": "2025-21120",
+		"num_students": 83,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 53241,
+		"instance_id": "2027-53241",
+		"num_students": 90,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 31863,
+		"instance_id": "2027-31863",
+		"num_students": 101,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 37740,
+		"instance_id": "2027-37740",
+		"num_students": 75,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 61733,
+		"instance_id": "2025-61733",
+		"num_students": 196,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 11092,
+		"instance_id": "2025-11092",
+		"num_students": 101,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 93410,
+		"instance_id": "2025-93410",
+		"num_students": 156,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 34741,
+		"instance_id": "2027-34741",
+		"num_students": 139,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 52605,
+		"instance_id": "2026-52605",
+		"num_students": 88,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 87116,
+		"instance_id": "2026-87116",
+		"num_students": 156,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 67182,
+		"instance_id": "2024-67182",
+		"num_students": 171,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 52211,
+		"instance_id": "2026-52211",
+		"num_students": 82,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 52548,
+		"instance_id": "2025-52548",
+		"num_students": 143,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 61274,
+		"instance_id": "2026-61274",
+		"num_students": 143,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 21337,
+		"instance_id": "2027-21337",
+		"num_students": 34,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 43257,
+		"instance_id": "2025-43257",
+		"num_students": 128,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 37630,
+		"instance_id": "2024-37630",
+		"num_students": 59,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 63152,
+		"instance_id": "2025-63152",
+		"num_students": 23,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 98481,
+		"instance_id": "2027-98481",
+		"num_students": 13,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 19159,
+		"instance_id": "2026-19159",
+		"num_students": 101,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 54721,
+		"instance_id": "2025-54721",
+		"num_students": 49,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 27287,
+		"instance_id": "2025-27287",
+		"num_students": 62,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 76172,
+		"instance_id": "2027-76172",
+		"num_students": 147,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 17711,
+		"instance_id": "2026-17711",
+		"num_students": 51,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 56822,
+		"instance_id": "2025-56822",
+		"num_students": 199,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 62276,
+		"instance_id": "2026-62276",
+		"num_students": 130,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 77145,
+		"instance_id": "2025-77145",
+		"num_students": 48,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 57367,
+		"instance_id": "2027-57367",
+		"num_students": 154,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 83244,
+		"instance_id": "2027-83244",
+		"num_students": 72,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 23175,
+		"instance_id": "2027-23175",
+		"num_students": 82,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 73557,
+		"instance_id": "2026-73557",
+		"num_students": 165,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 14751,
+		"instance_id": "2025-14751",
+		"num_students": 43,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 51946,
+		"instance_id": "2025-51946",
+		"num_students": 99,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 96626,
+		"instance_id": "2027-96626",
+		"num_students": 148,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 77824,
+		"instance_id": "2027-77824",
+		"num_students": 184,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 68328,
+		"instance_id": "2025-68328",
+		"num_students": 117,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 83057,
+		"instance_id": "2027-83057",
+		"num_students": 98,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 94704,
+		"instance_id": "2024-94704",
+		"num_students": 59,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 77865,
+		"instance_id": "2025-77865",
+		"num_students": 112,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 85118,
+		"instance_id": "2025-85118",
+		"num_students": 121,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 28924,
+		"instance_id": "2026-28924",
+		"num_students": 107,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 23182,
+		"instance_id": "2025-23182",
+		"num_students": 120,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 86806,
+		"instance_id": "2024-86806",
+		"num_students": 135,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 60954,
+		"instance_id": "2027-60954",
+		"num_students": 94,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 56865,
+		"instance_id": "2027-56865",
+		"num_students": 57,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 92942,
+		"instance_id": "2025-92942",
+		"num_students": 99,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 25104,
+		"instance_id": "2025-25104",
+		"num_students": 189,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 52684,
+		"instance_id": "2026-52684",
+		"num_students": 187,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": "08444",
+		"instance_id": "2025-08444",
+		"num_students": 185,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 35501,
+		"instance_id": "2027-35501",
+		"num_students": 94,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 95734,
+		"instance_id": "2027-95734",
+		"num_students": 116,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 14473,
+		"instance_id": "2027-14473",
+		"num_students": 47,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 52735,
+		"instance_id": "2026-52735",
+		"num_students": 39,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 64359,
+		"instance_id": "2025-64359",
+		"num_students": 176,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 71661,
+		"instance_id": "2025-71661",
+		"num_students": 77,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 15515,
+		"instance_id": "2026-15515",
+		"num_students": 192,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 23387,
+		"instance_id": "2027-23387",
+		"num_students": 23,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 25784,
+		"instance_id": "2027-25784",
+		"num_students": 70,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 24267,
+		"instance_id": "2026-24267",
+		"num_students": 136,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 28637,
+		"instance_id": "2025-28637",
+		"num_students": 143,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": "08089",
+		"instance_id": "2025-08089",
+		"num_students": 169,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 51356,
+		"instance_id": "2026-51356",
+		"num_students": 181,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 47253,
+		"instance_id": "2027-47253",
+		"num_students": 32,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 67321,
+		"instance_id": "2026-67321",
+		"num_students": 87,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 54131,
+		"instance_id": "2026-54131",
+		"num_students": 17,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 30203,
+		"instance_id": "2027-30203",
+		"num_students": 53,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 92091,
+		"instance_id": "2027-92091",
+		"num_students": 39,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 48834,
+		"instance_id": "2025-48834",
+		"num_students": 62,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 63266,
+		"instance_id": "2025-63266",
+		"num_students": 187,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 71227,
+		"instance_id": "2026-71227",
+		"num_students": 12,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 89456,
+		"instance_id": "2025-89456",
+		"num_students": 13,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 73326,
+		"instance_id": "2026-73326",
+		"num_students": 13,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 62588,
+		"instance_id": "2027-62588",
+		"num_students": 132,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 43477,
+		"instance_id": "2025-43477",
+		"num_students": 13,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 65449,
+		"instance_id": "2027-65449",
+		"num_students": 112,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 13674,
+		"instance_id": "2027-13674",
+		"num_students": 86,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 71864,
+		"instance_id": "2026-71864",
+		"num_students": 163,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 44405,
+		"instance_id": "2026-44405",
+		"num_students": 136,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 19511,
+		"instance_id": "2026-19511",
+		"num_students": 60,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 87174,
+		"instance_id": "2025-87174",
+		"num_students": 147,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 42320,
+		"instance_id": "2026-42320",
+		"num_students": 12,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 43817,
+		"instance_id": "2026-43817",
+		"num_students": 110,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 16904,
+		"instance_id": "2026-16904",
+		"num_students": 82,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 54314,
+		"instance_id": "2026-54314",
+		"num_students": 160,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 58357,
+		"instance_id": "2027-58357",
+		"num_students": 131,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 52077,
+		"instance_id": "2026-52077",
+		"num_students": 104,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 41363,
+		"instance_id": "2025-41363",
+		"num_students": 41,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 25356,
+		"instance_id": "2027-25356",
+		"num_students": 14,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 86263,
+		"instance_id": "2027-86263",
+		"num_students": 153,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 47869,
+		"instance_id": "2026-47869",
+		"num_students": 173,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 67546,
+		"instance_id": "2027-67546",
+		"num_students": 154,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 75911,
+		"instance_id": "2026-75911",
+		"num_students": 114,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 65745,
+		"instance_id": "2027-65745",
+		"num_students": 150,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 57218,
+		"instance_id": "2027-57218",
+		"num_students": 185,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 38358,
+		"instance_id": "2027-38358",
+		"num_students": 144,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 28198,
+		"instance_id": "2027-28198",
+		"num_students": 90,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 64527,
+		"instance_id": "2026-64527",
+		"num_students": 145,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 11281,
+		"instance_id": "2025-11281",
+		"num_students": 140,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 86514,
+		"instance_id": "2025-86514",
+		"num_students": 80,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 20713,
+		"instance_id": "2027-20713",
+		"num_students": 172,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 31738,
+		"instance_id": "2025-31738",
+		"num_students": 20,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 57022,
+		"instance_id": "2025-57022",
+		"num_students": 124,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 55548,
+		"instance_id": "2026-55548",
+		"num_students": 191,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 55384,
+		"instance_id": "2026-55384",
+		"num_students": 178,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 55558,
+		"instance_id": "2027-55558",
+		"num_students": 33,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": "01081",
+		"instance_id": "2025-01081",
+		"num_students": 197,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 89775,
+		"instance_id": "2026-89775",
+		"num_students": 189,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 39234,
+		"instance_id": "2026-39234",
+		"num_students": 11,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 83838,
+		"instance_id": "2027-83838",
+		"num_students": 99,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 45827,
+		"instance_id": "2027-45827",
+		"num_students": 131,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 96539,
+		"instance_id": "2025-96539",
+		"num_students": 152,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 21316,
+		"instance_id": "2025-21316",
+		"num_students": 161,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 51413,
+		"instance_id": "2025-51413",
+		"num_students": 26,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 55353,
+		"instance_id": "2026-55353",
+		"num_students": 61,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 49746,
+		"instance_id": "2027-49746",
+		"num_students": 198,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 51962,
+		"instance_id": "2026-51962",
+		"num_students": 24,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 76670,
+		"instance_id": "2025-76670",
+		"num_students": 22,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 64105,
+		"instance_id": "2026-64105",
+		"num_students": 99,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 99289,
+		"instance_id": "2027-99289",
+		"num_students": 25,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 26155,
+		"instance_id": "2025-26155",
+		"num_students": 121,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 63379,
+		"instance_id": "2026-63379",
+		"num_students": 157,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 66810,
+		"instance_id": "2025-66810",
+		"num_students": 196,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 25101,
+		"instance_id": "2025-25101",
+		"num_students": 50,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 35055,
+		"instance_id": "2026-35055",
+		"num_students": 23,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 96006,
+		"instance_id": "2027-96006",
+		"num_students": 133,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 75179,
+		"instance_id": "2026-75179",
+		"num_students": 144,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 88597,
+		"instance_id": "2027-88597",
+		"num_students": 23,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 42413,
+		"instance_id": "2026-42413",
+		"num_students": 103,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 71738,
+		"instance_id": "2025-71738",
+		"num_students": 119,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 66303,
+		"instance_id": "2026-66303",
+		"num_students": 31,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 13290,
+		"instance_id": "2025-13290",
+		"num_students": 59,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 26233,
+		"instance_id": "2025-26233",
+		"num_students": 46,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 15882,
+		"instance_id": "2027-15882",
+		"num_students": 190,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 46224,
+		"instance_id": "2026-46224",
+		"num_students": 79,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 56742,
+		"instance_id": "2025-56742",
+		"num_students": 35,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 41864,
+		"instance_id": "2027-41864",
+		"num_students": 82,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": "03571",
+		"instance_id": "2026-03571",
+		"num_students": 55,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 87735,
+		"instance_id": "2027-87735",
+		"num_students": 66,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 30373,
+		"instance_id": "2025-30373",
+		"num_students": 145,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 58259,
+		"instance_id": "2026-58259",
+		"num_students": 23,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 96235,
+		"instance_id": "2025-96235",
+		"num_students": 28,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 13007,
+		"instance_id": "2025-13007",
+		"num_students": 123,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 53267,
+		"instance_id": "2025-53267",
+		"num_students": 117,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 83247,
+		"instance_id": "2027-83247",
+		"num_students": 78,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 58754,
+		"instance_id": "2027-58754",
+		"num_students": 135,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 73232,
+		"instance_id": "2027-73232",
+		"num_students": 56,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 68567,
+		"instance_id": "2027-68567",
+		"num_students": 142,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 63768,
+		"instance_id": "2025-63768",
+		"num_students": 91,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 66781,
+		"instance_id": "2027-66781",
+		"num_students": 72,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 85505,
+		"instance_id": "2025-85505",
+		"num_students": 118,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 94868,
+		"instance_id": "2025-94868",
+		"num_students": 83,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 12621,
+		"instance_id": "2025-12621",
+		"num_students": 174,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 31855,
+		"instance_id": "2025-31855",
+		"num_students": 183,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 11735,
+		"instance_id": "2025-11735",
+		"num_students": 113,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 57884,
+		"instance_id": "2026-57884",
+		"num_students": 56,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 41316,
+		"instance_id": "2026-41316",
+		"num_students": 185,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 21864,
+		"instance_id": "2025-21864",
+		"num_students": 18,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 43613,
+		"instance_id": "2027-43613",
+		"num_students": 179,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 65217,
+		"instance_id": "2026-65217",
+		"num_students": 151,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 37398,
+		"instance_id": "2027-37398",
+		"num_students": 33,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 78308,
+		"instance_id": "2025-78308",
+		"num_students": 141,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 11123,
+		"instance_id": "2027-11123",
+		"num_students": 191,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 32054,
+		"instance_id": "2027-32054",
+		"num_students": 28,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 54621,
+		"instance_id": "2027-54621",
+		"num_students": 42,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 70365,
+		"instance_id": "2027-70365",
+		"num_students": 93,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 43814,
+		"instance_id": "2025-43814",
+		"num_students": 121,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 48655,
+		"instance_id": "2026-48655",
+		"num_students": 175,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 51475,
+		"instance_id": "2027-51475",
+		"num_students": 86,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 85118,
+		"instance_id": "2026-85118",
+		"num_students": 172,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 38625,
+		"instance_id": "2026-38625",
+		"num_students": 60,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 42810,
+		"instance_id": "2025-42810",
+		"num_students": 121,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 32623,
+		"instance_id": "2025-32623",
+		"num_students": 69,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 38444,
+		"instance_id": "2026-38444",
+		"num_students": 78,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 87736,
+		"instance_id": "2025-87736",
+		"num_students": 198,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 31253,
+		"instance_id": "2025-31253",
+		"num_students": 112,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 25957,
+		"instance_id": "2025-25957",
+		"num_students": 121,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 64462,
+		"instance_id": "2026-64462",
+		"num_students": 79,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 26583,
+		"instance_id": "2027-26583",
+		"num_students": 164,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": "05861",
+		"instance_id": "2027-05861",
+		"num_students": 21,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 37710,
+		"instance_id": "2026-37710",
+		"num_students": 75,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 84933,
+		"instance_id": "2026-84933",
+		"num_students": 143,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 17546,
+		"instance_id": "2025-17546",
+		"num_students": 188,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 85543,
+		"instance_id": "2026-85543",
+		"num_students": 98,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 65588,
+		"instance_id": "2026-65588",
+		"num_students": 64,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 73686,
+		"instance_id": "2025-73686",
+		"num_students": 199,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 22883,
+		"instance_id": "2025-22883",
+		"num_students": 134,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 28286,
+		"instance_id": "2024-28286",
+		"num_students": 107,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 64936,
+		"instance_id": "2025-64936",
+		"num_students": 98,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 83461,
+		"instance_id": "2025-83461",
+		"num_students": 64,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 31932,
+		"instance_id": "2024-31932",
+		"num_students": 168,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 18448,
+		"instance_id": "2025-18448",
+		"num_students": 135,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 82824,
+		"instance_id": "2027-82824",
+		"num_students": 148,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 76223,
+		"instance_id": "2024-76223",
+		"num_students": 139,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 29637,
+		"instance_id": "2026-29637",
+		"num_students": 173,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 92745,
+		"instance_id": "2026-92745",
+		"num_students": 169,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": "00349",
+		"instance_id": "2025-00349",
+		"num_students": 130,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 85755,
+		"instance_id": "2026-85755",
+		"num_students": 177,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 54060,
+		"instance_id": "2026-54060",
+		"num_students": 116,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 94652,
+		"instance_id": "2027-94652",
+		"num_students": 110,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 86292,
+		"instance_id": "2025-86292",
+		"num_students": 188,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 14842,
+		"instance_id": "2025-14842",
+		"num_students": 20,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 28621,
+		"instance_id": "2026-28621",
+		"num_students": 130,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 53283,
+		"instance_id": "2027-53283",
+		"num_students": 57,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 45710,
+		"instance_id": "2026-45710",
+		"num_students": 164,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 91548,
+		"instance_id": "2024-91548",
+		"num_students": 13,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 44176,
+		"instance_id": "2026-44176",
+		"num_students": 80,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 75835,
+		"instance_id": "2025-75835",
+		"num_students": 171,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 88738,
+		"instance_id": "2027-88738",
+		"num_students": 131,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 77631,
+		"instance_id": "2027-77631",
+		"num_students": 69,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 94303,
+		"instance_id": "2026-94303",
+		"num_students": 63,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": "08542",
+		"instance_id": "2027-08542",
+		"num_students": 128,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 75741,
+		"instance_id": "2026-75741",
+		"num_students": 70,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 53640,
+		"instance_id": "2025-53640",
+		"num_students": 152,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 63860,
+		"instance_id": "2025-63860",
+		"num_students": 150,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 17706,
+		"instance_id": "2026-17706",
+		"num_students": 129,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 88995,
+		"instance_id": "2027-88995",
+		"num_students": 56,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 89455,
+		"instance_id": "2027-89455",
+		"num_students": 62,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 23800,
+		"instance_id": "2027-23800",
+		"num_students": 71,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 57062,
+		"instance_id": "2025-57062",
+		"num_students": 152,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 37372,
+		"instance_id": "2027-37372",
+		"num_students": 117,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 44525,
+		"instance_id": "2027-44525",
+		"num_students": 166,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": "07596",
+		"instance_id": "2025-07596",
+		"num_students": 151,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 36664,
+		"instance_id": "2026-36664",
+		"num_students": 71,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 84054,
+		"instance_id": "2026-84054",
+		"num_students": 135,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 83814,
+		"instance_id": "2025-83814",
+		"num_students": 178,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 60834,
+		"instance_id": "2024-60834",
+		"num_students": 73,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 75985,
+		"instance_id": "2026-75985",
+		"num_students": 91,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 94742,
+		"instance_id": "2027-94742",
+		"num_students": 61,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 25582,
+		"instance_id": "2026-25582",
+		"num_students": 154,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 36972,
+		"instance_id": "2026-36972",
+		"num_students": 119,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 94370,
+		"instance_id": "2025-94370",
+		"num_students": 193,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 48793,
+		"instance_id": "2026-48793",
+		"num_students": 17,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 77936,
+		"instance_id": "2024-77936",
+		"num_students": 60,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 69561,
+		"instance_id": "2025-69561",
+		"num_students": 38,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 73113,
+		"instance_id": "2026-73113",
+		"num_students": 46,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 88683,
+		"instance_id": "2027-88683",
+		"num_students": 19,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 73031,
+		"instance_id": "2025-73031",
+		"num_students": 76,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 54457,
+		"instance_id": "2027-54457",
+		"num_students": 27,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 17187,
+		"instance_id": "2025-17187",
+		"num_students": 31,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 57125,
+		"instance_id": "2025-57125",
+		"num_students": 17,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 56451,
+		"instance_id": "2027-56451",
+		"num_students": 199,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 78836,
+		"instance_id": "2027-78836",
+		"num_students": 89,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": "03712",
+		"instance_id": "2026-03712",
+		"num_students": 144,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 76400,
+		"instance_id": "2026-76400",
+		"num_students": 96,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 63676,
+		"instance_id": "2025-63676",
+		"num_students": 44,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 26648,
+		"instance_id": "2027-26648",
+		"num_students": 72,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 84424,
+		"instance_id": "2026-84424",
+		"num_students": 56,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 58835,
+		"instance_id": "2025-58835",
+		"num_students": 22,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 42858,
+		"instance_id": "2025-42858",
+		"num_students": 125,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 40745,
+		"instance_id": "2025-40745",
+		"num_students": 80,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 81679,
+		"instance_id": "2025-81679",
+		"num_students": 76,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 65743,
+		"instance_id": "2025-65743",
+		"num_students": 35,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 46886,
+		"instance_id": "2027-46886",
+		"num_students": 20,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 87435,
+		"instance_id": "2026-87435",
+		"num_students": 139,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 21688,
+		"instance_id": "2026-21688",
+		"num_students": 89,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 62484,
+		"instance_id": "2027-62484",
+		"num_students": 23,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 36423,
+		"instance_id": "2026-36423",
+		"num_students": 26,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 24167,
+		"instance_id": "2026-24167",
+		"num_students": 160,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 31165,
+		"instance_id": "2027-31165",
+		"num_students": 66,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 71877,
+		"instance_id": "2027-71877",
+		"num_students": 22,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 31604,
+		"instance_id": "2025-31604",
+		"num_students": 145,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 86678,
+		"instance_id": "2025-86678",
+		"num_students": 18,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 52889,
+		"instance_id": "2025-52889",
+		"num_students": 156,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 14884,
+		"instance_id": "2025-14884",
+		"num_students": 187,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 89130,
+		"instance_id": "2027-89130",
+		"num_students": 129,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 89505,
+		"instance_id": "2027-89505",
+		"num_students": 195,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 26976,
+		"instance_id": "2027-26976",
+		"num_students": 170,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 16889,
+		"instance_id": "2026-16889",
+		"num_students": 47,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 10065,
+		"instance_id": "2025-10065",
+		"num_students": 78,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 77117,
+		"instance_id": "2027-77117",
+		"num_students": 173,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 42607,
+		"instance_id": "2027-42607",
+		"num_students": 173,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": "07255",
+		"instance_id": "2027-07255",
+		"num_students": 157,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 45606,
+		"instance_id": "2027-45606",
+		"num_students": 47,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 24364,
+		"instance_id": "2027-24364",
+		"num_students": 143,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 87744,
+		"instance_id": "2026-87744",
+		"num_students": 84,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": "05828",
+		"instance_id": "2027-05828",
+		"num_students": 45,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 55085,
+		"instance_id": "2026-55085",
+		"num_students": 25,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 84945,
+		"instance_id": "2026-84945",
+		"num_students": 126,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 12413,
+		"instance_id": "2025-12413",
+		"num_students": 89,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 34823,
+		"instance_id": "2027-34823",
+		"num_students": 178,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 14223,
+		"instance_id": "2025-14223",
+		"num_students": 125,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 63564,
+		"instance_id": "2027-63564",
+		"num_students": 59,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 61776,
+		"instance_id": "2027-61776",
+		"num_students": 113,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 31888,
+		"instance_id": "2027-31888",
+		"num_students": 57,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 98265,
+		"instance_id": "2026-98265",
+		"num_students": 177,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 76682,
+		"instance_id": "2025-76682",
+		"num_students": 183,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 76232,
+		"instance_id": "2026-76232",
+		"num_students": 155,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 22317,
+		"instance_id": "2025-22317",
+		"num_students": 161,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 31737,
+		"instance_id": "2025-31737",
+		"num_students": 101,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 32139,
+		"instance_id": "2026-32139",
+		"num_students": 180,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 51687,
+		"instance_id": "2027-51687",
+		"num_students": 199,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 25458,
+		"instance_id": "2024-25458",
+		"num_students": 197,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 58145,
+		"instance_id": "2025-58145",
+		"num_students": 93,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 26892,
+		"instance_id": "2027-26892",
+		"num_students": 191,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 81507,
+		"instance_id": "2026-81507",
+		"num_students": 168,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 56353,
+		"instance_id": "2027-56353",
+		"num_students": 28,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 41675,
+		"instance_id": "2027-41675",
+		"num_students": 127,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 72261,
+		"instance_id": "2025-72261",
+		"num_students": 84,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 97384,
+		"instance_id": "2026-97384",
+		"num_students": 17,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 30874,
+		"instance_id": "2026-30874",
+		"num_students": 40,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 56902,
+		"instance_id": "2027-56902",
+		"num_students": 76,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 53038,
+		"instance_id": "2026-53038",
+		"num_students": 117,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 72283,
+		"instance_id": "2026-72283",
+		"num_students": 139,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 25525,
+		"instance_id": "2027-25525",
+		"num_students": 100,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 80387,
+		"instance_id": "2027-80387",
+		"num_students": 165,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 32457,
+		"instance_id": "2025-32457",
+		"num_students": 147,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 57386,
+		"instance_id": "2025-57386",
+		"num_students": 165,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 73359,
+		"instance_id": "2027-73359",
+		"num_students": 157,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 81788,
+		"instance_id": "2027-81788",
+		"num_students": 35,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 39548,
+		"instance_id": "2027-39548",
+		"num_students": 189,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 25748,
+		"instance_id": "2025-25748",
+		"num_students": 54,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 70791,
+		"instance_id": "2025-70791",
+		"num_students": 106,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 85676,
+		"instance_id": "2027-85676",
+		"num_students": 35,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 55483,
+		"instance_id": "2025-55483",
+		"num_students": 119,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 22474,
+		"instance_id": "2026-22474",
+		"num_students": 128,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 67536,
+		"instance_id": "2026-67536",
+		"num_students": 66,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 76515,
+		"instance_id": "2025-76515",
+		"num_students": 25,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 55469,
+		"instance_id": "2026-55469",
+		"num_students": 90,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 17921,
+		"instance_id": "2027-17921",
+		"num_students": 169,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 46378,
+		"instance_id": "2026-46378",
+		"num_students": 143,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 75363,
+		"instance_id": "2026-75363",
+		"num_students": 191,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 86629,
+		"instance_id": "2026-86629",
+		"num_students": 188,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 30452,
+		"instance_id": "2026-30452",
+		"num_students": 178,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 82865,
+		"instance_id": "2026-82865",
+		"num_students": 122,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 74364,
+		"instance_id": "2026-74364",
+		"num_students": 72,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 43669,
+		"instance_id": "2026-43669",
+		"num_students": 58,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 56222,
+		"instance_id": "2025-56222",
+		"num_students": 61,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 71702,
+		"instance_id": "2026-71702",
+		"num_students": 35,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 52244,
+		"instance_id": "2026-52244",
+		"num_students": 154,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 18328,
+		"instance_id": "2027-18328",
+		"num_students": 152,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 47279,
+		"instance_id": "2025-47279",
+		"num_students": 113,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 34060,
+		"instance_id": "2025-34060",
+		"num_students": 124,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": "08198",
+		"instance_id": "2027-08198",
+		"num_students": 111,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 36522,
+		"instance_id": "2026-36522",
+		"num_students": 129,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 28464,
+		"instance_id": "2027-28464",
+		"num_students": 141,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 42847,
+		"instance_id": "2027-42847",
+		"num_students": 184,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 17277,
+		"instance_id": "2025-17277",
+		"num_students": 195,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 56496,
+		"instance_id": "2027-56496",
+		"num_students": 190,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 31986,
+		"instance_id": "2026-31986",
+		"num_students": 19,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 71460,
+		"instance_id": "2025-71460",
+		"num_students": 176,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 40038,
+		"instance_id": "2026-40038",
+		"num_students": 162,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 75102,
+		"instance_id": "2026-75102",
+		"num_students": 39,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 72669,
+		"instance_id": "2025-72669",
+		"num_students": 191,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 42511,
+		"instance_id": "2025-42511",
+		"num_students": 122,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 37973,
+		"instance_id": "2026-37973",
+		"num_students": 173,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 79883,
+		"instance_id": "2027-79883",
+		"num_students": 12,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 30029,
+		"instance_id": "2026-30029",
+		"num_students": 55,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 61852,
+		"instance_id": "2027-61852",
+		"num_students": 78,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 37590,
+		"instance_id": "2025-37590",
+		"num_students": 107,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 89573,
+		"instance_id": "2025-89573",
+		"num_students": 132,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 24447,
+		"instance_id": "2025-24447",
+		"num_students": 63,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 86833,
+		"instance_id": "2027-86833",
+		"num_students": 23,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 20585,
+		"instance_id": "2027-20585",
+		"num_students": 76,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 96526,
+		"instance_id": "2027-96526",
+		"num_students": 167,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 78255,
+		"instance_id": "2026-78255",
+		"num_students": 119,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 77718,
+		"instance_id": "2025-77718",
+		"num_students": 47,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 43572,
+		"instance_id": "2027-43572",
+		"num_students": 19,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 67354,
+		"instance_id": "2024-67354",
+		"num_students": 13,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 46770,
+		"instance_id": "2026-46770",
+		"num_students": 76,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 66975,
+		"instance_id": "2026-66975",
+		"num_students": 101,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 26185,
+		"instance_id": "2027-26185",
+		"num_students": 137,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 53857,
+		"instance_id": "2026-53857",
+		"num_students": 39,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 36076,
+		"instance_id": "2026-36076",
+		"num_students": 145,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 54272,
+		"instance_id": "2025-54272",
+		"num_students": 123,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 32248,
+		"instance_id": "2027-32248",
+		"num_students": 113,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 91043,
+		"instance_id": "2027-91043",
+		"num_students": 136,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2024,
+		"application_code": 16524,
+		"instance_id": "2024-16524",
+		"num_students": 174,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 53386,
+		"instance_id": "2026-53386",
+		"num_students": 126,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 35436,
+		"instance_id": "2026-35436",
+		"num_students": 12,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 51784,
+		"instance_id": "2027-51784",
+		"num_students": 169,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 45727,
+		"instance_id": "2026-45727",
+		"num_students": 17,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 65283,
+		"instance_id": "2027-65283",
+		"num_students": 94,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 89377,
+		"instance_id": "2025-89377",
+		"num_students": 165,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 74113,
+		"instance_id": "2027-74113",
+		"num_students": 96,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 30726,
+		"instance_id": "2026-30726",
+		"num_students": 103,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 62525,
+		"instance_id": "2025-62525",
+		"num_students": 162,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 47861,
+		"instance_id": "2027-47861",
+		"num_students": 93,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 64118,
+		"instance_id": "2025-64118",
+		"num_students": 88,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 46331,
+		"instance_id": "2027-46331",
+		"num_students": 25,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 37428,
+		"instance_id": "2026-37428",
+		"num_students": 124,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 11838,
+		"instance_id": "2025-11838",
+		"num_students": 130,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 58295,
+		"instance_id": "2025-58295",
+		"num_students": 177,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 12877,
+		"instance_id": "2027-12877",
+		"num_students": 29,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 85373,
+		"instance_id": "2026-85373",
+		"num_students": 174,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 83611,
+		"instance_id": "2025-83611",
+		"num_students": 38,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 68814,
+		"instance_id": "2025-68814",
+		"num_students": 59,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 35444,
+		"instance_id": "2026-35444",
+		"num_students": 10,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 43593,
+		"instance_id": "2025-43593",
+		"num_students": 192,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 10907,
+		"instance_id": "2025-10907",
+		"num_students": 159,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 65172,
+		"instance_id": "2025-65172",
+		"num_students": 69,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 63642,
+		"instance_id": "2025-63642",
+		"num_students": 127,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 38118,
+		"instance_id": "2026-38118",
+		"num_students": 172,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 64484,
+		"instance_id": "2025-64484",
+		"num_students": 184,
+		"study_period": "P3"
+	},
+	{
+		"study_year": 2025,
+		"application_code": 47717,
+		"instance_id": "2025-47717",
+		"num_students": 82,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 17087,
+		"instance_id": "2026-17087",
+		"num_students": 177,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 43474,
+		"instance_id": "2026-43474",
+		"num_students": 194,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 86433,
+		"instance_id": "2026-86433",
+		"num_students": 73,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 16374,
+		"instance_id": "2026-16374",
+		"num_students": 73,
+		"study_period": "P1"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 59544,
+		"instance_id": "2027-59544",
+		"num_students": 195,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 93261,
+		"instance_id": "2026-93261",
+		"num_students": 164,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2026,
+		"application_code": 32131,
+		"instance_id": "2026-32131",
+		"num_students": 23,
+		"study_period": "P4"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 88791,
+		"instance_id": "2027-88791",
+		"num_students": 21,
+		"study_period": "P2"
+	},
+	{
+		"study_year": 2027,
+		"application_code": 64148,
+		"instance_id": "2027-64148",
+		"num_students": 162,
+		"study_period": "P1"
 	}
 ]

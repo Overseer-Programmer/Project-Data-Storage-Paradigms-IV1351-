@@ -14,5 +14,9 @@
     {
         "activity_name": "Seminar",
         "factor": 1.8
+    },
+    {
+        "activity_name": "Other",
+        "factor": 1
     }
 ]
