@@ -118,25 +118,28 @@ ALTER TABLE employee_planned_activity ADD CONSTRAINT FK_employee_planned_activit
 
 -- Triggers for Application Constraints --
 -- No more than 4 course instances for a teacher/employee
-CREATE FUNCTION employee_is_fully_loaded(current_employee_id int)
+/*
+    Checks if an employee will is overloaded aka the employee is allocated
+    to more than 4 different course instances for the same study year and study period.
+*/
+CREATE FUNCTION is_employee_overloaded(current_employee_id int)
 RETURNS BOOLEAN AS $$
 DECLARE
-    most_intense_period record;
+    most_intense_study_period record;
 BEGIN
-    SELECT COUNT(*) AS distinct_simultaneous_count, study_year, study_period
-    INTO most_intense_period
-    FROM (
-        SELECT COUNT(*), pa.course_instance_id, ci.study_year, ci.study_period
-        FROM employee_planned_activity AS epa
-        INNER JOIN planned_activity AS pa ON epa.planned_activity_id = pa.id
-        INNER JOIN course_instance AS ci ON pa.course_instance_id = ci.id
-        WHERE epa.employee_id = current_employee_id
-        GROUP BY pa.course_instance_id, ci.study_year, ci.study_period
-    )
-    GROUP BY study_year, study_period
-    ORDER BY distinct_simultaneous_count DESC
-    LIMIT 1;
-    IF most_intense_period.distinct_simultaneous_count >= 4 THEN
+    -- Find a period where the employee is assigned to the most course instances
+    SELECT COUNT(DISTINCT pa.course_instance_id) AS course_assignments, ci.study_year, ci.study_period
+    INTO most_intense_study_period
+    FROM employee_planned_activity AS epa
+    INNER JOIN planned_activity AS pa ON epa.planned_activity_id = pa.id
+    INNER JOIN course_instance AS ci ON pa.course_instance_id = ci.id
+    WHERE epa.employee_id = current_employee_id
+    GROUP BY ci.study_year, ci.study_period
+    ORDER BY course_assignments DESC
+    Limit 1;
+
+    -- If the most intense period has more then 4 course assignments, then we know the employee is overloaded
+    IF most_intense_study_period.course_assignments > 4 THEN
         RETURN true;
     ELSE
         RETURN false;
@@ -160,8 +163,8 @@ BEGIN
             WHERE NEW.id = epa.planned_activity_id
         );
         FOREACH affected_employee_id IN ARRAY affected_employee_list LOOP
-            IF employee_is_fully_loaded(affected_employee_id) THEN
-                RAISE EXCEPTION 'Employee (employee_id=%) was allocated to much work after updating course_instance_id for a planned activity.', affected_employee_id;
+            IF is_employee_overloaded(affected_employee_id) THEN
+                RAISE EXCEPTION 'Cannot update to course_instance_id=% for planned activity (id=%), employee (id=%) would be allocated to much work.', NEW.course_instance_id, NEW.id, affected_employee_id;
                 RETURN OLD;
             END IF;
         END LOOP;
@@ -173,8 +176,8 @@ $$ LANGUAGE plpgsql;
 CREATE FUNCTION prevent_teaching_overload_on_employee_allocation()
 RETURNS trigger AS $$
 BEGIN
-    IF employee_is_fully_loaded(NEW.employee_id) THEN
-        RAISE EXCEPTION 'Employee (employee_id=%) was allocated to much work.', NEW.employee_id;
+    IF is_employee_overloaded(NEW.employee_id) THEN
+        RAISE EXCEPTION 'Cannot allocate teaching activity (id=%) to employee (id=%) because that would be too much work for the employee.', NEW.planned_activity_id, NEW.employee_id;
         RETURN OLD;
     END IF;
     RETURN NEW;
@@ -182,13 +185,13 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER on_planned_activity_update
-BEFORE UPDATE
+AFTER UPDATE
 ON planned_activity
 FOR EACH ROW
 EXECUTE FUNCTION prevent_teaching_overload_on_planned_activity_update();
 
 CREATE TRIGGER on_employee_allocation
-BEFORE INSERT OR UPDATE
+AFTER INSERT OR UPDATE
 ON employee_planned_activity
 FOR EACH ROW
 EXECUTE FUNCTION prevent_teaching_overload_on_employee_allocation();
