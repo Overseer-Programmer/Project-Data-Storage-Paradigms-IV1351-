@@ -89,7 +89,8 @@ ALTER TABLE planned_activity ADD CONSTRAINT PK_planned_activity PRIMARY KEY (id)
 
 CREATE TABLE employee_planned_activity (
  employee_id INT NOT NULL,
- planned_activity_id INT NOT NULL
+ planned_activity_id INT NOT NULL,
+ allocated_hours INT NOT NULL
 );
 
 ALTER TABLE employee_planned_activity ADD CONSTRAINT PK_employee_planned_activity PRIMARY KEY (employee_id,planned_activity_id);

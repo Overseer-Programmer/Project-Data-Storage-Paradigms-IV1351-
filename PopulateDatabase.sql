@@ -139,11 +139,43 @@ BEGIN
             SELECT id FROM planned_activity
             ORDER BY RANDOM() LIMIT 4
         );
-        FOR i IN 1..floor(random() * 4 + 1)::int LOOP
-            INSERT INTO employee_planned_activity (employee_id, planned_activity_id)
-            VALUES (employee_id, random_planned_activities[i]);
+        FOR i IN 1..floor(random() * (4 + 1))::int LOOP
+            INSERT INTO employee_planned_activity (employee_id, planned_activity_id, allocated_hours)
+            VALUES (employee_id, random_planned_activities[i], 0);
         END LOOP;
     END LOOP;
 END;
-$$ LANGUAGE plpgsql
+$$ LANGUAGE plpgsql;
 
+-- Allocate a number of hours to each employee for each planned activity
+DO $$
+DECLARE
+    assigned_activity record;
+    current_allocated_hours int;
+    max_allocated_hours int;
+BEGIN
+    FOR assigned_activity IN SELECT * FROM employee_planned_activity LOOP
+        -- Get the current amount of allocated hours for the planned activity
+        SELECT SUM(allocated_hours)
+        INTO current_allocated_hours
+        FROM employee_planned_activity
+        WHERE planned_activity_id = assigned_activity.planned_activity_id;
+
+        /*
+            Get the maximum amount of allocated hours the planned activity can have.
+            This is the planned hours.
+        */
+        SELECT pa.planned_hours * ta.factor
+        INTO max_allocated_hours
+        FROM planned_activity AS pa
+        INNER JOIN teaching_activity AS ta
+        ON pa.teaching_activity_id = ta.id
+        WHERE pa.id = assigned_activity.planned_activity_id;
+
+        --RAISE NOTICE 'max_hours: %, current_allocated_hours: %', max_allocated_hours, current_allocated_hours;
+        UPDATE employee_planned_activity
+        SET allocated_hours = floor(random() * (max_allocated_hours - current_allocated_hours))::int
+        WHERE planned_activity_id = assigned_activity.planned_activity_id AND employee_id = assigned_activity.employee_id;
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
