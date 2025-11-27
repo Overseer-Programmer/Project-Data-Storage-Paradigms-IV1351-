@@ -115,8 +115,6 @@ ALTER TABLE planned_activity ADD CONSTRAINT FK_planned_activity_1 FOREIGN KEY (t
 ALTER TABLE employee_planned_activity ADD CONSTRAINT FK_employee_planned_activity_0 FOREIGN KEY (employee_id) REFERENCES employee (id) ON DELETE CASCADE;
 ALTER TABLE employee_planned_activity ADD CONSTRAINT FK_employee_planned_activity_1 FOREIGN KEY (planned_activity_id) REFERENCES planned_activity (id) ON DELETE CASCADE;
 
--- On delete 
-
 -- Triggers for Application Constraints --
 -- No more than 4 course instances for a teacher/employee
 /*
@@ -196,3 +194,47 @@ AFTER INSERT OR UPDATE
 ON employee_planned_activity
 FOR EACH ROW
 EXECUTE FUNCTION prevent_teaching_overload_on_employee_allocation();
+
+-- One immutable "Examination" and one immutable "Admin" planned_activity for each course instance
+CREATE FUNCTION add_exam_and_admin()
+RETURNS trigger AS $$
+DECLARE
+    exam_teaching_activity_id int;
+    admin_teaching_activity_id int;
+    course_hp DECIMAL(10, 1);
+BEGIN
+    -- Assert that "Examination" and "Admin" teaching activities exists
+    SELECT id
+    INTO exam_teaching_activity_id
+    FROM teaching_activity
+    WHERE activity_name = 'Examination' and factor = 1;
+    SELECT id
+    INTO admin_teaching_activity_id
+    FROM teaching_activity
+    WHERE activity_name = 'Admin' and factor = 1;
+    IF exam_teaching_activity_id IS NULL OR admin_teaching_activity_id IS NULL THEN
+        RAISE EXCEPTION 'A "Examination" and "Admin" teaching activity must exist and have factor 1 in order to create a course instance.';
+        RETURN OLD;
+    END IF;
+
+    -- Create the planned activities
+    SELECT cl.hp
+    INTO course_hp
+    FROM course_instance AS ci
+    INNER JOIN course_layout AS cl
+    ON ci.course_layout_id = cl.id
+    WHERE ci.id = NEW.id;
+    INSERT INTO planned_activity (planned_hours, course_instance_id, teaching_activity_id)
+    VALUES (32 + 0.725 * NEW.num_students, NEW.id, exam_teaching_activity_id);
+    INSERT INTO planned_activity (planned_hours, course_instance_id, teaching_activity_id)
+    VALUES (2 * course_hp + 28 + 0.2 * NEW.num_students, NEW.id, admin_teaching_activity_id);
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER on_course_instance_added
+AFTER INSERT
+ON course_instance
+FOR EACH ROW
+EXECUTE FUNCTION add_exam_and_admin();

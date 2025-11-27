@@ -16,6 +16,14 @@
         "factor": 1.8
     },
     {
+        "activity_name": "Admin",
+        "factor": 1
+    },
+    {
+        "activity_name": "Examination",
+        "factor": 1
+    },
+    {
         "activity_name": "Other",
         "factor": 1
     }

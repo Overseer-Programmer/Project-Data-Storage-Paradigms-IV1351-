@@ -18,8 +18,8 @@ BEGIN
     );
     FOREACH current_planned_activity_id IN ARRAY planned_activities_in_same_study_period LOOP
         BEGIN
-            INSERT INTO employee_planned_activity (employee_id, planned_activity_id)
-            VALUES (1, current_planned_activity_id);
+            INSERT INTO employee_planned_activity (employee_id, planned_activity_id, allocated_hours)
+            VALUES (1, current_planned_activity_id, 0);
         EXCEPTION
             WHEN others THEN
                 GET STACKED DIAGNOSTICS error_msg = MESSAGE_TEXT;

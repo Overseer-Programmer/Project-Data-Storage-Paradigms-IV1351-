@@ -38,7 +38,7 @@ SELECT pa.planned_hours, (
 ) AS course_instance_id,
 (
     SELECT id FROM teaching_activity
-    WHERE pa.id IS NULL  -- Dummy reference to outer table
+    WHERE pa.id IS NULL AND activity_name != 'Examination' AND activity_name != 'Admin'
     ORDER BY RANDOM() LIMIT 1
 ) AS teaching_activity_id
 FROM jsonb_populate_recordset(NULL::planned_activity, :'content'::jsonb) pa;
@@ -52,7 +52,7 @@ SELECT pa.planned_hours, (
 ) AS course_instance_id,
 (
     SELECT id FROM teaching_activity
-    WHERE pa.id IS NULL  -- Dummy reference to outer table
+    WHERE pa.id IS NULL AND activity_name != 'Examination' AND activity_name != 'Admin'
     ORDER BY RANDOM() LIMIT 1
 ) AS teaching_activity_id
 FROM jsonb_populate_recordset(NULL::planned_activity, :'content'::jsonb) pa;
@@ -66,7 +66,7 @@ SELECT pa.planned_hours, (
 ) AS course_instance_id,
 (
     SELECT id FROM teaching_activity
-    WHERE pa.id IS NULL  -- Dummy reference to outer table
+    WHERE pa.id IS NULL AND activity_name != 'Examination' AND activity_name != 'Admin'
     ORDER BY RANDOM() LIMIT 1
 ) AS teaching_activity_id
 FROM jsonb_populate_recordset(NULL::planned_activity, :'content'::jsonb) pa;
@@ -80,7 +80,7 @@ SELECT pa.planned_hours, (
 ) AS course_instance_id,
 (
     SELECT id FROM teaching_activity
-    WHERE pa.id IS NULL  -- Dummy reference to outer table
+    WHERE pa.id IS NULL AND activity_name != 'Examination' AND activity_name != 'Admin'
     ORDER BY RANDOM() LIMIT 1
 ) AS teaching_activity_id
 FROM jsonb_populate_recordset(NULL::planned_activity, :'content'::jsonb) pa;
@@ -126,7 +126,7 @@ SET supervisor_id = (
     ORDER BY RANDOM() LIMIT 1
 );
 
--- Create final employee_planned_activity cross reference table
+-- Fill the employee_planned_activity cross reference table and assign employees to planned activities
 DO $$
 DECLARE
     employee_list int[];
@@ -172,7 +172,11 @@ BEGIN
         ON pa.teaching_activity_id = ta.id
         WHERE pa.id = assigned_activity.planned_activity_id;
 
-        --RAISE NOTICE 'max_hours: %, current_allocated_hours: %', max_allocated_hours, current_allocated_hours;
+        /*
+            Assign the current employee a random number of allocated hours to the current
+            planned activity such that the total allocated hours does not exceed the
+            maximum amount of hours.
+        */
         UPDATE employee_planned_activity
         SET allocated_hours = floor(random() * (max_allocated_hours - current_allocated_hours))::int
         WHERE planned_activity_id = assigned_activity.planned_activity_id AND employee_id = assigned_activity.employee_id;
