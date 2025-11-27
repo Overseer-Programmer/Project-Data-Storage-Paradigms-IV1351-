@@ -3,7 +3,7 @@ This is the repository used to store and share all files used in the project for
 
 # Requirements
 
-PostgreSQL was used and could possibly be required for the sql scripts to run properly.
+PostgreSQL 18.2 was used and could possibly be required for the sql scripts to run properly.
 
 # How to use
 
