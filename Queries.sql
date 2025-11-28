@@ -71,7 +71,11 @@ INNER JOIN course_layout AS cl ON ci.course_layout_id = cl.id
 INNER JOIN planned_activity AS pa ON pa.course_instance_id = ci.id
 INNER JOIN teaching_activity AS ta ON pa.teaching_activity_id = ta.id
 INNER JOIN employee_planned_activity AS epa ON epa.planned_activity_id = pa.id
-INNER JOIN employee AS e ON epa.employee_id = e.id
+INNER JOIN (
+    SELECT *
+    FROM employee
+    LIMIT 10
+) AS e ON epa.employee_id = e.id
 INNER JOIN person AS p ON p.id = e.person_id
 WHERE ci.study_year = (SELECT EXTRACT(YEAR FROM CURRENT_DATE)) -- Current year
 GROUP BY ci.id, cl.course_code, ci.instance_id, cl.hp, ci.study_period, p.first_name, p.last_name, e.id;

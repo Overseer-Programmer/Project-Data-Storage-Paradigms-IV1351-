@@ -140,23 +140,28 @@ BEGIN
     employee_list := ARRAY(SELECT id FROM employee);
     all_course_instances := ARRAY(SELECT id FROM course_instance);
     FOREACH current_employee_id IN ARRAY employee_list LOOP
-        FOR i IN 1..floor(random() * (4 + 1))::int LOOP
-            -- Find a random course instance to assign planned activities from
-            SELECT id
-            INTO current_course_instance_id
-            FROM course_instance
-            WHERE id = all_course_instances[1 + floor(random() * (cardinality(all_course_instances) + 1))::int];
-            
-            -- Locate all the planned activities in that course instance
-            course_instance_belonging_planned_activities := ARRAY(
+        RAISE NOTICE 'employee=% assigned % planned activities', current_employee_id, (1 + floor(random() * 4)::int);
+        FOR i IN 1..(1 + floor(random() * 4)::int) LOOP
+            -- Find a course instance that has planned activities
+            course_instance_belonging_planned_activities := '{}';
+            WHILE cardinality(course_instance_belonging_planned_activities) = 0 LOOP
+                -- Find a random course instance to assign planned activities from
                 SELECT id
-                FROM planned_activity
-                WHERE course_instance_id = current_course_instance_id
-            );
+                INTO current_course_instance_id
+                FROM course_instance
+                WHERE id = all_course_instances[1 + floor(random() * cardinality(all_course_instances))::int];
+                
+                -- Locate all the planned activities in that course instance
+                course_instance_belonging_planned_activities := ARRAY(
+                    SELECT id
+                    FROM planned_activity
+                    WHERE course_instance_id = current_course_instance_id
+                );
+            END LOOP;
 
             -- Assign the employee to a number of the planned activities for the course
-            FOR j IN 1..floor(random() * (cardinality(course_instance_belonging_planned_activities) + 1))::int LOOP
-                chosen_planned_activity_id := course_instance_belonging_planned_activities[1 + floor(random() * (cardinality(course_instance_belonging_planned_activities)))::int];
+            FOR j IN 1..(1 + floor(random() * cardinality(course_instance_belonging_planned_activities))::int) LOOP
+                chosen_planned_activity_id := course_instance_belonging_planned_activities[1 + floor(random() * cardinality(course_instance_belonging_planned_activities))];
                 SELECT planned_activity_id
                 INTO existing_allocation
                 FROM employee_planned_activity
@@ -202,7 +207,7 @@ BEGIN
             maximum amount of hours.
         */
         UPDATE employee_planned_activity
-        SET allocated_hours = floor(random() * (max_allocated_hours - current_allocated_hours))::int
+        SET allocated_hours = floor(random() * (max_allocated_hours - current_allocated_hours + 1))::int
         WHERE planned_activity_id = assigned_activity.planned_activity_id AND employee_id = assigned_activity.employee_id;
     END LOOP;
 END;
