@@ -130,18 +130,42 @@ SET supervisor_id = (
 DO $$
 DECLARE
     employee_list int[];
-    employee_id int;
-    random_planned_activities int[];
+    current_employee_id int;
+    all_course_instances int[];
+    current_course_instance_id int;
+    course_instance_belonging_planned_activities int[];
+    chosen_planned_activity_id int;
+    existing_allocation int;
 BEGIN
     employee_list := ARRAY(SELECT id FROM employee);
-    FOREACH employee_id IN ARRAY employee_list LOOP
-        random_planned_activities := ARRAY(
-            SELECT id FROM planned_activity
-            ORDER BY RANDOM() LIMIT 4
-        );
+    all_course_instances := ARRAY(SELECT id FROM course_instance);
+    FOREACH current_employee_id IN ARRAY employee_list LOOP
         FOR i IN 1..floor(random() * (4 + 1))::int LOOP
-            INSERT INTO employee_planned_activity (employee_id, planned_activity_id, allocated_hours)
-            VALUES (employee_id, random_planned_activities[i], 0);
+            -- Find a random course instance to assign planned activities from
+            SELECT id
+            INTO current_course_instance_id
+            FROM course_instance
+            WHERE id = all_course_instances[1 + floor(random() * (cardinality(all_course_instances) + 1))::int];
+            
+            -- Locate all the planned activities in that course instance
+            course_instance_belonging_planned_activities := ARRAY(
+                SELECT id
+                FROM planned_activity
+                WHERE course_instance_id = current_course_instance_id
+            );
+
+            -- Assign the employee to a number of the planned activities for the course
+            FOR j IN 1..floor(random() * (cardinality(course_instance_belonging_planned_activities) + 1))::int LOOP
+                chosen_planned_activity_id := course_instance_belonging_planned_activities[1 + floor(random() * (cardinality(course_instance_belonging_planned_activities)))::int];
+                SELECT planned_activity_id
+                INTO existing_allocation
+                FROM employee_planned_activity
+                WHERE planned_activity_id = chosen_planned_activity_id AND employee_id = current_employee_id;
+                IF existing_allocation IS NULL THEN
+                    INSERT INTO employee_planned_activity (employee_id, planned_activity_id, allocated_hours)
+                    VALUES (current_employee_id, chosen_planned_activity_id, 0);
+                END IF;
+            END LOOP;
         END LOOP;
     END LOOP;
 END;
