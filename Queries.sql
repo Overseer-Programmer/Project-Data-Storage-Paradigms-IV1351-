@@ -52,14 +52,14 @@ SELECT cl.course_code AS "Course Code",
     cl.hp AS "HP",
     ci.study_period AS "Period",
     CONCAT(p.first_name, ' ' ,p.last_name )  AS "Teacher's Name",
-    SUM(CASE WHEN ta.activity_name = 'Lecture' THEN pa.planned_hours * ta.factor ELSE 0 END ) AS "Lecture Hours",
-    SUM(CASE WHEN ta.activity_name = 'Tutorial' THEN pa.planned_hours * ta.factor ELSE 0 END ) AS "Tutorial Hours",
-    SUM(CASE WHEN ta.activity_name = 'Lab' THEN pa.planned_hours * ta.factor ELSE 0 END ) AS "Lab Hours",
-    SUM(CASE WHEN ta.activity_name = 'Seminar' THEN pa.planned_hours * ta.factor ELSE 0 END ) AS "Seminar Hours",
-    SUM(CASE WHEN ta.activity_name = 'Other' THEN pa.planned_hours * ta.factor ELSE 0 END ) AS "Other Overhead Hours",
-    SUM(CASE WHEN ta.activity_name = 'Admin' THEN pa.planned_hours ELSE 0 END) AS "Admin",
-    SUM(CASE WHEN ta.activity_name = 'Examination' THEN pa.planned_hours ELSE 0 END) AS "Exam",
-    SUM(pa.planned_hours * ta.factor) AS "Total Hours"
+    SUM(CASE WHEN ta.activity_name = 'Lecture' THEN epa.allocated_hours ELSE 0 END ) AS "Lecture Hours",
+    SUM(CASE WHEN ta.activity_name = 'Tutorial' THEN epa.allocated_hours ELSE 0 END ) AS "Tutorial Hours",
+    SUM(CASE WHEN ta.activity_name = 'Lab' THEN epa.allocated_hours  ELSE 0 END ) AS "Lab Hours",
+    SUM(CASE WHEN ta.activity_name = 'Seminar' THEN epa.allocated_hours ELSE 0 END ) AS "Seminar Hours",
+    SUM(CASE WHEN ta.activity_name = 'Other' THEN epa.allocated_hours ELSE 0 END ) AS "Other Overhead Hours",
+    SUM(CASE WHEN ta.activity_name = 'Admin' THEN epa.allocated_hours ELSE 0 END) AS "Admin",
+    SUM(CASE WHEN ta.activity_name = 'Examination' THEN epa.allocated_hours ELSE 0 END) AS "Exam",
+    SUM(epa.allocated_hours) AS "Total Hours"
 
 FROM course_instance AS ci
 INNER JOIN course_layout AS cl ON ci.course_layout_id = cl.id
