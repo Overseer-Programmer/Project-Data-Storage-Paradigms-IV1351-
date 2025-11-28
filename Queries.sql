@@ -11,7 +11,7 @@ SELECT cl.course_code AS "Course Code",
     SUM(CASE WHEN ta.activity_name = 'Other' THEN pa.planned_hours * ta.factor ELSE 0 END) AS "Other Overhead Hours",
     SUM(CASE WHEN ta.activity_name = 'Examination' THEN pa.planned_hours ELSE 0 END) AS "Exam",
     SUM(CASE WHEN ta.activity_name = 'Admin' THEN pa.planned_hours ELSE 0 END) AS "Admin",
-    SUM(pa.planned_hours * ta.factor) AS "Total_Hours"
+    SUM(pa.planned_hours * ta.factor) AS "Total Hours"
 
 FROM course_instance AS ci
 INNER JOIN course_layout AS cl ON ci.course_layout_id = cl.id
@@ -33,7 +33,7 @@ SELECT cl.course_code AS "Course Code",
     SUM(CASE WHEN ta.activity_name = 'Other' THEN epa.allocated_hours ELSE 0 END) AS "Other Overhead Hours",
     SUM(CASE WHEN ta.activity_name = 'Examination' THEN epa.allocated_hours ELSE 0 END) AS "Exam",
     SUM(CASE WHEN ta.activity_name = 'Admin' THEN epa.allocated_hours ELSE 0 END) AS "Admin",
-    SUM(epa.allocated_hours) AS "Total_Hours"
+    SUM(epa.allocated_hours) AS "Total Hours"
 
 FROM course_instance AS ci
 INNER JOIN course_layout AS cl ON ci.course_layout_id = cl.id
@@ -59,7 +59,7 @@ SELECT cl.course_code AS "Course Code",
     SUM(CASE WHEN ta.activity_name = 'Other' THEN pa.planned_hours * ta.factor ELSE 0 END ) AS "Other Overhead Hours",
     SUM(CASE WHEN ta.activity_name = 'Admin' THEN pa.planned_hours ELSE 0 END) AS "Admin",
     SUM(CASE WHEN ta.activity_name = 'Examination' THEN pa.planned_hours ELSE 0 END) AS "Exam",
-    SUM(pa.planned_hours * ta.factor) AS "Total"
+    SUM(pa.planned_hours * ta.factor) AS "Total Hours"
 
 FROM course_instance AS ci
 INNER JOIN course_layout AS cl ON ci.course_layout_id = cl.id
