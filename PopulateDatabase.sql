@@ -140,7 +140,6 @@ BEGIN
     employee_list := ARRAY(SELECT id FROM employee);
     all_course_instances := ARRAY(SELECT id FROM course_instance);
     FOREACH current_employee_id IN ARRAY employee_list LOOP
-        RAISE NOTICE 'employee=% assigned % planned activities', current_employee_id, (1 + floor(random() * 4)::int);
         FOR i IN 1..(1 + floor(random() * 4)::int) LOOP
             -- Find a course instance that has planned activities
             course_instance_belonging_planned_activities := '{}';
@@ -194,7 +193,7 @@ BEGIN
             Get the maximum amount of allocated hours the planned activity can have.
             This is the planned hours.
         */
-        SELECT pa.planned_hours * ta.factor
+        SELECT pa.planned_hours
         INTO max_allocated_hours
         FROM planned_activity AS pa
         INNER JOIN teaching_activity AS ta
