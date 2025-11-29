@@ -2,7 +2,7 @@
 This is the repository used to store and share all files used in the project for Data Storage Paradigms (IV1351).
 
 ## Requirements
-PostgreSQL 18.2 was used and could possibly be required for the sql scripts to run properly.
+PostgreSQL 18.1 was used and the sql scripts might not function for earlier versions.
 
 ## How to use
 Firstly, make sure to enter a terminal in this project folder and open up a database in ```psql```.
