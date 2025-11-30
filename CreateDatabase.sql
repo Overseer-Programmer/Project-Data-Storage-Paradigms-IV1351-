@@ -4,7 +4,7 @@ CREATE TABLE course_layout (
  course_name VARCHAR(250) NOT NULL,
  min_students INT NOT NULL,
  max_students INT NOT NULL,
- hp DECIMAL(10) NOT NULL
+ hp DECIMAL(10, 1) NOT NULL
 );
 
 ALTER TABLE course_layout ADD CONSTRAINT PK_course_layout PRIMARY KEY (id);
@@ -58,18 +58,19 @@ ALTER TABLE person ADD CONSTRAINT PK_person PRIMARY KEY (id);
 CREATE TABLE teaching_activity (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  activity_name VARCHAR(250) UNIQUE NOT NULL,
- factor DECIMAL(10) NOT NULL
+ factor DECIMAL(10, 1) NOT NULL
 );
 
 ALTER TABLE teaching_activity ADD CONSTRAINT PK_teaching_activity PRIMARY KEY (id);
 
+CREATE TYPE academic_period AS ENUM ('P1', 'P2', 'P3', 'P4');   
 
 CREATE TABLE course_instance (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
  instance_id VARCHAR(300) UNIQUE NOT NULL,
  num_students INT NOT NULL,
  study_year INT NOT NULL,
- study_period INT NOT NULL,
+ study_period academic_period NOT NULL,
  course_layout_id INT NOT NULL
 );
 
@@ -88,7 +89,8 @@ ALTER TABLE planned_activity ADD CONSTRAINT PK_planned_activity PRIMARY KEY (id)
 
 CREATE TABLE employee_planned_activity (
  employee_id INT NOT NULL,
- planned_activity_id INT NOT NULL
+ planned_activity_id INT NOT NULL,
+ allocated_hours INT NOT NULL
 );
 
 ALTER TABLE employee_planned_activity ADD CONSTRAINT PK_employee_planned_activity PRIMARY KEY (employee_id,planned_activity_id);
@@ -113,29 +115,30 @@ ALTER TABLE planned_activity ADD CONSTRAINT FK_planned_activity_1 FOREIGN KEY (t
 ALTER TABLE employee_planned_activity ADD CONSTRAINT FK_employee_planned_activity_0 FOREIGN KEY (employee_id) REFERENCES employee (id) ON DELETE CASCADE;
 ALTER TABLE employee_planned_activity ADD CONSTRAINT FK_employee_planned_activity_1 FOREIGN KEY (planned_activity_id) REFERENCES planned_activity (id) ON DELETE CASCADE;
 
--- On delete 
-
 -- Triggers for Application Constraints --
 -- No more than 4 course instances for a teacher/employee
-CREATE FUNCTION employee_is_fully_loaded(current_employee_id int)
+/*
+    Checks if an employee will is overloaded aka the employee is allocated
+    to more than 4 different course instances for the same study year and study period.
+*/
+CREATE FUNCTION is_employee_overloaded(current_employee_id int)
 RETURNS BOOLEAN AS $$
 DECLARE
-    most_intense_period record;
+    most_intense_study_period record;
 BEGIN
-    SELECT COUNT(*) AS distinct_simultaneous_count, study_year, study_period
-    INTO most_intense_period
-    FROM (
-        SELECT COUNT(*), pa.course_instance_id, ci.study_year, ci.study_period
-        FROM employee_planned_activity AS epa
-        INNER JOIN planned_activity AS pa ON epa.planned_activity_id = pa.id
-        INNER JOIN course_instance AS ci ON pa.course_instance_id = ci.id
-        WHERE epa.employee_id = current_employee_id
-        GROUP BY pa.course_instance_id, ci.study_year, ci.study_period
-    )
-    GROUP BY study_year, study_period
-    ORDER BY distinct_simultaneous_count DESC
-    LIMIT 1;
-    IF most_intense_period.distinct_simultaneous_count >= 4 THEN
+    -- Find a period where the employee is assigned to the most course instances
+    SELECT COUNT(DISTINCT pa.course_instance_id) AS course_assignments, ci.study_year, ci.study_period
+    INTO most_intense_study_period
+    FROM employee_planned_activity AS epa
+    INNER JOIN planned_activity AS pa ON epa.planned_activity_id = pa.id
+    INNER JOIN course_instance AS ci ON pa.course_instance_id = ci.id
+    WHERE epa.employee_id = current_employee_id
+    GROUP BY ci.study_year, ci.study_period
+    ORDER BY course_assignments DESC
+    Limit 1;
+
+    -- If the most intense period has more then 4 course assignments, then we know the employee is overloaded
+    IF most_intense_study_period.course_assignments > 4 THEN
         RETURN true;
     ELSE
         RETURN false;
@@ -159,8 +162,8 @@ BEGIN
             WHERE NEW.id = epa.planned_activity_id
         );
         FOREACH affected_employee_id IN ARRAY affected_employee_list LOOP
-            IF employee_is_fully_loaded(affected_employee_id) THEN
-                RAISE EXCEPTION 'Employee (employee_id=%) was allocated to much work after updating course_instance_id for a planned activity.', affected_employee_id;
+            IF is_employee_overloaded(affected_employee_id) THEN
+                RAISE EXCEPTION 'Cannot update to course_instance_id=% for planned activity (id=%), employee (id=%) would be allocated to much work.', NEW.course_instance_id, NEW.id, affected_employee_id;
                 RETURN OLD;
             END IF;
         END LOOP;
@@ -172,8 +175,8 @@ $$ LANGUAGE plpgsql;
 CREATE FUNCTION prevent_teaching_overload_on_employee_allocation()
 RETURNS trigger AS $$
 BEGIN
-    IF employee_is_fully_loaded(NEW.employee_id) THEN
-        RAISE EXCEPTION 'Employee (employee_id=%) was allocated to much work.', NEW.employee_id;
+    IF is_employee_overloaded(NEW.employee_id) THEN
+        RAISE EXCEPTION 'Cannot allocate teaching activity (id=%) to employee (id=%) because that would be too much work for the employee.', NEW.planned_activity_id, NEW.employee_id;
         RETURN OLD;
     END IF;
     RETURN NEW;
@@ -181,13 +184,57 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER on_planned_activity_update
-BEFORE UPDATE
+AFTER UPDATE
 ON planned_activity
 FOR EACH ROW
 EXECUTE FUNCTION prevent_teaching_overload_on_planned_activity_update();
 
 CREATE TRIGGER on_employee_allocation
-BEFORE INSERT OR UPDATE
+AFTER INSERT OR UPDATE
 ON employee_planned_activity
 FOR EACH ROW
 EXECUTE FUNCTION prevent_teaching_overload_on_employee_allocation();
+
+-- One immutable "Examination" and one immutable "Admin" planned_activity for each course instance
+CREATE FUNCTION add_exam_and_admin()
+RETURNS trigger AS $$
+DECLARE
+    exam_teaching_activity_id int;
+    admin_teaching_activity_id int;
+    course_hp DECIMAL(10, 1);
+BEGIN
+    -- Assert that "Examination" and "Admin" teaching activities exists
+    SELECT id
+    INTO exam_teaching_activity_id
+    FROM teaching_activity
+    WHERE activity_name = 'Examination' and factor = 1;
+    SELECT id
+    INTO admin_teaching_activity_id
+    FROM teaching_activity
+    WHERE activity_name = 'Admin' and factor = 1;
+    IF exam_teaching_activity_id IS NULL OR admin_teaching_activity_id IS NULL THEN
+        RAISE EXCEPTION 'A "Examination" and "Admin" teaching activity must exist and have factor 1 in order to create a course instance.';
+        RETURN OLD;
+    END IF;
+
+    -- Create the planned activities
+    SELECT cl.hp
+    INTO course_hp
+    FROM course_instance AS ci
+    INNER JOIN course_layout AS cl
+    ON ci.course_layout_id = cl.id
+    WHERE ci.id = NEW.id;
+    INSERT INTO planned_activity (planned_hours, course_instance_id, teaching_activity_id)
+    VALUES (32 + 0.725 * NEW.num_students, NEW.id, exam_teaching_activity_id);
+    INSERT INTO planned_activity (planned_hours, course_instance_id, teaching_activity_id)
+    VALUES (2 * course_hp + 28 + 0.2 * NEW.num_students, NEW.id, admin_teaching_activity_id);
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER on_course_instance_added
+AFTER INSERT
+ON course_instance
+FOR EACH ROW
+EXECUTE FUNCTION add_exam_and_admin();
