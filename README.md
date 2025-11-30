@@ -33,13 +33,17 @@ To run query 1, run:
 ```
 
 #### Query 2
+This query randomly selects a course instance from the current year to filter on.
+
 To run query 2, run:
 ```bash
 \i TaskQueries/Query2.sql
 ```
 
+Please note that this query could return 0 rows if the course has no assigned employees. This is possible because the ```PopulateDatabase.sql``` does not guarantee that every course instance is assigned at least one employee.
+
 #### Query 3
-To run query 3, you must first choose a employee (teacher) to filter for. You can find employees assigned to course instances of the current year by running:
+To run query 3, you must first choose an employee (teacher) to filter for. You can find employees assigned to course instances of the current year by running:
 ```bash
 \i HelperQueries/FindEmployeesForCurrentYearCourseInstances.sql
 ```

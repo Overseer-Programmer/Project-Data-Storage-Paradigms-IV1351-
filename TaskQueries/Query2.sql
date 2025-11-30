@@ -12,13 +12,7 @@ SELECT cl.course_code AS "Course Code",
     SUM(CASE WHEN ta.activity_name = 'Admin' THEN epa.allocated_hours * ta.factor ELSE 0 END) AS "Admin",
     SUM(epa.allocated_hours * ta.factor) AS "Total Hours"
 
-FROM (
-    -- Select a current year's course instance
-    SELECT *
-    FROM course_instance
-    WHERE study_year = (SELECT EXTRACT(YEAR FROM CURRENT_DATE))
-    LIMIT 1
-) AS ci
+FROM course_instance AS ci
 INNER JOIN course_layout AS cl ON ci.course_layout_id = cl.id
 INNER JOIN planned_activity AS pa ON pa.course_instance_id = ci.id
 INNER JOIN teaching_activity AS ta ON pa.teaching_activity_id = ta.id
@@ -26,4 +20,12 @@ INNER JOIN employee_planned_activity AS epa ON epa.planned_activity_id = pa.id
 INNER JOIN employee AS e ON epa.employee_id = e.id
 INNER JOIN person AS p ON e.person_id = p.id
 INNER JOIN job_title AS jt ON e.job_title_id = jt.id
+WHERE ci.id = (
+    -- Select a random current year's course instance
+    SELECT id
+    FROM course_instance
+    WHERE study_year = (SELECT EXTRACT(YEAR FROM CURRENT_DATE))
+    ORDER BY RANDOM()
+    LIMIT 1
+)
 GROUP BY ci.id, cl.course_code, ci.instance_id, cl.hp, p.first_name, p.last_name, jt.job_title;
