@@ -59,7 +59,12 @@ Then you can run the query:
 ```
 
 #### Query 4
-To run query 4, run:
+To run query 4, you must first specify the minimum amount of course instances you want employees to be assigned to. You do this by entering:
+```bash
+\set min_course_instances INSTANCE_COUNT
+```
+
+Then you can run the query:
 ```bash
 \i TaskQueries/Query4.sql
 ```
