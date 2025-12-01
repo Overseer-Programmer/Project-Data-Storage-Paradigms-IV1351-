@@ -1,0 +1,75 @@
+ 
+ Query 3 - EXPLAIN
+                                                                         QUERY PLAN
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ GroupAggregate  (cost=91.77..91.90 rows=1 width=337)
+   Group Key: ci.id, cl.course_code, cl.hp, p.first_name, p.last_name
+   InitPlan 1 (returns $0)
+     ->  Result  (cost=0.00..0.01 rows=1 width=32)
+   ->  Sort  (cost=91.76..91.76 rows=1 width=66)
+         Sort Key: ci.id, cl.course_code, cl.hp, p.first_name, p.last_name
+         ->  Nested Loop  (cost=12.48..91.75 rows=1 width=66)
+               ->  Nested Loop  (cost=12.35..91.59 rows=1 width=57)
+                     Join Filter: (cl.id = ci.course_layout_id)
+                     ->  Nested Loop  (cost=12.35..87.34 rows=1 width=48)
+                           ->  Nested Loop  (cost=12.08..79.02 rows=1 width=39)
+                                 ->  Nested Loop  (cost=11.80..70.72 rows=1 width=35)
+                                       ->  Hash Join  (cost=11.53..66.47 rows=12 width=31)
+                                             Hash Cond: (pa.course_instance_id = ci.id)
+                                             ->  Seq Scan on planned_activity pa  (cost=0.00..47.00 rows=3000 width=12)
+                                             ->  Hash  (cost=11.50..11.50 rows=2 width=23)
+                                                   ->  Seq Scan on course_instance ci  (cost=0.00..11.50 rows=2 width=23)
+                                                         Filter: ((study_year)::numeric = $0)
+                                       ->  Index Scan using pk_employee_planned_activity on employee_planned_activity epa  (cost=0.28..0.35 rows=1 width=12)
+                                             Index Cond: ((employee_id = 258) AND (planned_activity_id = pa.id))
+                                 ->  Index Scan using pk_employee on employee e  (cost=0.27..8.29 rows=1 width=8)
+                                       Index Cond: (id = 258)
+                           ->  Index Scan using pk_person on person p  (cost=0.27..8.29 rows=1 width=17)
+                                 Index Cond: (id = e.person_id)
+                     ->  Seq Scan on course_layout cl  (cost=0.00..3.00 rows=100 width=17)
+               ->  Index Scan using pk_teaching_activity on teaching_activity ta  (cost=0.13..0.15 rows=1 width=17)
+                     Index Cond: (id = pa.teaching_activity_id)
+(27 rows)
+
+~
+~
+(END)
+
+Query 3 - EXPLAIN ANALYZE
+     QUERY PLAN                                                                 
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ GroupAggregate  (cost=91.77..91.90 rows=1 width=337) (actual time=3.391..3.411 rows=3 loops=1)
+   Group Key: ci.id, cl.course_code, cl.hp, p.first_name, p.last_name
+   InitPlan 1 (returns $0)
+     ->  Result  (cost=0.00..0.01 rows=1 width=32) (actual time=0.005..0.006 rows=1 loops=1)
+   ->  Sort  (cost=91.76..91.76 rows=1 width=66) (actual time=3.359..3.363 rows=10 loops=1)
+         Sort Key: ci.id, cl.course_code, cl.hp, p.first_name, p.last_name
+         Sort Method: quicksort  Memory: 26kB
+         ->  Nested Loop  (cost=12.48..91.75 rows=1 width=66) (actual time=1.056..3.337 rows=10 loops=1)
+               ->  Nested Loop  (cost=12.35..91.59 rows=1 width=57) (actual time=1.051..3.301 rows=10 loops=1)
+                     Join Filter: (cl.id = ci.course_layout_id)
+                     Rows Removed by Join Filter: 689
+                     ->  Nested Loop  (cost=12.35..87.34 rows=1 width=48) (actual time=1.024..3.158 rows=10 loops=1)
+                           ->  Nested Loop  (cost=12.08..79.02 rows=1 width=39) (actual time=1.018..3.137 rows=10 loops=1)
+                                 ->  Nested Loop  (cost=11.80..70.72 rows=1 width=35) (actual time=1.008..3.107 rows=10 loops=1)
+                                       ->  Hash Join  (cost=11.53..66.47 rows=12 width=31) (actual time=0.278..1.136 rows=997 loops=1)
+                                             Hash Cond: (pa.course_instance_id = ci.id)
+                                             ->  Seq Scan on planned_activity pa  (cost=0.00..47.00 rows=3000 width=12) (actual time=0.007..0.273 rows=3000 loops=1)      
+                                             ->  Hash  (cost=11.50..11.50 rows=2 width=23) (actual time=0.234..0.235 rows=163 loops=1)
+                                                   Buckets: 1024  Batches: 1  Memory Usage: 17kB
+                                                   ->  Seq Scan on course_instance ci  (cost=0.00..11.50 rows=2 width=23) (actual time=0.016..0.147 rows=163 loops=1)     
+                                                         Filter: ((study_year)::numeric = $0)
+                                                         Rows Removed by Filter: 337
+                                       ->  Index Scan using pk_employee_planned_activity on employee_planned_activity epa  (cost=0.28..0.35 rows=1 width=12) (actual time=0.002..0.002 rows=0 loops=997)
+                                             Index Cond: ((employee_id = 258) AND (planned_activity_id = pa.id))
+                                 ->  Index Scan using pk_employee on employee e  (cost=0.27..8.29 rows=1 width=8) (actual time=0.002..0.002 rows=1 loops=10)
+                                       Index Cond: (id = 258)
+                           ->  Index Scan using pk_person on person p  (cost=0.27..8.29 rows=1 width=17) (actual time=0.001..0.001 rows=1 loops=10)
+                                 Index Cond: (id = e.person_id)
+                     ->  Seq Scan on course_layout cl  (cost=0.00..3.00 rows=100 width=17) (actual time=0.002..0.007 rows=70 loops=10)
+               ->  Index Scan using pk_teaching_activity on teaching_activity ta  (cost=0.13..0.15 rows=1 width=17) (actual time=0.001..0.001 rows=1 loops=10)
+                     Index Cond: (id = pa.teaching_activity_id)
+ Planning Time: 1.194 ms
+ Execution Time: 3.494 ms
+:
