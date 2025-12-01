@@ -1,0 +1,97 @@
+
+QUERY 2 -EXPLAIN (plan)
+   QUERY PLAN
+----------------------------------------------------------------------------------------------------------------------------------------------
+ GroupAggregate  (cost=138.63..139.26 rows=5 width=364)
+   Group Key: cl.course_code, cl.hp, p.first_name, p.last_name, jt.job_title
+   InitPlan 2 (returns $1)
+     ->  Limit  (cost=11.53..11.53 rows=1 width=12)
+           InitPlan 1 (returns $0)
+             ->  Result  (cost=0.00..0.01 rows=1 width=32)
+           ->  Sort  (cost=11.52..11.52 rows=2 width=12)
+                 Sort Key: (random())
+                 ->  Seq Scan on course_instance  (cost=0.00..11.51 rows=2 width=12)
+                       Filter: ((study_year)::numeric = $0)
+   ->  Sort  (cost=127.10..127.11 rows=5 width=93)
+         Sort Key: cl.course_code, cl.hp, p.first_name, p.last_name, jt.job_title
+         ->  Nested Loop  (cost=59.78..127.04 rows=5 width=93)
+               ->  Nested Loop  (cost=59.64..126.08 rows=5 width=62)
+                     ->  Nested Loop  (cost=59.37..124.00 rows=5 width=53)
+                           ->  Nested Loop  (cost=59.10..122.38 rows=5 width=49)
+                                 Join Filter: (ta.id = pa.teaching_activity_id)
+                                 ->  Hash Join  (cost=59.10..120.85 rows=5 width=40)
+                                       Hash Cond: (ci.course_layout_id = cl.id)
+                                       ->  Nested Loop  (cost=54.85..116.58 rows=5 width=31)
+                                             ->  Index Scan using pk_course_instance on course_instance ci  (cost=0.27..8.29 rows=1 width=19)
+                                                   Index Cond: (id = $1)
+                                             ->  Hash Join  (cost=54.58..108.24 rows=5 width=16)
+                                                   Hash Cond: (epa.planned_activity_id = pa.id)
+                                                   ->  Seq Scan on employee_planned_activity epa  (cost=0.00..47.70 rows=2270 width=12)
+                                                   ->  Hash  (cost=54.50..54.50 rows=6 width=12)
+                                                         ->  Seq Scan on planned_activity pa  (cost=0.00..54.50 rows=6 width=12)
+                                                               Filter: (course_instance_id = $1)
+                                       ->  Hash  (cost=3.00..3.00 rows=100 width=17)
+                                             ->  Seq Scan on course_layout cl  (cost=0.00..3.00 rows=100 width=17)
+                                 ->  Materialize  (cost=0.00..1.10 rows=7 width=17)
+                                       ->  Seq Scan on teaching_activity ta  (cost=0.00..1.07 rows=7 width=17)
+                           ->  Index Scan using pk_employee on employee e  (cost=0.27..0.32 rows=1 width=12)
+                                 Index Cond: (id = epa.employee_id)
+                     ->  Index Scan using pk_person on person p  (cost=0.27..0.42 rows=1 width=17)
+                           Index Cond: (id = e.person_id)
+               ->  Index Scan using pk_job_title on job_title jt  (cost=0.14..0.19 rows=1 width=39)
+                     Index Cond: (id = e.job_title_id)
+(38 rows)
+
+
+QUERY 2 WITH EXPLAIN ANALYZE (result)
+
+                                                                                                       QUERY PLAN
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ GroupAggregate  (cost=138.63..139.26 rows=5 width=364) (actual time=1.041..1.054 rows=2 loops=1)
+   Group Key: cl.course_code, cl.hp, p.first_name, p.last_name, jt.job_title
+   InitPlan 2 (returns $1)
+     ->  Limit  (cost=11.53..11.53 rows=1 width=12) (actual time=0.162..0.163 rows=1 loops=1)
+           InitPlan 1 (returns $0)
+             ->  Result  (cost=0.00..0.01 rows=1 width=32) (actual time=0.005..0.005 rows=1 loops=1)
+           ->  Sort  (cost=11.52..11.52 rows=2 width=12) (actual time=0.161..0.162 rows=1 loops=1)
+                 Sort Key: (random())
+                 Sort Method: top-N heapsort  Memory: 25kB
+                 ->  Seq Scan on course_instance  (cost=0.00..11.51 rows=2 width=12) (actual time=0.014..0.131 rows=163 loops=1)
+                       Filter: ((study_year)::numeric = $0)
+                       Rows Removed by Filter: 337
+   ->  Sort  (cost=127.10..127.11 rows=5 width=93) (actual time=1.019..1.023 rows=4 loops=1)
+         Sort Key: cl.course_code, cl.hp, p.first_name, p.last_name, jt.job_title
+         Sort Method: quicksort  Memory: 25kB
+         ->  Nested Loop  (cost=59.78..127.04 rows=5 width=93) (actual time=0.880..1.006 rows=4 loops=1)
+               ->  Nested Loop  (cost=59.64..126.08 rows=5 width=62) (actual time=0.876..0.996 rows=4 loops=1)
+                     ->  Nested Loop  (cost=59.37..124.00 rows=5 width=53) (actual time=0.871..0.984 rows=4 loops=1)
+                           ->  Nested Loop  (cost=59.10..122.38 rows=5 width=49) (actual time=0.863..0.968 rows=4 loops=1)
+                                 Join Filter: (ta.id = pa.teaching_activity_id)
+                                 Rows Removed by Join Filter: 8
+                                 ->  Hash Join  (cost=59.10..120.85 rows=5 width=40) (actual time=0.856..0.954 rows=4 loops=1)
+                                       Hash Cond: (ci.course_layout_id = cl.id)
+                                       ->  Nested Loop  (cost=54.85..116.58 rows=5 width=31) (actual time=0.805..0.902 rows=4 loops=1)
+                                             ->  Index Scan using pk_course_instance on course_instance ci  (cost=0.27..8.29 rows=1 width=19) (actual time=0.173..0.174 rows=1 loops=1)
+                                                   Index Cond: (id = $1)
+                                             ->  Hash Join  (cost=54.58..108.24 rows=5 width=16) (actual time=0.631..0.725 rows=4 loops=1)
+                                                   Hash Cond: (epa.planned_activity_id = pa.id)
+                                                   ->  Seq Scan on employee_planned_activity epa  (cost=0.00..47.70 rows=2270 width=12) (actual time=0.012..0.243 rows=2270 loops=1)
+                                                   ->  Hash  (cost=54.50..54.50 rows=6 width=12) (actual time=0.246..0.246 rows=7 loops=1)
+                                                         Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                         ->  Seq Scan on planned_activity pa  (cost=0.00..54.50 rows=6 width=12) (actual time=0.023..0.243 rows=7 loops=1)
+                                                               Filter: (course_instance_id = $1)
+                                                               Rows Removed by Filter: 2993
+                                       ->  Hash  (cost=3.00..3.00 rows=100 width=17) (actual time=0.045..0.045 rows=100 loops=1)
+                                             Buckets: 1024  Batches: 1  Memory Usage: 14kB
+                                             ->  Seq Scan on course_layout cl  (cost=0.00..3.00 rows=100 width=17) (actual time=0.010..0.026 rows=100 loops=1)
+                                 ->  Materialize  (cost=0.00..1.10 rows=7 width=17) (actual time=0.001..0.002 rows=3 loops=4)
+                                       ->  Seq Scan on teaching_activity ta  (cost=0.00..1.07 rows=7 width=17) (actual time=0.003..0.005 rows=6 loops=1)
+                           ->  Index Scan using pk_employee on employee e  (cost=0.27..0.32 rows=1 width=12) (actual time=0.003..0.003 rows=1 loops=4)
+                                 Index Cond: (id = epa.employee_id)
+                     ->  Index Scan using pk_person on person p  (cost=0.27..0.42 rows=1 width=17) (actual time=0.002..0.002 rows=1 loops=4)
+                           Index Cond: (id = e.person_id)
+               ->  Index Scan using pk_job_title on job_title jt  (cost=0.14..0.19 rows=1 width=39) (actual time=0.001..0.001 rows=1 loops=4)
+                     Index Cond: (id = e.job_title_id)
+ Planning Time: 2.465 ms
+ Execution Time: 1.149 ms
+(47 rows)
