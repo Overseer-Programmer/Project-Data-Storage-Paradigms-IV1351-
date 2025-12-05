@@ -2,6 +2,7 @@
 This is the repository used to store and share all files used in the project for Data Storage Paradigms (IV1351).
 
 ## Requirements
+You must create the database and perform queries on it in a linux environment or use Windows Subsystem for Linux (WSL).
 PostgreSQL 18.1 was used and the sql scripts might not function for earlier versions.
 
 ## How to use
