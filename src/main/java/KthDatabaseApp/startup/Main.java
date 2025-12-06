@@ -1,7 +1,7 @@
-package startup;
+package KthDatabaseApp.startup;
 
-import view.BlockingInterpreter;
-import controller.Controller;
+import KthDatabaseApp.view.BlockingInterpreter;
+import KthDatabaseApp.controller.Controller;
 
 public class Main {
     public static void main(String[] args) {

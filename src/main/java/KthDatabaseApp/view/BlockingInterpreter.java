@@ -22,13 +22,13 @@
  * THE SOFTWARE.
  */
 
-package view;
+package KthDatabaseApp.view;
 
 import java.util.List;
 import java.util.Scanner;
-import controller.Controller;
-import view.CmdLine;
-import view.Command;
+import KthDatabaseApp.controller.Controller;
+import KthDatabaseApp.view.CmdLine;
+import KthDatabaseApp.view.Command;
 
 /**
  * Reads and interprets user commands. This command interpreter is blocking, the user

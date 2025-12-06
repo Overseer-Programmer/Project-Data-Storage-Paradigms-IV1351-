@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package view;
+package KthDatabaseApp.view;
 
 /**
  * Defines all commands that can be performed by a user of the chat application.

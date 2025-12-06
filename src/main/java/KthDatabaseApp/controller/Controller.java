@@ -1,4 +1,4 @@
-package controller;
+package KthDatabaseApp.controller;
 
 public class Controller {
     public void hello() {

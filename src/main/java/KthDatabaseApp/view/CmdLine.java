@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package view;
+package KthDatabaseApp.view;
 
 /**
  * One line of user input, which should be a command and parameters associated
