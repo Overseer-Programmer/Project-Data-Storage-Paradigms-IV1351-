@@ -6,28 +6,6 @@ import java.sql.PreparedStatement; // help us create prepared statements
 import java.sql.SQLException; // help us handle SQL exceptions
 
 
-/*
-private Connection connection;
-
-// Teacher
-private PreparedStatement findTeacherstmt;
-private PreparedStatement countTeacherAllocationstm;
-private PreparedStatement findTeacherForUpdateStmt;
-
-// Course Instance
-private PreparedStatement findCourseInstancestm;
-private PreparedStatement findCourseInstanceByCodelstmt;
-private PreparedStatement findCourseInstanceForUpdateStmt;
-private PreparedStatement updateCourseInstanceStudentsStmt;
-
-// Allocation
-private PreparedStatement insertAllocationStmt;
-private PreparedStatement deleteAllocationStmt;
-private PreparedStatement findAllocationsForTeacherInPeriodStmt;
-
-*/
-
-
 
 public class DBConnection {
 
