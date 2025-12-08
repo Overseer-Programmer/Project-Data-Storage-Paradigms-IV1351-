@@ -7,4 +7,5 @@ public interface TeacherDTO {
     public String getFullName();
     public Address getAddress();
     public int getSalary();
+    public double getHourlyWage();
 }

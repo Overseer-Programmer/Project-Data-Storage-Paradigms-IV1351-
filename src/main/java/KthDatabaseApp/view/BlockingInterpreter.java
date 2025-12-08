@@ -87,11 +87,7 @@ public class BlockingInterpreter {
                         keepReceivingCmds = false;
                         break;
                     case TEST:
-                        List<TeacherDTO> list = controller.getTeachers();
-                        for (int i = 0; i < list.size(); i++) {
-                            TeacherDTO teacher = list.get(i);
-                            System.out.println("Found teacher: id=" + teacher.getEmployeeId() + ", name=" + teacher.getFullName());
-                        }
+                        
                         break;
                     default:
                         System.out.println("illegal command");

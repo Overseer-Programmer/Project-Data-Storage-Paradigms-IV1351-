@@ -79,7 +79,7 @@ ALTER TABLE course_instance ADD CONSTRAINT PK_course_instance PRIMARY KEY (id);
 
 CREATE TABLE planned_activity (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
- planned_hours INT NOT NULL,
+ planned_hours INT,
  course_instance_id INT NOT NULL,
  teaching_activity_id INT NOT NULL
 );
@@ -225,9 +225,9 @@ BEGIN
     ON ci.course_layout_id = cl.id
     WHERE ci.id = NEW.id;
     INSERT INTO planned_activity (planned_hours, course_instance_id, teaching_activity_id)
-    VALUES (32 + 0.725 * NEW.num_students, NEW.id, exam_teaching_activity_id);
+    VALUES (NULL, NEW.id, exam_teaching_activity_id);
     INSERT INTO planned_activity (planned_hours, course_instance_id, teaching_activity_id)
-    VALUES (2 * course_hp + 28 + 0.2 * NEW.num_students, NEW.id, admin_teaching_activity_id);
+    VALUES (NULL, NEW.id, admin_teaching_activity_id);
 
     RETURN NEW;
 END;
@@ -238,3 +238,28 @@ AFTER INSERT
 ON course_instance
 FOR EACH ROW
 EXECUTE FUNCTION add_exam_and_admin();
+
+CREATE FUNCTION assert_legal_planned_activity_modified()
+RETURNS trigger AS $$
+DECLARE
+
+    teaching_activity_name VARCHAR(250);
+BEGIN
+    SELECT ta.activity_name
+    INTO teaching_activity_name
+    FROM planned_activity AS pa
+    JOIN teaching_activity AS ta ON pa.teaching_activity_id = ta.id
+    WHERE pa.id = OLD.id;
+    IF teaching_activity_name = 'Examination' OR teaching_activity_name = 'Admin' THEN
+        RAISE EXCEPTION 'Cannot modify the teaching activities of "Examination" or "Admin"';
+        RETURN OLD;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER on_planned_activity_changed
+BEFORE INSERT OR UPDATE OR DELETE
+ON planned_activity
+FOR EACH ROW
+EXECUTE FUNCTION assert_legal_planned_activity_modified();

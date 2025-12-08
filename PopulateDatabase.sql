@@ -180,6 +180,7 @@ DO $$
 DECLARE
     assigned_activity record;
     current_allocated_hours int;
+    current_planned_activity record;
     max_allocated_hours int;
 BEGIN
     FOR assigned_activity IN SELECT * FROM employee_planned_activity LOOP
@@ -193,12 +194,20 @@ BEGIN
             Get the maximum amount of allocated hours the planned activity can have.
             This is the planned hours.
         */
-        SELECT pa.planned_hours
-        INTO max_allocated_hours
+        SELECT pa.planned_hours, ta.activity_name, ci.num_students, cl.hp
+        INTO current_planned_activity
         FROM planned_activity AS pa
-        INNER JOIN teaching_activity AS ta
-        ON pa.teaching_activity_id = ta.id
+        JOIN teaching_activity AS ta ON pa.teaching_activity_id = ta.id
+        JOIN course_instance AS ci ON pa.course_instance_id = ci.id
+        JOIN course_layout AS cl ON ci.course_layout_id = cl.id
         WHERE pa.id = assigned_activity.planned_activity_id;
+        IF current_planned_activity.activity_name = 'Examination' THEN
+            max_allocated_hours := 32 + 0.725 * current_planned_activity.num_students;
+        ELSIF current_planned_activity.activity_name = 'Admin' THEN
+            max_allocated_hours := 2 * current_planned_activity.hp + 28 + 0.2 * current_planned_activity.num_students;
+        ELSE
+            max_allocated_hours := current_planned_activity.planned_hours;
+        END IF;
 
         /*
             Assign the current employee a random number of allocated hours to the current

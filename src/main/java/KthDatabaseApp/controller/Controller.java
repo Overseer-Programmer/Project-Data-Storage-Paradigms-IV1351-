@@ -1,7 +1,7 @@
 
 package KthDatabaseApp.controller;
 
-import KthDatabaseApp.intergration.DBConnection;
+import KthDatabaseApp.intergration.KthDAO;
 import KthDatabaseApp.intergration.DBException;
 import KthDatabaseApp.model.TeacherDTO;
 import KthDatabaseApp.view.DBCredentials;
@@ -12,10 +12,10 @@ public class Controller {
         System.out.println("Hello world!");
     }
 
-    private DBConnection database;
+    private KthDAO database;
 
     public Controller() throws DBException {
-        database = new DBConnection();
+        database = new KthDAO();
     }
 
     public void connectToDatabase(DBCredentials credentials) throws DBException {

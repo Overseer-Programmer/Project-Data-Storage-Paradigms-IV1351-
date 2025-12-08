@@ -50,4 +50,8 @@ public class Teacher implements TeacherDTO {
     public int getSalary() {
         return salary;
     }
+
+    public double getHourlyWage() {
+        return (double)salary / 30.0;
+    }
 }
