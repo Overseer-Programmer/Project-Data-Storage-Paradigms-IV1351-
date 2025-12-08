@@ -10,12 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import KthDatabaseApp.model.TeacherDTO;
 
-
-
 public class DBConnection {
+    public final String database_name = "KthGroup15";
 
     // connection DB
-    private final String url = "jdbc:postgresql://localhost:5432/test";
+    private final String url = "jdbc:postgresql://localhost:5432/" + database_name;
     private final String user = "postgres";
     private final String password = "postgres";
 
@@ -56,7 +55,7 @@ public class DBConnection {
     public DBConnection() throws DBException {
 
         try {
-        connectToBankDB();
+        connectToDB();
         prepareStatements();
         } catch (ClassNotFoundException | SQLException e) {
             throw new DBException("failed to connect to database", e);
@@ -100,7 +99,7 @@ public class DBConnection {
 
     }
 
-    private void connectToBankDB() throws ClassNotFoundException, SQLException {
+    private void connectToDB() throws ClassNotFoundException, SQLException {
 
         
         connection = DriverManager.getConnection(url, user, password);
