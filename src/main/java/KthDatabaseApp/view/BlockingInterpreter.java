@@ -27,15 +27,14 @@ package KthDatabaseApp.view;
 import java.util.List;
 import java.util.Scanner;
 import KthDatabaseApp.controller.Controller;
-import KthDatabaseApp.view.CmdLine;
-import KthDatabaseApp.view.Command;
+import KthDatabaseApp.model.TeacherDTO;
 
 /**
  * Reads and interprets user commands. This command interpreter is blocking, the user
  * interface does not react to user input while a command is being executed.
  */
 public class BlockingInterpreter {
-    private static final String PROMPT = "> ";
+    private static final String COMMAND_PROMPT = "> ";
     private final Scanner console = new Scanner(System.in);
     private Controller controller;
     private boolean keepReceivingCmds = false;
@@ -56,6 +55,15 @@ public class BlockingInterpreter {
         keepReceivingCmds = false;
     }
 
+    // Asks for the username and password required to connect to a database
+    public DBCredentials promptUsernameAndPassword() {
+        System.out.print("Enter your database username:");
+        String dbUsername = console.nextLine();
+        System.out.print("Enter your database password:");
+        String dbUserPassword = console.nextLine();
+        return new DBCredentials(dbUsername, dbUserPassword);
+    }
+
     /**
      * Interprets and performs user commands. This method will not return until the
      * UI has been stopped. The UI is stopped either when the user gives the
@@ -65,7 +73,7 @@ public class BlockingInterpreter {
         keepReceivingCmds = true;
         while (keepReceivingCmds) {
             try {
-                CmdLine cmdLine = new CmdLine(readNextLine());
+                CmdLine cmdLine = new CmdLine(readNextCommand());
                 switch (cmdLine.getCmd()) {
                     case HELP:
                         for (Command command : Command.values()) {
@@ -78,8 +86,12 @@ public class BlockingInterpreter {
                     case QUIT:
                         keepReceivingCmds = false;
                         break;
-                    case HELLO:
-                        controller.hello();
+                    case TEST:
+                        List<TeacherDTO> list = controller.getTeachers();
+                        for (int i = 0; i < list.size(); i++) {
+                            TeacherDTO teacher = list.get(i);
+                            System.out.println("Found teacher: id=" + teacher.getEmployeeId() + ", name=" + teacher.getFullName());
+                        }
                         break;
                     default:
                         System.out.println("illegal command");
@@ -92,8 +104,8 @@ public class BlockingInterpreter {
         }
     }
 
-    private String readNextLine() {
-        System.out.print(PROMPT);
+    private String readNextCommand() {
+        System.out.print(COMMAND_PROMPT);
         return console.nextLine();
     }
 }

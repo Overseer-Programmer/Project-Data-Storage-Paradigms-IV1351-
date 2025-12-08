@@ -1,8 +1,10 @@
 
-    package KthDatabaseApp.controller;
+package KthDatabaseApp.controller;
+
 import KthDatabaseApp.intergration.DBConnection;
 import KthDatabaseApp.intergration.DBException;
 import KthDatabaseApp.model.TeacherDTO;
+import KthDatabaseApp.view.DBCredentials;
 import java.util.List;
 
 public class Controller {
@@ -10,20 +12,17 @@ public class Controller {
         System.out.println("Hello world!");
     }
 
-
-    private DBConnection db;
+    private DBConnection database;
 
     public Controller() throws DBException {
-        db = new DBConnection();
+        database = new DBConnection();
     }
 
-
+    public void connectToDatabase(DBCredentials credentials) throws DBException {
+        database.connectToDatabase(credentials.username, credentials.password);
+    }
 
     public List<TeacherDTO> getTeachers() throws DBException {
-        return db.findAllTeachers();
+        return database.findAllTeachers();
     }
-
-
-  
 }
-

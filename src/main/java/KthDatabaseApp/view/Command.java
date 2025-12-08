@@ -28,14 +28,8 @@ package KthDatabaseApp.view;
  * Defines all commands that can be performed by a user of the chat application.
  */
 public enum Command {
-    HELLO, // Just says hello
-    HELP,
-    /**
-     * Leave the chat application.
-     */
+    TEST, // Just says hello
+    HELP, // Leave the chat application.
     QUIT,
-    /**
-     * None of the valid commands above was specified.
-     */
-    ILLEGAL_COMMAND
+    ILLEGAL_COMMAND // None of the valid commands above was specified.
 }
