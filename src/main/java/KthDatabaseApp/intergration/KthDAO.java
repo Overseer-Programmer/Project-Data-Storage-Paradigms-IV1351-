@@ -6,7 +6,6 @@ import java.sql.PreparedStatement; // help us create prepared statements
 import java.sql.ResultSet;
 import java.sql.SQLException; // help us handle SQL exceptions
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import KthDatabaseApp.model.*;
@@ -21,28 +20,9 @@ public class KthDAO {
     // a PreparedStatement is a precompiled SQL statement
 
     // teacher
-    private PreparedStatement findAllTeacherStmt; // PreparedStatement for finding all teacher
-    private PreparedStatement getPlannedActivitiesWithEmployeeDataStmt; // PreparedStatement for getting planned
-                                                                        // activities of a course with employee
-                                                                        // information
-    private PreparedStatement findTeacherByIdStmt;
-    private PreparedStatement countTeacherAllocationStmt; // PreparedStatement for counting teacher allocations
-    private PreparedStatement findTeacherAllocationStmt; // PreparedStatement for finding teacher allocations
-
-    // course instance
-    // private PreparedStatement findCourseInstanceByCodelstmt; //PreparedStatement
-    // for finding course instance by code
-    private PreparedStatement findCourseInstanceStmt; // PreparedStatement for finding course instances
-    private PreparedStatement findCourseInstaceForUpdateStmt; // PreparedStatement for finding course instance for
-                                                              // update
-    private PreparedStatement updateCourseInstanceStudentsStmt; // PreparedStatement for updating course instance
-                                                                // students
-
-    // allocation
-    private PreparedStatement insertAllocationStmt; // PreparedStatement for inserting an allocation
-    private PreparedStatement deleteAllocationStmt; // PreparedStatement for deleting an allocation
-    // private PreparedStatement findAllocationsForTeacherstmt; //PreparedStatement
-    // for finding allocations for a teacher in a period
+    private PreparedStatement findAllTeachers;
+    private PreparedStatement getPlannedActivitiesForCourse;
+    private PreparedStatement getTeacherSalariesAllocatedToPlannedActivity;
 
     public void connectToDatabase(String dbUsername, String dbUserPassword) throws DBException {
         try {
@@ -62,74 +42,85 @@ public class KthDAO {
     }
 
     public List<TeacherDTO> findAllTeachers() throws DBException {
+        final String failureMessage = "Failed to fetch teachers";
         List<TeacherDTO> teachers = new ArrayList<>();
+        ResultSet result = null;
         try {
-            ResultSet result = findAllTeacherStmt.executeQuery();
+            result = findAllTeachers.executeQuery();
             while (result.next()) {
                 teachers.add(new Teacher(result.getInt("id")));
             }
             connection.commit();
         } catch (SQLException e) {
-            handleException("Failed to fetch teachers", e);
+            handleException(failureMessage, e);
+        } finally {
+            closeResultSet(failureMessage, result);
         }
 
         return teachers;
     }
 
-    // Get the total planned costs for the specified course instance
-    public long getPlannedCourseTeachingCosts(Course course) throws DBException {
-        double totalPlannedHourCost = 0;
+    /**
+     * Gets all planned activities for a course.
+     * 
+     * @param course the course you want to find the teaching activities for.
+     * @return A list of all planned activities
+     * @throws DBException
+     */
+    public List<PlannedActivity> getPlannedActivitiesForCourse(CourseDTO course) throws DBException {
+        final String failureMessage = "Could not get planned course teaching costs";
+        List<PlannedActivity> plannedActivities = new ArrayList<>();
+        ResultSet result = null;
         try {
-            getPlannedActivitiesWithEmployeeDataStmt.setInt(1, course.courseInstanceId);
-            ResultSet result = getPlannedActivitiesWithEmployeeDataStmt.executeQuery();
-            HashMap<Integer, PlannedActivity> plannedActivities = new HashMap<>();
+            getPlannedActivitiesForCourse.setInt(1, course.getSurrogateId());
+            result = getPlannedActivitiesForCourse.executeQuery();
             while (result.next()) {
-                // Get or create the planned activity
                 int plannedActivityId = result.getInt("plannedActivityId");
-                PlannedActivity currentPlannedActivity = plannedActivities.get(plannedActivityId);
-                if (currentPlannedActivity == null) {
-                    String activityName = result.getString("activity_name");
-                    int plannedHours = 0;
-                    if (activityName.equals("Examination")) {
-                        plannedHours = (int) Math.round(32 + 0.725 * course.getStudentCount());
-                    } else if (activityName.equals("Admin")) {
-                        plannedHours = (int) Math.round(2 * course.getHp() + 28 + 0.2 * course.getStudentCount());
-                    }
-                    else {
-                        plannedHours = result.getInt("planned_hours");
-                    }
-                    currentPlannedActivity = new PlannedActivity(plannedActivityId, plannedHours, activityName);
-                    plannedActivities.put(plannedActivityId, currentPlannedActivity);
+                String activityName = result.getString("activity_name");
+                int plannedHours = result.getInt("planned_hours");
+                PlannedActivity newPlannedActivity = new PlannedActivity(plannedActivityId, activityName);
+                if (plannedHours != 0) {
+                    newPlannedActivity.setPlannedHours(plannedHours);
                 }
+                plannedActivities.add(newPlannedActivity);
 
-                // Allocate the teacher to the planned activity
-                int employeeId = result.getInt("employee_id");
-                int salary = result.getInt("salary");
-                Teacher newTeacher = new Teacher(employeeId);
-                newTeacher.setSalary(salary);
-                currentPlannedActivity.allocateTeacher(newTeacher);
             }
-
-            // Calculate the total planned hour cost
-            for (PlannedActivity currentPlannedActivity : plannedActivities.values()) {
-                TeacherDTO allocatedTeachers[] = currentPlannedActivity.getAllocatedTeachers();
-                double plannedHourDistribution = (double) currentPlannedActivity.planned_hours
-                        / allocatedTeachers.length;
-                for (int i = 0; i < allocatedTeachers.length; i++) {
-                    TeacherDTO teacher = allocatedTeachers[i];
-                    totalPlannedHourCost += teacher.getHourlyWage() * plannedHourDistribution;
-                }
-            }
-
             connection.commit();
         } catch (SQLException sqle) {
-            handleException("Could not get planned course teaching costs", sqle);
+            handleException(failureMessage, sqle);
+        } finally {
+            closeResultSet(failureMessage, result);
         }
-        return Math.round(totalPlannedHourCost);
+        return plannedActivities;
+    }
+
+    /**
+     * Gets the salaries of all teachers that are allocated to a planned activity.
+     * @param plannedActivity The planned activity
+     * @return A list of teacher salaries
+     * @throws DBException
+     */
+    public List<Integer> getTeacherSalariesAllocatedToPlannedActivity(PlannedActivityDTO plannedActivity) throws DBException {
+        final String failureMessage = "Could not get get teachers allocated to course";
+        List<Integer> salaries = new ArrayList<>();
+        ResultSet result = null;
+        try {
+            getTeacherSalariesAllocatedToPlannedActivity.setInt(1, plannedActivity.getId());
+            result = getTeacherSalariesAllocatedToPlannedActivity.executeQuery();
+            while (result.next()) {
+                salaries.add(result.getInt("salary"));
+            }
+            connection.commit();
+        } catch (SQLException sqle) {
+            handleException(failureMessage, sqle);
+        } finally {
+            closeResultSet(failureMessage, result);
+        }
+        return salaries;
     }
 
     private void prepareStatements() throws SQLException { // all SQL commands goes here
-        findAllTeacherStmt = connection.prepareStatement(
+        findAllTeachers = connection.prepareStatement(
                 "SELECT e.id, p.first_name, p.last_name " +
                         "FROM employee AS e " +
                         "INNER JOIN person AS p ON e.person_id = p.id " +
@@ -139,15 +130,18 @@ public class KthDAO {
                         "GROUP BY e.id, p.first_name, p.last_name " +
                         "ORDER BY p.first_name");
 
-        getPlannedActivitiesWithEmployeeDataStmt = connection.prepareStatement(
-                "SELECT epa.planned_activity_id, ta.activity_name, pa.planned_hours, epa.employee_id, e.salary " +
+        getPlannedActivitiesForCourse = connection.prepareStatement(
+                "SELECT pa.id AS planned_activity_id, ta.activity_name, pa.planned_hours " +
                         "FROM course_instance AS ci " +
                         "JOIN planned_activity AS pa ON pa.course_instance_id = ci.id " +
                         "JOIN teaching_activity AS ta ON pa.teaching_activity_id = ta.id " +
-                        "JOIN employee_planned_activity AS epa ON epa.plannedActivityId = pa.id " +
-                        "JOIN employee AS e ON epa.employee_id = e.id " +
                         "WHERE ci.id = ?");
 
+        getTeacherSalariesAllocatedToPlannedActivity = connection.prepareStatement(
+                "SELECT e.salary " +
+                        "FROM employee_planned_activity AS epa " +
+                        "JOIN employee AS e ON epa.employee_id = e.id " +
+                        "WHERE epa.planned_activity_id = ?");
     }
 
     private void connectToDB(String user, String password) throws ClassNotFoundException, SQLException {
@@ -169,6 +163,14 @@ public class KthDAO {
             throw new DBException(failureMsg, cause);
         } else {
             throw new DBException(failureMsg);
+        }
+    }
+
+    private void closeResultSet(String failureMsg, ResultSet result) throws DBException {
+        try {
+            result.close();
+        } catch (Exception e) {
+            throw new DBException(failureMsg + " Could not close result set.", e);
         }
     }
 }

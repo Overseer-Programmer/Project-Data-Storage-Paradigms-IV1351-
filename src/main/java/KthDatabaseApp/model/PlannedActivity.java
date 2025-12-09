@@ -1,34 +1,29 @@
 package KthDatabaseApp.model;
 
-import java.util.List;
 
-public class PlannedActivity {
-    public final int planned_hours;
-    public final int id;
-    public final String activityName;
-    private List<Teacher> allocatedTeachers;
+public class PlannedActivity implements PlannedActivityDTO {
+    private final int id;
+    private final String activityName;
+    private int plannedHours;
 
-    public PlannedActivity(int id, int planned_hours, String activityName) {
+    public PlannedActivity(int id, String activityName) {
         this.id = id;
-        this.planned_hours = planned_hours;
         this.activityName = activityName;
     }
 
-    public void allocateTeacher(Teacher teacher) {
-        allocatedTeachers.add(teacher);
+    public void setPlannedHours(int plannedHours) {
+        this.plannedHours = plannedHours;
     }
 
-    public void deallocateTeacher(Teacher teacher) {
-        allocatedTeachers.remove(teacher);
+    public int getId() {
+        return id;
     }
 
-    public TeacherDTO[] getAllocatedTeachers() {
-        TeacherDTO teacherArray[] = new TeacherDTO[allocatedTeachers.size()];
-        int index = 0;
-        while (allocatedTeachers.get(index) != null) {
-            teacherArray[index] = allocatedTeachers.get(index);
-            index++;
-        }
-        return teacherArray;
+    public String getActivityName() {
+        return activityName;
+    }
+
+    public int getPlannedHours() {
+        return plannedHours;
     }
 }
