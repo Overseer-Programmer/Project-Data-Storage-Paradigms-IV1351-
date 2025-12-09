@@ -16,4 +16,7 @@ public interface CourseDTO {
     public int getStudyYear();
     public StudyPeriod getStudyPeriod();
     public double getHp();
+    public int getMinStudents();
+    public int getMaxStudents();
+    public int getCourseLayoutId();
 }

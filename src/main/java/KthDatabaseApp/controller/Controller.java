@@ -3,10 +3,7 @@ package KthDatabaseApp.controller;
 
 import KthDatabaseApp.intergration.KthDAO;
 import KthDatabaseApp.intergration.DBException;
-import KthDatabaseApp.model.Course;
-import KthDatabaseApp.model.PlannedActivity;
-import KthDatabaseApp.model.Teacher;
-import KthDatabaseApp.model.TeacherDTO;
+import KthDatabaseApp.model.*;
 import KthDatabaseApp.view.DBCredentials;
 import java.util.List;
 
@@ -25,32 +22,36 @@ public class Controller {
         database.connectToDatabase(credentials.username, credentials.password);
     }
 
-    public List<TeacherDTO> getTeachers() throws DBException {
-        return database.findAllTeachers();
-    }
-
-    public long getPlannedCourseTeachingCosts(Course course) throws DBException {
-        double totalPlannedHourCost = 0;
-        List<PlannedActivity> plannedActivities = database.getPlannedActivitiesForCourse(course);
-
-        for (PlannedActivity plannedActivity : plannedActivities) {
-            // Can you calculate the derived attributes here?
-            String activityName = plannedActivity.getActivityName();
-            if (activityName.equals("Examination")) {
-                plannedActivity.setPlannedHours((int) Math.round(32 + 0.725 * course.getStudentCount()));
-            } else if (activityName.equals("Admin")) {
-                plannedActivity.setPlannedHours((int) Math.round(2 * course.getHp() + 28 + 0.2 * course.getStudentCount()));
-            }
-
-            // Calculate the total planned hour cost
-            // Can you do this here?
-            List<Integer> salaries = database.getTeacherSalariesAllocatedToPlannedActivity(plannedActivity);
-            double plannedHourDistribution = (double) plannedActivity.getPlannedHours() / salaries.size();
-            for (int salary : salaries) {
-                totalPlannedHourCost += (salary / 30) * plannedHourDistribution;
+    /**
+     * Gets the planned cost and actual cost for a course along with some course
+     * information. The cost is calculated based on the salary of teachers and the
+     * total hours they are planned to be allocated vs how much they are actually
+     * allocated to the course.
+     * 
+     * @param courseInstanceId The id of the course instance to calculated the cost
+     *                         from
+     * @return A TeachingCostDTO object with all relevant data.
+     * @throws DBException
+     */
+    public TeachingCostDTO getTeachingCost(int courseInstanceId) throws DBException {
+        Course course = database.getCourse(courseInstanceId);
+        double totalPlannedCost = 0;
+        double totalActualCost = 0;
+        for (PlannedActivity plannedActivity : course.getPlannedActivities()) {
+            List<Teacher> teachers = database.getTeachersAllocatedToPlannedActivity(plannedActivity);
+            double plannedHourDistribution = (double) plannedActivity.getTotalPlannedHours() / teachers.size();
+            for (Teacher teacher : teachers) {
+                double hourlyWage = teacher.getHourlyWage();
+                totalPlannedCost += hourlyWage * plannedHourDistribution;
+                totalActualCost += hourlyWage * teacher.getAllocatedHoursForPlannedActivity(plannedActivity);
             }
         }
 
-        return Math.round(totalPlannedHourCost);
+        return new TeachingCostDTO(
+                course.getCourseCode(),
+                course.getInstanceId(),
+                course.getStudyPeriod(),
+                Math.round(totalPlannedCost),
+                Math.round(totalActualCost));
     }
 }

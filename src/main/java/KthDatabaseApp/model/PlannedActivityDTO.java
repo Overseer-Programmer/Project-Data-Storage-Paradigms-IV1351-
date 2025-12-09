@@ -2,6 +2,11 @@ package KthDatabaseApp.model;
 
 public interface PlannedActivityDTO {
     public int getId();
+    public Course getCourse();
     public String getActivityName();
-    public int getPlannedHours();
+    
+    /**
+     * @return the total planned hours with the multiplication factor.
+     */
+    public int getTotalPlannedHours();
 }

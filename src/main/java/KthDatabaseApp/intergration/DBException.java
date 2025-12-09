@@ -8,5 +8,4 @@ public class DBException extends Exception { // exception extending the built-in
     public DBException(String reason, Throwable rootCause) {
         super(reason, rootCause); // Call the constructor of the superclass (Exception) with the reason and root cause
     }
-
 }
