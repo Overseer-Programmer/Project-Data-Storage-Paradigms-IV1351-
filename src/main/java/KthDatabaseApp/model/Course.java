@@ -153,7 +153,7 @@ public class Course implements CourseDTO {
         return maxStudents;
     }
 
-    public List<PlannedActivity> getPlannedActivities() {
+    public List<PlannedActivityDTO> getPlannedActivities() {
         return new ArrayList<>(plannedActivities);
     }
 }

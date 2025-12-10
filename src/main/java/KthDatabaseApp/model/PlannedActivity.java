@@ -2,7 +2,7 @@ package KthDatabaseApp.model;
 
 public class PlannedActivity implements PlannedActivityDTO {
     private final int id;
-    private final Course course; // A reference to the course object the planned activity belongs to
+    private final CourseDTO course; // A reference to the course object the planned activity belongs to
     private final String activityName;
     private int plannedHours; // The planned_hours attribute of the planned_activity table
     private double multiplicationFactor;
@@ -17,7 +17,7 @@ public class PlannedActivity implements PlannedActivityDTO {
      * @param multiplicationFactor The multiplication_factor attribute of the
      *                             teaching_activity table
      */
-    public PlannedActivity(int id, Course course, String activityName, double multiplicationFactor) {
+    public PlannedActivity(int id, CourseDTO course, String activityName, double multiplicationFactor) {
         this.id = id;
         this.course = course;
         this.activityName = activityName;
@@ -39,7 +39,7 @@ public class PlannedActivity implements PlannedActivityDTO {
         return id;
     }
 
-    public Course getCourse() {
+    public CourseDTO getCourse() {
         return course;
     }
 

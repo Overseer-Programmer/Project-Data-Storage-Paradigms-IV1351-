@@ -37,7 +37,7 @@ public class Controller {
         Course course = database.getCourse(courseInstanceId);
         double totalPlannedCost = 0;
         double totalActualCost = 0;
-        for (PlannedActivity plannedActivity : course.getPlannedActivities()) {
+        for (PlannedActivityDTO plannedActivity : course.getPlannedActivities()) {
             List<Teacher> teachers = database.getTeachersAllocatedToPlannedActivity(plannedActivity);
             double plannedHourDistribution = plannedActivity.getTotalHours(plannedActivity.getPlannedHours()) / teachers.size();
             for (Teacher teacher : teachers) {

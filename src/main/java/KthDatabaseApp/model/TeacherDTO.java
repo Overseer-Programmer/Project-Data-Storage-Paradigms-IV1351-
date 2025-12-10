@@ -16,5 +16,5 @@ public interface TeacherDTO {
      * @return The allocated hours, is 0 if the teacher was not allocated to the
      *         planned activity.
      */
-    public double getAllocatedHoursForPlannedActivity(PlannedActivity plannedActivity);
+    public double getAllocatedHoursForPlannedActivity(PlannedActivityDTO plannedActivity);
 }

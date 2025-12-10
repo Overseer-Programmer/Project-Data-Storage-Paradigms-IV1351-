@@ -57,7 +57,7 @@ public class Teacher implements TeacherDTO {
         allocatedPlannedActivities.add(newAllocation);
         HashMap<Integer, HashMap<StudyPeriod, List<Integer>>> allocatedCourseInstances = new HashMap<>();
         for (TeacherAllocation allocation : allocatedPlannedActivities) {
-            Course allocatedCourse = allocation.plannedActivity.getCourse();
+            CourseDTO allocatedCourse = allocation.plannedActivity.getCourse();
             int studyYear = allocatedCourse.getStudyYear();
             StudyPeriod studyPeriod = allocatedCourse.getStudyPeriod();
             if (!allocatedCourseInstances.containsKey(studyYear)) {
@@ -140,7 +140,7 @@ public class Teacher implements TeacherDTO {
         return (double) salary / (30.0 * 24);
     }
 
-    public double getAllocatedHoursForPlannedActivity(PlannedActivity plannedActivity) {
+    public double getAllocatedHoursForPlannedActivity(PlannedActivityDTO plannedActivity) {
         for (TeacherAllocation allocation : allocatedPlannedActivities) {
             if (allocation.plannedActivity.getId() == plannedActivity.getId()) {
                 return plannedActivity.getTotalHours(allocation.allocatedHours);

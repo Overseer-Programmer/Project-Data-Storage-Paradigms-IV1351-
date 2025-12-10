@@ -4,7 +4,6 @@ import java.sql.Connection; // help us connect to the database
 import java.sql.DriverManager; // help us manage the connection
 import java.sql.PreparedStatement; // help us create prepared statements
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException; // help us handle SQL exceptions
 import java.util.ArrayList;
 import java.util.List;
