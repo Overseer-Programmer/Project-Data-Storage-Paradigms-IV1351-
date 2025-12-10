@@ -4,7 +4,7 @@ package KthDatabaseApp.controller;
 import KthDatabaseApp.intergration.KthDAO;
 import KthDatabaseApp.intergration.DBException;
 import KthDatabaseApp.model.*;
-import KthDatabaseApp.view.DBCredentials;
+
 import java.util.List;
 
 public class Controller {
@@ -39,7 +39,7 @@ public class Controller {
         double totalActualCost = 0;
         for (PlannedActivity plannedActivity : course.getPlannedActivities()) {
             List<Teacher> teachers = database.getTeachersAllocatedToPlannedActivity(plannedActivity);
-            double plannedHourDistribution = (double) plannedActivity.getTotalPlannedHours() / teachers.size();
+            double plannedHourDistribution = plannedActivity.getTotalHours(plannedActivity.getPlannedHours()) / teachers.size();
             for (Teacher teacher : teachers) {
                 double hourlyWage = teacher.getHourlyWage();
                 totalPlannedCost += hourlyWage * plannedHourDistribution;

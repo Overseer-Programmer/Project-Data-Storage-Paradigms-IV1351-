@@ -4,6 +4,7 @@ import java.sql.Connection; // help us connect to the database
 import java.sql.DriverManager; // help us manage the connection
 import java.sql.PreparedStatement; // help us create prepared statements
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException; // help us handle SQL exceptions
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class KthDAO {
                     result.getInt("study_year"),
                     StudyPeriod.valueOf(result.getString("study_period")),
                     result.getDouble("hp"),
-                    result.getInt("minStudents"),
+                    result.getInt("min_students"),
                     result.getInt("max_students"));
 
             // Get all planned activities for the course
@@ -153,10 +154,10 @@ public class KthDAO {
 
     private Teacher getTeacherInternal(int employeeId, ResultSet result) throws SQLException {
         getTeacherStatement.setInt(1, employeeId);
-        result = getCourseStatement.executeQuery();
+        result = getTeacherStatement.executeQuery();
         result.next();
         return new Teacher(
-                result.getInt("employee_id "),
+                result.getInt("employee_id"),
                 result.getString("first_name"),
                 result.getString("last_name"),
                 result.getString("street"),

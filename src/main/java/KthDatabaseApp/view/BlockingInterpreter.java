@@ -24,10 +24,9 @@
 
 package KthDatabaseApp.view;
 
-import java.util.List;
 import java.util.Scanner;
 import KthDatabaseApp.controller.Controller;
-import KthDatabaseApp.model.TeacherDTO;
+import KthDatabaseApp.model.DBCredentials;
 
 /**
  * Reads and interprets user commands. This command interpreter is blocking, the user
@@ -55,15 +54,6 @@ public class BlockingInterpreter {
         keepReceivingCmds = false;
     }
 
-    // Asks for the username and password required to connect to a database
-    public DBCredentials promptUsernameAndPassword() {
-        System.out.print("Enter your database username:");
-        String dbUsername = console.nextLine();
-        System.out.print("Enter your database password:");
-        String dbUserPassword = console.nextLine();
-        return new DBCredentials(dbUsername, dbUserPassword);
-    }
-
     /**
      * Interprets and performs user commands. This method will not return until the
      * UI has been stopped. The UI is stopped either when the user gives the
@@ -89,6 +79,8 @@ public class BlockingInterpreter {
                     case TEST:
                         
                         break;
+                    // COST course_instance_id
+                    // GET_COURSES
                     default:
                         System.out.println("illegal command");
                 }
@@ -98,6 +90,17 @@ public class BlockingInterpreter {
                 e.printStackTrace();
             }
         }
+    }
+
+    // Asks for the username and password required to connect to a database
+    public static DBCredentials promptUsernameAndPassword() {
+        Scanner console = new Scanner(System.in);
+        System.out.print("Enter your database username:");
+        String dbUsername = console.nextLine();
+        System.out.print("Enter your database password:");
+        String dbUserPassword = console.nextLine();
+        console.close();
+        return new DBCredentials(dbUsername, dbUserPassword);
     }
 
     private String readNextCommand() {

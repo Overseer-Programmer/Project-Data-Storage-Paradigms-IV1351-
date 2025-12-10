@@ -4,9 +4,18 @@ public interface PlannedActivityDTO {
     public int getId();
     public Course getCourse();
     public String getActivityName();
-    
+
     /**
-     * @return the total planned hours with the multiplication factor.
+     * @return the planned hours without multiplication factor.
      */
-    public int getTotalPlannedHours();
+    public int getPlannedHours();
+
+    /**
+     * Gets the total hours that a given amount of hours for the planned activity
+     * would result in when accounting for the multiplication factor.
+     * 
+     * @param hours
+     * @return
+     */
+    public double getTotalHours(int hours);
 }

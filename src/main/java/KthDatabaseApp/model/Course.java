@@ -59,6 +59,7 @@ public class Course implements CourseDTO {
         setStudyTime(studyYear, studyPeriod);
         setHp(hp);
         setStudentRange(minStudents, maxStudents);
+        plannedActivities = new ArrayList<>();
     }
 
     public void addPlannedActivity(PlannedActivity plannedActivity) {

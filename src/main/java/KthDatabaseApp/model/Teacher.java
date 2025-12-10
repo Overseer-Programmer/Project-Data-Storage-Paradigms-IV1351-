@@ -47,7 +47,8 @@ public class Teacher implements TeacherDTO {
      * rejected.
      * 
      * @param plannedActivity The planned activity to allocate
-     * @param allocatedHours The amount of hours the teacher should be allocated to the planned activity
+     * @param allocatedHours  The amount of hours the teacher should be allocated to
+     *                        the planned activity
      * @throws TeacherOverallocationException
      */
     public void allocatePlannedActivity(PlannedActivityDTO plannedActivity, int allocatedHours)
@@ -84,6 +85,7 @@ public class Teacher implements TeacherDTO {
 
     /**
      * Deallocates the teacher from a planned activity if it exists.
+     * 
      * @param plannedActivity
      */
     public void deallocatePlannedActivity(PlannedActivityDTO plannedActivity) {
@@ -138,15 +140,10 @@ public class Teacher implements TeacherDTO {
         return (double) salary / (30.0 * 24);
     }
 
-    /**
-     * Gets the amount of hours the teacher is allocated to the planned activity.
-     * @param plannedActivity
-     * @return The allocated hours, is 0 if the teacher was not allocated to the planned activity.
-     */
-    public int getAllocatedHoursForPlannedActivity(PlannedActivity plannedActivity) {
+    public double getAllocatedHoursForPlannedActivity(PlannedActivity plannedActivity) {
         for (TeacherAllocation allocation : allocatedPlannedActivities) {
             if (allocation.plannedActivity.getId() == plannedActivity.getId()) {
-                return allocation.allocatedHours;
+                return plannedActivity.getTotalHours(allocation.allocatedHours);
             }
         }
         return 0;

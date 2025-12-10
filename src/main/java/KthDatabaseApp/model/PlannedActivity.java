@@ -47,7 +47,11 @@ public class PlannedActivity implements PlannedActivityDTO {
         return activityName;
     }
 
-    public int getTotalPlannedHours() {
-        return (int) (plannedHours * multiplicationFactor);
+    public int getPlannedHours() {
+        return plannedHours;
+    }
+
+    public double getTotalHours(int hours) {
+        return hours * multiplicationFactor;
     }
 }
