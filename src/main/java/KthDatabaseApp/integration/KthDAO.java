@@ -1,4 +1,4 @@
-package KthDatabaseApp.intergration;
+package KthDatabaseApp.integration;
 
 import java.sql.Connection; // help us connect to the database
 import java.sql.DriverManager; // help us manage the connection
@@ -24,18 +24,16 @@ public class KthDAO {
     private PreparedStatement getTeacherStatement;
     private PreparedStatement getPlannedActivitiesForCourseStatement;
     private PreparedStatement getTeachersAllocatedToPlannedActivityStatement;
+    private PreparedStatement getAllTeachersStatement;
 
-    //task2
+    // Task 2 modify course instance
     private PreparedStatement UpdateStudentsInCourseStatement;
-    
-    //task3
-    private PreparedStatement allocateTacherstatement;
+
+    // Task 3 teacher allocation
+    private PreparedStatement getPlannedActivitiesForTeacher;
+    private PreparedStatement allocateTeacherStatement;
     private PreparedStatement deallocateTeacherStatement;
-    private PreparedStatement getplannedactivitybyidstatement;
 
-
-
-    
     public void connectToDatabase(String dbUsername, String dbUserPassword) throws DBException {
         try {
             connectToDB(dbUsername, dbUserPassword);
@@ -89,7 +87,7 @@ public class KthDAO {
             result = getPlannedActivitiesForCourseStatement.executeQuery();
             while (result.next()) {
                 PlannedActivity newPlannedActivity = new PlannedActivity(
-                        result.getInt("planned_activity_id"),
+                        result.getInt("plannedActivityId"),
                         course,
                         result.getString("activity_name"),
                         result.getDouble("factor"));
@@ -112,7 +110,8 @@ public class KthDAO {
 
     /**
      * Gets a teacher using their employee id
-     * @param employeeId The employee_id from the employee table
+     * 
+     * @param employeeId The employeeId from the employee table
      * @return A Teacher object
      * @throws DBException
      */
@@ -134,6 +133,7 @@ public class KthDAO {
 
     /**
      * Returns all teachers allocated to a planned activity.
+     * 
      * @param plannedActivity
      * @return A list of Teachers
      * @throws DBException
@@ -147,7 +147,7 @@ public class KthDAO {
             getTeachersAllocatedToPlannedActivityStatement.setInt(1, plannedActivity.getId());
             result = getTeachersAllocatedToPlannedActivityStatement.executeQuery();
             while (result.next()) {
-                int employeeId = result.getInt("employee_id");
+                int employeeId = result.getInt("employeeId");
                 int allocatedHours = result.getInt("allocated_hours");
                 Teacher teacher = getTeacherInternal(employeeId, result);
                 teacher.allocatePlannedActivity(plannedActivity, allocatedHours);
@@ -162,51 +162,99 @@ public class KthDAO {
         return teachers;
     }
 
-    public void  allocateTeacher(int teacherId, int plannedActivityId, int allocatedHours) throws DBException {
-        
-        final String failureMessage = "could not allocate teacher to planned_acitivity";
-        
+    public List<Teacher> getAllTeachers() throws DBException {
+        final String failureMessage = "Could not get get teachers";
+        List<Teacher> teachers = new ArrayList<>();
+        ResultSet result = null;
         try {
-            
-            allocateTacherstatement.setInt(1, teacherId);
-            allocateTacherstatement.setInt(2, plannedActivityId);
-            allocateTacherstatement.setInt(3, allocatedHours);
-
-            allocateTacherstatement.executeUpdate();
+            result = getAllTeachersStatement.executeQuery();
+            while (result.next()) {
+                Teacher teacher = getTeacherInternal(result.getInt("employee_id"), result);
+                teachers.add(teacher);
+            }
             connection.commit();
+        } catch (SQLException e) {
+            handleException(failureMessage, e);
+        } finally {
+            closeResultSet(failureMessage, result);
+        }
+        return teachers;
+    }
 
+    /**
+     * Updates the allocation for a teacher on the database to match the allocation
+     * of the specified teacher object. Will acquire an exclusive lock on the
+     * current allocated rows for the teacher in the database. Note that this method
+     * only supports inserting and deleting allocations for the teacher, it does not
+     * support updating the allocated hours of existing allocations.
+     * 
+     * @param teacher the updated teacher object to read from.
+     * @throws DBException
+     */
+    public void updateAllocationForTeacher(TeacherDTO teacher) throws DBException {
+        final String failureMessage = "Could not update teacher allocation";
+        ResultSet result = null;
+        try {
+            getPlannedActivitiesForTeacher.setInt(1, teacher.getEmployeeId());
+            result = getPlannedActivitiesForTeacher.executeQuery();
+            List<TeacherAllocation> updatedAllocations = teacher.getTeachingAllocations();
+            List<TeacherAllocation> newAllocations = new ArrayList<>(updatedAllocations);
+            while (result.next()) {
+                int currentPlannedActivityId = result.getInt("plannedActivityId");
+
+                // Deallocate from all removed allocations
+                boolean plannedActivityFound = false;
+                for (TeacherAllocation allocation : updatedAllocations) {
+                    if (allocation.plannedActivity.getId() == currentPlannedActivityId) {
+                        plannedActivityFound = true;
+                        break;
+                    }
+                }
+                if (!plannedActivityFound) {
+                    deallocatePlannedActivityFromTeacher(teacher.getEmployeeId(), currentPlannedActivityId);
+                }
+
+                // Remove already existing allocations from the list of new allocations
+                for (TeacherAllocation allocation : newAllocations) {
+                    if (allocation.plannedActivity.getId() == currentPlannedActivityId) {
+                        newAllocations.remove(allocation);
+                        break;
+                    }
+                }
+            }
+
+            // Add the actual new allocations to the database
+            for (TeacherAllocation allocation : newAllocations) {
+                allocatePlannedActivityToTeacher(teacher.getEmployeeId(), allocation.plannedActivity.getId(),
+                        allocation.allocatedHours);
+            }
+
+            connection.commit();
         } catch (SQLException ex) {
             handleException(failureMessage, ex);
+        } finally {
+            closeResultSet(failureMessage, result);
         }
     }
 
-    public void deallocateTeacher(int teacherId, int plannedActivityId) throws DBException {
-         final String failureMessage = "could not deallocate teacher from planned_activity";
-
-        try{
-        deallocateTeacherStatement.setInt(1, teacherId);
-        deallocateTeacherStatement.setInt(2, plannedActivityId);
-
-        deallocateTeacherStatement.executeUpdate();
-        connection.commit();
+    public void addStudentsToCourse(int courseId, int newNumStudents) throws DBException {
+        final String failureMessage = "Could not update number of students in course";
+        try {
+            UpdateStudentsInCourseStatement.setInt(1, newNumStudents);
+            UpdateStudentsInCourseStatement.setInt(2, courseId);
+            UpdateStudentsInCourseStatement.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
             handleException(failureMessage, e);
         }
-
     }
-
-    public PlannedActivityDTO getpPlannedActivityById(int planned_activity_id){
-        
-
-    }
-
 
     private Teacher getTeacherInternal(int employeeId, ResultSet result) throws SQLException {
         getTeacherStatement.setInt(1, employeeId);
         result = getTeacherStatement.executeQuery();
         result.next();
         return new Teacher(
-                result.getInt("employee_id"),
+                result.getInt("employeeId"),
                 result.getString("first_name"),
                 result.getString("last_name"),
                 result.getString("street"),
@@ -215,17 +263,18 @@ public class KthDAO {
                 result.getInt("salary"));
     }
 
-    public void UpdateStudentsInCourseStatement ( int courseID, int newNumStudents) throws DBException {
-        final String failureMessage = "Could not update number of students in course";
-        try {
-            UpdateStudentsInCourseStatement.setInt(1, newNumStudents);
-            UpdateStudentsInCourseStatement.setInt(2, courseID);
-            UpdateStudentsInCourseStatement.executeUpdate();
-            connection.commit();
+    private void deallocatePlannedActivityFromTeacher(int employeeId, int plannedActivityId) throws SQLException {
+        deallocateTeacherStatement.setInt(1, employeeId);
+        deallocateTeacherStatement.setInt(2, plannedActivityId);
+        deallocateTeacherStatement.executeUpdate();
+    }
 
-        } catch (SQLException e) {
-            handleException(failureMessage, e);
-        }
+    private void allocatePlannedActivityToTeacher(int employeeId, int plannedActivityId, int allocatedHours)
+            throws SQLException {
+        allocateTeacherStatement.setInt(1, employeeId);
+        allocateTeacherStatement.setInt(2, plannedActivityId);
+        allocateTeacherStatement.setInt(3, allocatedHours);
+        allocateTeacherStatement.executeUpdate();
     }
 
     // all SQL commands goes here
@@ -247,7 +296,7 @@ public class KthDAO {
                         "WHERE ci.id = ?");
 
         getTeacherStatement = connection.prepareStatement(
-                "SELECT e.id AS employee_id, " +
+                "SELECT e.id AS employeeId, " +
                         "    p.first_name, " +
                         "    p.last_name, " +
                         "    p.street, " +
@@ -258,44 +307,43 @@ public class KthDAO {
                         "JOIN person AS p ON e.person_id = p.id " +
                         "WHERE e.id = ?");
 
+        getAllTeachersStatement = connection.prepareStatement(
+            "SELECT id " +
+            "FROM employee"
+        );
+
         getPlannedActivitiesForCourseStatement = connection.prepareStatement(
-                "SELECT pa.id AS planned_activity_id, pa.planned_hours, ta.activity_name, ta.factor " +
+                "SELECT pa.id AS plannedActivityId, pa.planned_hours, ta.activity_name, ta.factor " +
                         "FROM planned_activity AS pa " +
                         "JOIN teaching_activity AS ta ON pa.teaching_activity_id = ta.id " +
                         "WHERE pa.course_instance_id = ?");
 
         getTeachersAllocatedToPlannedActivityStatement = connection.prepareStatement(
-            "SELECT employee_id, allocated_hours " +
-            "FROM employee_planned_activity " +
-            "WHERE planned_activity_id = ?"
-        );
+                "SELECT employeeId, allocated_hours " +
+                        "FROM employee_planned_activity " +
+                        "WHERE plannedActivityId = ?");
 
         UpdateStudentsInCourseStatement = connection.prepareStatement(
-            "UPDATE course_instance " +
-            "SET num_students = ? " +
-            "WHERE id = ?"
+                "UPDATE course_instance " +
+                        "SET num_students = ? " +
+                        "WHERE id = ?"
 
         );
+
+        // Requires exclusive lock to prevent lost update anomaly
+        getPlannedActivitiesForTeacher = connection.prepareStatement(
+                "SELECT plannedActivityId " +
+                        "FROM employee_planned_activity " +
+                        "WHERE employeeId = ? " +
+                        "FOR UPDATE");
 
         deallocateTeacherStatement = connection.prepareStatement(
-            "DELETE FROM employee_planned_activity " +
-            "WHERE employee_id = ? AND planned_activity_id = ?"
-        );
+                "DELETE FROM employee_planned_activity " +
+                        "WHERE employeeId = ? AND plannedActivityId = ?");
 
-       allocateTacherstatement = connection.prepareStatement(
-            "INSERT INTO employee_planned_activity (employee_id, planned_activity_id, allocated_hours) " +
-            "VALUES (?, ? ,?)"
-       );
-
-       getplannedactivitybyidstatement = connection.prepareStatement(
-            "SELECT pa.id AS planned_activity_id, " +
-            "       pa.planned_hours, " +
-            "       ta.activity_name, " +
-            "       ta.factor " +
-            "FROM planned_activity AS pa " +
-            "JOIN teaching_activity AS ta ON pa.teaching_activity_id = ta.id " +
-            "WHERE pa.id=?"
-       );
+        allocateTeacherStatement = connection.prepareStatement(
+                "INSERT INTO employee_planned_activity (employeeId, plannedActivityId, allocated_hours) " +
+                        "VALUES (?, ? ,?)");
     }
 
     private void connectToDB(String user, String password) throws ClassNotFoundException, SQLException {
@@ -311,7 +359,8 @@ public class KthDAO {
             failureMsg += "also failed to rollback transaction because of: " + rollback.getMessage();
         }
 
-        // if the problem is something else, we wrap it in a DBException and throw it further
+        // if the problem is something else, we wrap it in a DBException and throw it
+        // further
         if (cause != null) {
             throw new DBException(failureMsg, cause);
         } else {

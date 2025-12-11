@@ -1,7 +1,7 @@
 package KthDatabaseApp.controller;
 
-import KthDatabaseApp.intergration.KthDAO;
-import KthDatabaseApp.intergration.DBException;
+import KthDatabaseApp.integration.DBException;
+import KthDatabaseApp.integration.KthDAO;
 import KthDatabaseApp.model.*;
 
 import java.util.List;
@@ -24,30 +24,18 @@ public class Controller {
         database.connectToDatabase(credentials.username, credentials.password);
     }
 
-    public TeachingCostDTO uppdateStudentsstmt(int courseID, int num_students)  throws DBException { // Uppgift 2 
-            
+    public void addStudentsToCourse(int courseID, int addedStudents)  throws DBException {    
         Course course = database.getCourse(courseID);
-        
-        int numStudents = course.getStudentCount() + num_students;
-
-        database.UpdateStudentsInCourseStatement(courseID, numStudents);
-        
-        return getTeachingCost(courseID);
+        database.addStudentsToCourse(courseID, course.getStudentCount() + addedStudents);
     }
 
     public void allocateTeacherToPlannedActivity(int teacherID, int plannedActivityID, int allocatedHours) throws DBException, TeacherOverallocationException {
-
-     
-
-        Teacher teacher = database.getTeacher(teacherID);
-
-        
-            database.allocateTeacher(teacherID, plannedActivityID, allocatedHours);    
+        database.allocateTeacherToPlannedActivity(teacherID, plannedActivityID, allocatedHours);    
     }
 
-    public void dealallocate(int teacherID, int plannedActivityID) throws DBException , TeacherOverallocationException
+    public void deallocateTeacherFromPlannedActivity(int teacherID, int plannedActivityID) throws DBException
     {
-        database.deallocateTeacher(teacherID, plannedActivityID);
+        database.deallocateTeacherFromPlannedActivity(teacherID, plannedActivityID);
     }
 
 

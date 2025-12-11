@@ -55,31 +55,12 @@ public class Teacher implements TeacherDTO {
             throws TeacherOverallocationException {
         TeacherAllocation newAllocation = new TeacherAllocation(plannedActivity, allocatedHours);
         allocatedPlannedActivities.add(newAllocation);
-        HashMap<Integer, HashMap<StudyPeriod, List<Integer>>> allocatedCourseInstances = new HashMap<>();
-        for (TeacherAllocation allocation : allocatedPlannedActivities) {
-            CourseDTO allocatedCourse = allocation.plannedActivity.getCourse();
-            int studyYear = allocatedCourse.getStudyYear();
-            StudyPeriod studyPeriod = allocatedCourse.getStudyPeriod();
-            if (!allocatedCourseInstances.containsKey(studyYear)) {
-                allocatedCourseInstances.put(studyYear, new HashMap<>());
-            }
-            List<Integer> allocatedCourseInstancesCurrentPeriod = allocatedCourseInstances.get(studyYear)
-                    .get(studyPeriod);
-            if (allocatedCourseInstancesCurrentPeriod == null) {
-                allocatedCourseInstancesCurrentPeriod = new ArrayList<>();
-                allocatedCourseInstances.get(studyYear).put(studyPeriod, allocatedCourseInstancesCurrentPeriod);
-            }
-            int allocatedCourseInstanceId = allocatedCourse.getSurrogateId();
-            if (!allocatedCourseInstancesCurrentPeriod.contains(allocatedCourseInstanceId)) {
-                allocatedCourseInstancesCurrentPeriod.add(allocatedCourseInstanceId);
-                if (allocatedCourseInstancesCurrentPeriod.size() > 4) {
-                    allocatedPlannedActivities.remove(newAllocation);
-                    throw new TeacherOverallocationException("Cannot allocate planned activity id="
-                            + plannedActivity.getId()
-                            + " to teacher employeeId=" + employeeId
-                            + " because the teacher would be allocated to more than 4 different course instances during a particular period.");
-                }
-            }
+        if (getMaxTeachingLoad() > 4) {
+            allocatedPlannedActivities.remove(newAllocation);
+            throw new TeacherOverallocationException("Cannot allocate planned activity id="
+                    + plannedActivity.getId()
+                    + " to teacher employeeId=" + employeeId
+                    + " because the teacher would be allocated to more than 4 different course instances during a particular period.");
         }
     }
 
@@ -147,5 +128,37 @@ public class Teacher implements TeacherDTO {
             }
         }
         return 0;
+    }
+
+    public List<TeacherAllocation> getTeachingAllocations() {
+        List<TeacherAllocation> clone = new ArrayList<>(allocatedPlannedActivities);
+        return clone;
+    }
+
+    public int getMaxTeachingLoad() {
+        int maxTeachingLoad = 0;
+        HashMap<Integer, HashMap<StudyPeriod, List<Integer>>> allocatedCourseInstances = new HashMap<>();
+        for (TeacherAllocation allocation : allocatedPlannedActivities) {
+            CourseDTO allocatedCourse = allocation.plannedActivity.getCourse();
+            int studyYear = allocatedCourse.getStudyYear();
+            StudyPeriod studyPeriod = allocatedCourse.getStudyPeriod();
+            if (!allocatedCourseInstances.containsKey(studyYear)) {
+                allocatedCourseInstances.put(studyYear, new HashMap<>());
+            }
+            List<Integer> allocatedCourseInstancesCurrentPeriod = allocatedCourseInstances.get(studyYear)
+                    .get(studyPeriod);
+            if (allocatedCourseInstancesCurrentPeriod == null) {
+                allocatedCourseInstancesCurrentPeriod = new ArrayList<>();
+                allocatedCourseInstances.get(studyYear).put(studyPeriod, allocatedCourseInstancesCurrentPeriod);
+            }
+            int allocatedCourseInstanceId = allocatedCourse.getSurrogateId();
+            if (!allocatedCourseInstancesCurrentPeriod.contains(allocatedCourseInstanceId)) {
+                allocatedCourseInstancesCurrentPeriod.add(allocatedCourseInstanceId);
+                if (allocatedCourseInstancesCurrentPeriod.size() > maxTeachingLoad) {
+                    maxTeachingLoad = allocatedCourseInstancesCurrentPeriod.size();
+                }
+            }
+        }
+        return maxTeachingLoad;
     }
 }

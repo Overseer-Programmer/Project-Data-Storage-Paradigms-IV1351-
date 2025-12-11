@@ -5,7 +5,7 @@ import KthDatabaseApp.view.BlockingInterpreter;
 import java.io.IOException;
 
 import KthDatabaseApp.controller.Controller;
-import KthDatabaseApp.intergration.DBException;
+import KthDatabaseApp.integration.DBException;
 import KthDatabaseApp.model.*;
 
 

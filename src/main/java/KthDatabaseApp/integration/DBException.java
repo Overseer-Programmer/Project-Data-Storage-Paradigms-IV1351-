@@ -1,4 +1,4 @@
-package KthDatabaseApp.intergration;
+package KthDatabaseApp.integration;
 
 public class DBException extends Exception { // exception extending the built-in Exception class
     public DBException(String message) {

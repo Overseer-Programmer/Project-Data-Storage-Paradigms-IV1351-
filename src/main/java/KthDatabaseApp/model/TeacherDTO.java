@@ -1,5 +1,7 @@
 package KthDatabaseApp.model;
 
+import java.util.List;
+
 public interface TeacherDTO {
     public int getEmployeeId();
     public String getFirstName();
@@ -17,4 +19,5 @@ public interface TeacherDTO {
      *         planned activity.
      */
     public double getAllocatedHoursForPlannedActivity(PlannedActivityDTO plannedActivity);
+    public List<TeacherAllocation> getTeachingAllocations();
 }
