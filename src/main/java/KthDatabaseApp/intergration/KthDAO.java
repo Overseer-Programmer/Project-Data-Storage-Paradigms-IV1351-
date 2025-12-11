@@ -25,6 +25,17 @@ public class KthDAO {
     private PreparedStatement getPlannedActivitiesForCourseStatement;
     private PreparedStatement getTeachersAllocatedToPlannedActivityStatement;
 
+    //task2
+    private PreparedStatement UpdateStudentsInCourseStatement;
+    
+    //task3
+    private PreparedStatement allocateTacherstatement;
+    private PreparedStatement deallocateTeacherStatement;
+    private PreparedStatement getplannedactivitybyidstatement;
+
+
+
+    
     public void connectToDatabase(String dbUsername, String dbUserPassword) throws DBException {
         try {
             connectToDB(dbUsername, dbUserPassword);
@@ -151,6 +162,45 @@ public class KthDAO {
         return teachers;
     }
 
+    public void  allocateTeacher(int teacherId, int plannedActivityId, int allocatedHours) throws DBException {
+        
+        final String failureMessage = "could not allocate teacher to planned_acitivity";
+        
+        try {
+            
+            allocateTacherstatement.setInt(1, teacherId);
+            allocateTacherstatement.setInt(2, plannedActivityId);
+            allocateTacherstatement.setInt(3, allocatedHours);
+
+            allocateTacherstatement.executeUpdate();
+            connection.commit();
+
+        } catch (SQLException ex) {
+            handleException(failureMessage, ex);
+        }
+    }
+
+    public void deallocateTeacher(int teacherId, int plannedActivityId) throws DBException {
+         final String failureMessage = "could not deallocate teacher from planned_activity";
+
+        try{
+        deallocateTeacherStatement.setInt(1, teacherId);
+        deallocateTeacherStatement.setInt(2, plannedActivityId);
+
+        deallocateTeacherStatement.executeUpdate();
+        connection.commit();
+        } catch (SQLException e) {
+            handleException(failureMessage, e);
+        }
+
+    }
+
+    public PlannedActivityDTO getpPlannedActivityById(int planned_activity_id){
+        
+
+    }
+
+
     private Teacher getTeacherInternal(int employeeId, ResultSet result) throws SQLException {
         getTeacherStatement.setInt(1, employeeId);
         result = getTeacherStatement.executeQuery();
@@ -163,6 +213,19 @@ public class KthDAO {
                 result.getString("zip"),
                 result.getString("city"),
                 result.getInt("salary"));
+    }
+
+    public void UpdateStudentsInCourseStatement ( int courseID, int newNumStudents) throws DBException {
+        final String failureMessage = "Could not update number of students in course";
+        try {
+            UpdateStudentsInCourseStatement.setInt(1, newNumStudents);
+            UpdateStudentsInCourseStatement.setInt(2, courseID);
+            UpdateStudentsInCourseStatement.executeUpdate();
+            connection.commit();
+
+        } catch (SQLException e) {
+            handleException(failureMessage, e);
+        }
     }
 
     // all SQL commands goes here
@@ -206,6 +269,33 @@ public class KthDAO {
             "FROM employee_planned_activity " +
             "WHERE planned_activity_id = ?"
         );
+
+        UpdateStudentsInCourseStatement = connection.prepareStatement(
+            "UPDATE course_instance " +
+            "SET num_students = ? " +
+            "WHERE id = ?"
+
+        );
+
+        deallocateTeacherStatement = connection.prepareStatement(
+            "DELETE FROM employee_planned_activity " +
+            "WHERE employee_id = ? AND planned_activity_id = ?"
+        );
+
+       allocateTacherstatement = connection.prepareStatement(
+            "INSERT INTO employee_planned_activity (employee_id, planned_activity_id, allocated_hours) " +
+            "VALUES (?, ? ,?)"
+       );
+
+       getplannedactivitybyidstatement = connection.prepareStatement(
+            "SELECT pa.id AS planned_activity_id, " +
+            "       pa.planned_hours, " +
+            "       ta.activity_name, " +
+            "       ta.factor " +
+            "FROM planned_activity AS pa " +
+            "JOIN teaching_activity AS ta ON pa.teaching_activity_id = ta.id " +
+            "WHERE pa.id=?"
+       );
     }
 
     private void connectToDB(String user, String password) throws ClassNotFoundException, SQLException {
@@ -221,8 +311,7 @@ public class KthDAO {
             failureMsg += "also failed to rollback transaction because of: " + rollback.getMessage();
         }
 
-        // if the problem is something else, we wrap it in a DBException and throw it
-        // further
+        // if the problem is something else, we wrap it in a DBException and throw it further
         if (cause != null) {
             throw new DBException(failureMsg, cause);
         } else {

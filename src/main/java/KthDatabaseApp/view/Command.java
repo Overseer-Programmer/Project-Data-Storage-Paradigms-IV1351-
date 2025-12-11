@@ -31,5 +31,9 @@ public enum Command {
     TEST, // Just says hello
     HELP, // Leave the chat application.
     QUIT,
+    COST,
+    INCREASE,
+    ALLOCATE,
+    DEALLOCATE,
     ILLEGAL_COMMAND // None of the valid commands above was specified.
 }

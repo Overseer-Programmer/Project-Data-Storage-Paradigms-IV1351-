@@ -20,4 +20,6 @@ public class TeachingCostDTO {
         this.plannedCost = plannedCost;
         this.actualCost = actualCost;
     }
+
+    
 }

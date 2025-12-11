@@ -1,4 +1,3 @@
-
 package KthDatabaseApp.controller;
 
 import KthDatabaseApp.intergration.KthDAO;
@@ -6,6 +5,7 @@ import KthDatabaseApp.intergration.DBException;
 import KthDatabaseApp.model.*;
 
 import java.util.List;
+import javax.print.attribute.standard.MediaSize;
 
 public class Controller {
     public void hello() {
@@ -18,9 +18,39 @@ public class Controller {
         database = new KthDAO();
     }
 
+    
+
     public void connectToDatabase(DBCredentials credentials) throws DBException {
         database.connectToDatabase(credentials.username, credentials.password);
     }
+
+    public TeachingCostDTO uppdateStudentsstmt(int courseID, int num_students)  throws DBException { // Uppgift 2 
+            
+        Course course = database.getCourse(courseID);
+        
+        int numStudents = course.getStudentCount() + num_students;
+
+        database.UpdateStudentsInCourseStatement(courseID, numStudents);
+        
+        return getTeachingCost(courseID);
+    }
+
+    public void allocateTeacherToPlannedActivity(int teacherID, int plannedActivityID, int allocatedHours) throws DBException, TeacherOverallocationException {
+
+     
+
+        Teacher teacher = database.getTeacher(teacherID);
+
+        
+            database.allocateTeacher(teacherID, plannedActivityID, allocatedHours);    
+    }
+
+    public void dealallocate(int teacherID, int plannedActivityID) throws DBException , TeacherOverallocationException
+    {
+        database.deallocateTeacher(teacherID, plannedActivityID);
+    }
+
+
 
     /**
      * Gets the planned cost and actual cost for a course along with some course
@@ -33,6 +63,7 @@ public class Controller {
      * @return A TeachingCostDTO object with all relevant data.
      * @throws DBException
      */
+
     public TeachingCostDTO getTeachingCost(int courseInstanceId) throws DBException {
         Course course = database.getCourse(courseInstanceId);
         double totalPlannedCost = 0;
@@ -46,6 +77,7 @@ public class Controller {
                 totalActualCost += hourlyWage * teacher.getAllocatedHoursForPlannedActivity(plannedActivity);
             }
         }
+
 
         return new TeachingCostDTO(
                 course.getCourseCode(),
