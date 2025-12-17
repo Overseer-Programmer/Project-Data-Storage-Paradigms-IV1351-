@@ -263,3 +263,57 @@ BEFORE INSERT OR UPDATE OR DELETE
 ON planned_activity
 FOR EACH ROW
 EXECUTE FUNCTION assert_legal_planned_activity_modified();
+
+-- Teaching activity "Exercise" business constraint
+CREATE FUNCTION handle_teaching_activity_addition_request()
+RETURNS trigger AS $$
+DECLARE
+    target_course_instance_id int;
+BEGIN
+    IF NEW.activity_name != 'Exercise' THEN
+        RETURN NEW;
+    END IF;
+
+    -- Find a course instance with at least one allocated teacher and add a planned activity of type 'Exercise' for it
+    SELECT *
+    INTO target_course_instance_id
+    
+    IF target_course_instance_id != NULL THEN
+        RAISE EXCEPTION 'Unable to find course instance with at least one employee allocated to it for teaching activity "Exercise"';
+        RETURN OLD;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE FUNCTION check_exercise_teaching_activity_constraint()
+RETURNS trigger AS $$
+DECLARE
+    target_course_instance_id int;
+BEGIN
+    -- Find all planned activities with activity_name 'Exercise'
+    -- Check If all planned activities have at least one teacher allocated to the course instance, otherwise raise exception
+
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER on_teaching_activity_added
+BEFORE INSERT
+ON teaching_activity
+FOR EACH ROW
+EXECUTE FUNCTION handle_teaching_activity_addition_request
+
+CREATE TRIGGER on_planned_activity_removed
+AFTER DELETE
+ON planned_activity
+FOR EACH ROW
+EXECUTE FUNCTION check_exercise_teaching_activity_constraint
+
+CREATE TRIGGER on_teaching_de_or_reallocation
+AFTER UPDATE OR DELETE
+ON employee_planned_activity
+FOR EACH ROW
+EXECUTE FUNCTION check_exercise_teaching_activity_constraint
