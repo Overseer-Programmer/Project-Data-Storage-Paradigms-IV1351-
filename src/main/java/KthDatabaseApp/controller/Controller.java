@@ -86,24 +86,8 @@ public class Controller {
         if (course == null) {
             throw new DBException(String.format("Course of id=%d does not exist.", courseInstanceId));
         }
-        double totalPlannedCost = 0;
-        double totalActualCost = 0;
-        for (PlannedActivityDTO plannedActivity : course.getPlannedActivities()) {
-            List<Teacher> teachers = database.findTeachersAllocatedToPlannedActivity(plannedActivity);
-            double plannedHourDistribution = plannedActivity.getTotalHours(plannedActivity.getPlannedHours())
-                    / teachers.size();
-            for (Teacher teacher : teachers) {
-                double hourlyWage = teacher.getHourlyWage();
-                totalPlannedCost += hourlyWage * plannedHourDistribution;
-                totalActualCost += hourlyWage * teacher.getAllocatedHoursForPlannedActivity(plannedActivity);
-            }
-        }
 
-        return new TeachingCostDTO(
-                course.getCourseCode(),
-                course.getInstanceId(),
-                course.getStudyPeriod(),
-                Math.round(totalPlannedCost),
-                Math.round(totalActualCost));
+        TeachingCostDTO teachingCost = database.findTeachingCost(course);
+        return teachingCost;
     }
 }

@@ -12,7 +12,6 @@ public class Course implements CourseDTO {
     private double hp;
     private int minStudents;
     private int maxStudents;
-    private List<TeacherAllocation> teacherAllocations;
 
     /**
      * Creates a course object that has all fields from both the course_instance and

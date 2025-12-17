@@ -138,7 +138,7 @@ public class KthDAO {
         try {
             result = findAllPlannedActivitiesStatement.executeQuery();
             while (result.next()) {
-                int plannedActivityId = result.getInt("planned_activity_id");
+                int plannedActivityId = result.getInt("id");
                 PlannedActivity plannedActivity = findPlannedActivityInternal(plannedActivityId);
                 if (plannedActivity != null) {
                     plannedActivities.add(plannedActivity);
@@ -154,8 +154,7 @@ public class KthDAO {
     }
 
     /**
-     * Executes teaching cost queries to obtain the teaching cost for the specified
-     * course.
+     * Finds the teaching cost for the specified course.
      * 
      * @param course
      * @return A TeachingCostDTO object unless an exception was thrown.
@@ -168,9 +167,11 @@ public class KthDAO {
         TeachingCostDTO teachingCost = null;
         try {
             getPlannedTeachingCostStatement.setInt(1, course.getSurrogateId());
-            plannedTeachingCostResult = getActualTeachingCostStatement.executeQuery();
+            plannedTeachingCostResult = getPlannedTeachingCostStatement.executeQuery();
+            plannedTeachingCostResult.next();
             getActualTeachingCostStatement.setInt(1, course.getSurrogateId());
             actualTeachingCostResult = getActualTeachingCostStatement.executeQuery();
+            actualTeachingCostResult.next();
             teachingCost = new TeachingCostDTO(
                 course.getCourseCode(),
                 course.getInstanceId(),
@@ -334,12 +335,6 @@ public class KthDAO {
 
     private PlannedActivity findPlannedActivityInternal(int plannedActivityId)
             throws SQLException, DBException, InvalidRangeException {
-        // Find the associated course
-        Course course = findCourseInternal(plannedActivityId);
-        if (course == null) {
-            throw new DBException("Invalid State: planned activity is missing a course instance.");
-        }
-
         ResultSet result = null;
         PlannedActivity plannedActivity = null;
         try {
@@ -352,7 +347,12 @@ public class KthDAO {
             }
             String activityName = result.getString("activity_name");
             double multiplicationFactor = result.getDouble("factor");
-            int plannedHours = result.getInt("plannedHours");
+            int plannedHours = result.getInt("planned_hours");
+            int courseInstanceId = result.getInt("course_instance_id");
+            Course course = findCourseInternal(courseInstanceId); // Find the associated course
+            if (course == null) {
+                throw new DBException("Invalid State: planned activity is missing a course instance.");
+            }
             plannedActivity = new PlannedActivity(plannedActivityId, course, activityName, multiplicationFactor);
 
             // Set the planned hours for derived and non derived teaching activity types
@@ -397,7 +397,7 @@ public class KthDAO {
                 Files.readString(Path.of("ApplicationQueries/FindAllTeachers.sql")));
         findAllPlannedActivitiesStatement = connection.prepareStatement(
                 Files.readString(Path.of("ApplicationQueries/FindAllPlannedActivities.sql")));
-        findAllPlannedActivitiesStatement = connection.prepareStatement(
+        UpdateStudentsInCourseStatement = connection.prepareStatement(
                 Files.readString(Path.of("ApplicationQueries/UpdateStudentsInCourse.sql")));
         getPlannedActivitiesForTeacherStatement = connection.prepareStatement(
                 Files.readString(Path.of("ApplicationQueries/GetPlannedActivitiesForTeacher.sql")));
@@ -437,7 +437,9 @@ public class KthDAO {
 
     private void closeResultSet(String failureMsg, ResultSet result) throws DBException {
         try {
-            result.close();
+            if (result != null) {
+                result.close();
+            }
         } catch (Exception e) {
             throw new DBException(failureMsg + " Could not close result set.", e);
         }

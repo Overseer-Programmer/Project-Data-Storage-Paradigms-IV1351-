@@ -62,10 +62,8 @@ public class Teacher implements TeacherDTO {
         }
         allocation = new TeacherAllocation(this, plannedActivity, allocatedHours);
         teacherAllocations.add(allocation);
-        plannedActivity.addTeacherAllocation(allocation);
         if (getMaxTeachingLoad() > 4) {
             teacherAllocations.remove(allocation);
-            plannedActivity.removeTeacherAllocation(allocation);
             throw new BusinessConstraintException("Cannot allocate planned activity id="
                     + plannedActivity.getId()
                     + " to teacher employeeId=" + employeeId
@@ -83,7 +81,6 @@ public class Teacher implements TeacherDTO {
         TeacherAllocation allocation = findTeacherAllocation(plannedActivity);
         if (allocation != null) {
             teacherAllocations.remove(allocation);
-            plannedActivity.removeTeacherAllocation(allocation);
         }
     }
 
@@ -147,7 +144,6 @@ public class Teacher implements TeacherDTO {
     public int getMaxTeachingLoad() {
         int maxTeachingLoad = 0;
         HashMap<Integer, HashMap<StudyPeriod, List<Integer>>> allocatedCourseInstances = new HashMap<>();
-        System.out.println("Allocation count: " + teacherAllocations.size());
         for (TeacherAllocation allocation : teacherAllocations) {
             CourseDTO allocatedCourse = allocation.plannedActivity.getCourse();
             int studyYear = allocatedCourse.getStudyYear();

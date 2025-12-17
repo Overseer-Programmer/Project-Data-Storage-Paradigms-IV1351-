@@ -1,2 +1,3 @@
 SELECT id
 FROM employee
+ORDER BY id ASC

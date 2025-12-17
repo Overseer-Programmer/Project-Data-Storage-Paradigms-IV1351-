@@ -106,11 +106,44 @@ public class BlockingInterpreter {
             }
             case GET_TEACHERS: {
                 List<? extends TeacherDTO> teachers = controller.findAllTeachers();
-                System.out
-                        .println(String.format("| %-10s | %-30s | %-20s |", "Teacher id", "Name", "Max teaching load"));
+                System.out.println(
+                        String.format("| %-10s | %-30s | %-20s |", "Teacher id", "Name", "Max teaching load"));
+                System.out.println("-----------------------------------------------------------------------");
+                int listLength = 0;
                 for (TeacherDTO teacher : teachers) {
+                    if (listLength >= MAX_LIST_OUTPUT_LENGTH) {
+                        break;
+                    }
+                    listLength++;
                     System.out.println(String.format("| %-10d | %-30s | %-20d |", teacher.getEmployeeId(),
                             teacher.getFullName(), teacher.getMaxTeachingLoad()));
+                }
+                if (listLength >= MAX_LIST_OUTPUT_LENGTH) {
+                    System.out.println("Capped at " + listLength + " rows");
+                }
+                break;
+            }
+            case GET_PLANNED_ACTIVITIES: {
+                List<? extends PlannedActivityDTO> plannedActivities = controller.findAllPlannedActivities();
+                System.out.println(
+                        String.format("| %-20s | %-20s | %-20s | %-20s |", "Planned activity id", "Planned hours",
+                                "Activity name",
+                                "Course instance id"));
+                System.out.println(
+                        "----------------------------------------------------------------------------------------------");
+                int listLength = 0;
+                for (PlannedActivityDTO plannedActivity : plannedActivities) {
+                    if (listLength >= MAX_LIST_OUTPUT_LENGTH) {
+                        break;
+                    }
+                    listLength++;
+                    System.out.println(
+                            String.format("| %-20d | %-20d | %-20s | %-20d |", plannedActivity.getId(),
+                                    plannedActivity.getPlannedHours(), plannedActivity.getActivityName(),
+                                    plannedActivity.getCourse().getSurrogateId()));
+                }
+                if (listLength >= MAX_LIST_OUTPUT_LENGTH) {
+                    System.out.println("Capped at " + listLength + " rows");
                 }
                 break;
             }
