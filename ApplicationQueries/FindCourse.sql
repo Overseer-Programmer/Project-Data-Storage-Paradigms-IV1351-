@@ -11,4 +11,4 @@ SELECT ci.id AS course_instance_id,
     cl.max_students
 FROM course_instance AS ci
 JOIN course_layout AS cl ON ci.course_layout_id = cl.id
-WHERE ci.id = :chosen_course_id;
+WHERE ci.id = ?

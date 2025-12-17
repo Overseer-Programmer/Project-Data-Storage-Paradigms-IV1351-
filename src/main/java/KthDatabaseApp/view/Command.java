@@ -30,6 +30,9 @@ package KthDatabaseApp.view;
 public enum Command {
     HELP, // Leave the chat application.
     QUIT,
+    GET_COURSES,
+    GET_TEACHERS,
+    GET_PLANNED_ACTIVITIES,
     COST,
     INCREASE,
     ALLOCATE,

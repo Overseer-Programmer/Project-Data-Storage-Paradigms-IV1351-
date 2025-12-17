@@ -5,7 +5,6 @@ import KthDatabaseApp.integration.KthDAO;
 import KthDatabaseApp.model.*;
 
 import java.util.List;
-import javax.print.attribute.standard.MediaSize;
 
 public class Controller {
     public void hello() {
@@ -18,27 +17,58 @@ public class Controller {
         database = new KthDAO();
     }
 
-    
-
     public void connectToDatabase(DBCredentials credentials) throws DBException {
         database.connectToDatabase(credentials.username, credentials.password);
     }
 
-    public void addStudentsToCourse(int courseID, int addedStudents)  throws DBException {    
-        Course course = database.getCourse(courseID);
-        database.addStudentsToCourse(courseID, course.getStudentCount() + addedStudents);
+    public List<? extends TeacherDTO> findAllTeachers() throws DBException {
+        return database.findAllTeachers();
     }
 
-    public void allocateTeacherToPlannedActivity(int teacherID, int plannedActivityID, int allocatedHours) throws DBException, TeacherOverallocationException {
-        database.allocateTeacherToPlannedActivity(teacherID, plannedActivityID, allocatedHours);    
+    public List<? extends PlannedActivityDTO> findAllPlannedActivities() throws DBException {
+        return database.findAllPlannedActivities();
     }
 
-    public void deallocateTeacherFromPlannedActivity(int teacherID, int plannedActivityID) throws DBException
-    {
-        database.deallocateTeacherFromPlannedActivity(teacherID, plannedActivityID);
+    public void addStudentsToCourse(int courseId, int addedStudents) throws DBException {
+        Course course = database.findCourse(courseId);
+        if (course == null) {
+            throw new DBException(String.format("Course of id=%d does not exist.", courseId));
+        }
+        database.addStudentsToCourse(courseId, course.getStudentCount() + addedStudents);
     }
 
+    public void allocateTeacherToPlannedActivity(int teacherId, int plannedActivityId, int allocatedHours)
+            throws DBException, BusinessConstraintException {
+        // Assert the entities exist
+        Teacher teacher = database.findTeacher(teacherId);
+        if (teacher == null) {
+            throw new DBException(String.format("Teacher of id=%d does not exist.", teacherId));
+        }
+        PlannedActivity plannedActivity = database.findPlannedActivity(teacherId);
+        if (plannedActivity == null) {
+            throw new DBException(String.format("Planned activity of id=%d does not exist.", plannedActivityId));
+        }
 
+        // Update the database
+        teacher.allocatePlannedActivity(plannedActivity, allocatedHours);
+        database.updateAllocationForTeacher(teacher);
+    }
+
+    public void deallocateTeacherFromPlannedActivity(int teacherId, int plannedActivityId) throws DBException {
+        // Assert the entities exist
+        Teacher teacher = database.findTeacher(teacherId);
+        if (teacher == null) {
+            throw new DBException(String.format("Teacher of id=%d does not exist.", teacherId));
+        }
+        PlannedActivity plannedActivity = database.findPlannedActivity(teacherId);
+        if (plannedActivity == null) {
+            throw new DBException(String.format("Planned activity of id=%d does not exist.", plannedActivityId));
+        }
+
+        // Update the database
+        teacher.deallocatePlannedActivity(plannedActivity);
+        database.updateAllocationForTeacher(teacher);
+    }
 
     /**
      * Gets the planned cost and actual cost for a course along with some course
@@ -51,21 +81,23 @@ public class Controller {
      * @return A TeachingCostDTO object with all relevant data.
      * @throws DBException
      */
-
     public TeachingCostDTO getTeachingCost(int courseInstanceId) throws DBException {
-        Course course = database.getCourse(courseInstanceId);
+        Course course = database.findCourse(courseInstanceId);
+        if (course == null) {
+            throw new DBException(String.format("Course of id=%d does not exist.", courseInstanceId));
+        }
         double totalPlannedCost = 0;
         double totalActualCost = 0;
         for (PlannedActivityDTO plannedActivity : course.getPlannedActivities()) {
-            List<Teacher> teachers = database.getTeachersAllocatedToPlannedActivity(plannedActivity);
-            double plannedHourDistribution = plannedActivity.getTotalHours(plannedActivity.getPlannedHours()) / teachers.size();
+            List<Teacher> teachers = database.findTeachersAllocatedToPlannedActivity(plannedActivity);
+            double plannedHourDistribution = plannedActivity.getTotalHours(plannedActivity.getPlannedHours())
+                    / teachers.size();
             for (Teacher teacher : teachers) {
                 double hourlyWage = teacher.getHourlyWage();
                 totalPlannedCost += hourlyWage * plannedHourDistribution;
                 totalActualCost += hourlyWage * teacher.getAllocatedHoursForPlannedActivity(plannedActivity);
             }
         }
-
 
         return new TeachingCostDTO(
                 course.getCourseCode(),

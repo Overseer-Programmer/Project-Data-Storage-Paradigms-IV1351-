@@ -1,8 +1,5 @@
 package KthDatabaseApp.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Course implements CourseDTO {
     private final int surrogateId; // The id field of course_instance
     private final int courseLayoutId;
@@ -15,7 +12,7 @@ public class Course implements CourseDTO {
     private double hp;
     private int minStudents;
     private int maxStudents;
-    private List<PlannedActivity> plannedActivities;
+    private List<TeacherAllocation> teacherAllocations;
 
     /**
      * Creates a course object that has all fields from both the course_instance and
@@ -59,21 +56,6 @@ public class Course implements CourseDTO {
         setStudyTime(studyYear, studyPeriod);
         setHp(hp);
         setStudentRange(minStudents, maxStudents);
-        plannedActivities = new ArrayList<>();
-    }
-
-    public void addPlannedActivity(PlannedActivity plannedActivity) {
-        String activityName = plannedActivity.getActivityName();
-        if (activityName.equals("Examination")) {
-            plannedActivity.setPlannedHours((int) Math.round(32 + 0.725 * numStudents));
-        } else if (activityName.equals("Admin")) {
-            plannedActivity.setPlannedHours((int) Math.round(2 * hp + 28 + 0.2 * numStudents));
-        }
-        plannedActivities.add(plannedActivity);
-    }
-
-    public void removePlannedActivity(PlannedActivity plannedActivity) {
-        plannedActivities.remove(plannedActivity);
     }
 
     // Setters
@@ -151,9 +133,5 @@ public class Course implements CourseDTO {
 
     public int getMaxStudents() {
         return maxStudents;
-    }
-
-    public List<PlannedActivityDTO> getPlannedActivities() {
-        return new ArrayList<>(plannedActivities);
     }
 }

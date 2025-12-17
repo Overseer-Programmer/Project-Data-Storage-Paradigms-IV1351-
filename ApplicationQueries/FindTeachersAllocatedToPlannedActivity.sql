@@ -1,3 +1,3 @@
 SELECT employee_id, allocated_hours
 FROM employee_planned_activity
-WHERE planned_activity_id = :chosen_planned_activity_id;
+WHERE planned_activity_id = ?

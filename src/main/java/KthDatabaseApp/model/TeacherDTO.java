@@ -20,4 +20,5 @@ public interface TeacherDTO {
      */
     public double getAllocatedHoursForPlannedActivity(PlannedActivityDTO plannedActivity);
     public List<TeacherAllocation> getTeachingAllocations();
+    public int getMaxTeachingLoad();
 }

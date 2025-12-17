@@ -24,11 +24,12 @@
 
 package KthDatabaseApp.view;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import KthDatabaseApp.controller.Controller;
-import KthDatabaseApp.model.DBCredentials;
-import KthDatabaseApp.model.TeachingCostDTO;
-import KthDatabaseApp.model.TeacherOverallocationException;
+import KthDatabaseApp.integration.DBException;
+import KthDatabaseApp.model.*;
 
 /**
  * Reads and interprets user commands. This command interpreter is blocking, the
@@ -68,86 +69,112 @@ public class BlockingInterpreter {
         while (keepReceivingCmds) {
             try {
                 CmdLine cmdLine = new CmdLine(readNextCommand());
-                switch (cmdLine.getCmd()) {
-                    case HELP: {
-                        for (Command command : Command.values()) {
-                            if (command == Command.ILLEGAL_COMMAND) {
-                                continue;
-                            }
-                            System.out.println(command);
-                        }
-                        break;
+                List<String> parameters = new ArrayList<>();
+                String nextParameter;
+                do {
+                    nextParameter = cmdLine.getParameter(parameters.size());
+                    if (nextParameter != null) {
+                        parameters.add(nextParameter);
                     }
-                    case QUIT: {
-                        keepReceivingCmds = false;
-                        break;
-                    }
-                    case COST: {
-                        String param = cmdLine.getParameter(0);
-                        if (param.equals("")) {
-                            throw new InvalidParametersException("cost course_instance_id", Command.COST);
-                        }
-
-                        int courseId = Integer.parseInt(param);
-                        TeachingCostDTO teachingCost = controller.getTeachingCost(courseId);
-                        System.out.println("courseCode: " + teachingCost.courseCode);
-                        System.out.println("instanceId: " + teachingCost.instanceId);
-                        System.out.println("studyPeriod: " + teachingCost.studyPeriod);
-                        System.out.println("plannedCost: " + teachingCost.plannedCost);
-                        System.out.println("actualCost: " + teachingCost.actualCost);
-                        break;
-                    }
-                    // GET_COURSES
-                    case INCREASE: {
-                        String param1 = cmdLine.getParameter(0);
-                        String param2 = cmdLine.getParameter(1);
-                        if (param1.equals("") || param2.equals("")) {
-                            throw new InvalidParametersException("increase course_instance_id num_students", Command.INCREASE);
-                        }
-
-                        int courseId = Integer.parseInt(param1);
-                        int numStudents = Integer.parseInt(param2);
-                        controller.addStudentsToCourse(courseId, numStudents);
-                        break;
-                    }
-                    case ALLOCATE: {
-                        String param1 = cmdLine.getParameter(0);
-                        String param2 = cmdLine.getParameter(1);
-                        String param3 = cmdLine.getParameter(2);
-                        if (param1.equals("") || param2.equals("") || param3.equals("")) {
-                            throw new InvalidParametersException("allocate teacher_id planned_acitvity_id allocated_hours",
-                                    Command.ALLOCATE);
-                        }
-
-                        int teacherId = Integer.parseInt(param1);
-                        int plannedActivityId = Integer.parseInt(param2);
-                        int allocatedHours = Integer.parseInt(param3);
-                        controller.allocateTeacherToPlannedActivity(teacherId, plannedActivityId, allocatedHours);
-                        System.out.println("Teacher allocated successfully");
-                        break;
-                    }
-                    case DEALLOCATE: {
-                        String param1 = cmdLine.getParameter(0);
-                        String param2 = cmdLine.getParameter(1);
-                        if (param1.equals("") || param2.equals("")) {
-                            throw new InvalidParametersException("deallocate teacher_id planned_activity_id", Command.DEALLOCATE);
-                        }
-
-                        int teacherId = Integer.parseInt(param1);
-                        int plannedActivityId = Integer.parseInt(param2);
-                        controller.deallocateTeacherFromPlannedActivity(teacherId, plannedActivityId);
-                        System.out.println("Teacher deallocated successfully");
-                    }
-                    default:
-                        System.out.println("Illegal command");
-                }
+                } while (nextParameter != null);
+                executeCommand(cmdLine.getCmd(), parameters);
             } catch (Exception e) {
                 System.out.println("Operation failed");
                 System.out.println(e.getMessage());
-                if (!(e instanceof InvalidParametersException || e instanceof TeacherOverallocationException)) {
+                if (!(e instanceof InvalidParametersException || e instanceof BusinessConstraintException)) {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    public void executeCommand(Command command, List<String> parameters)
+            throws InvalidParametersException, DBException, BusinessConstraintException {
+        switch (command) {
+            case HELP: {
+                for (Command currentCommand : Command.values()) {
+                    if (currentCommand == Command.ILLEGAL_COMMAND) {
+                        continue;
+                    }
+                    System.out.println(currentCommand);
+                }
+                break;
+            }
+            case QUIT: {
+                keepReceivingCmds = false;
+                break;
+            }
+            case GET_TEACHERS: {
+                List<? extends TeacherDTO> teachers = controller.findAllTeachers();
+                System.out
+                        .println(String.format("| %-10s | %-30s | %-20s |", "Teacher id", "Name", "Max teaching load"));
+                for (TeacherDTO teacher : teachers) {
+                    System.out.println(String.format("| %-10d | %-30s | %-20d |", teacher.getEmployeeId(),
+                            teacher.getFullName(), teacher.getMaxTeachingLoad()));
+                }
+                break;
+            }
+            case COST: {
+                String param = parameters.get(0);
+                if (param.equals("")) {
+                    throw new InvalidParametersException("cost course_instance_id", Command.COST);
+                }
+
+                int courseId = Integer.parseInt(param);
+                TeachingCostDTO teachingCost = controller.getTeachingCost(courseId);
+                System.out.println("courseCode: " + teachingCost.courseCode);
+                System.out.println("instanceId: " + teachingCost.instanceId);
+                System.out.println("studyPeriod: " + teachingCost.studyPeriod);
+                System.out.println("plannedCost: " + teachingCost.plannedCost);
+                System.out.println("actualCost: " + teachingCost.actualCost);
+                break;
+            }
+            // GET_COURSES
+            case INCREASE: {
+                String param1 = parameters.get(0);
+                String param2 = parameters.get(1);
+                if (param1.equals("") || param2.equals("")) {
+                    throw new InvalidParametersException("increase course_instance_id num_students",
+                            Command.INCREASE);
+                }
+
+                int courseId = Integer.parseInt(param1);
+                int numStudents = Integer.parseInt(param2);
+                controller.addStudentsToCourse(courseId, numStudents);
+                break;
+            }
+            case ALLOCATE: {
+                String param1 = parameters.get(0);
+                String param2 = parameters.get(1);
+                String param3 = parameters.get(2);
+                if (param1.equals("") || param2.equals("") || param3.equals("")) {
+                    throw new InvalidParametersException(
+                            "allocate teacher_id planned_acitvity_id allocated_hours",
+                            Command.ALLOCATE);
+                }
+
+                int teacherId = Integer.parseInt(param1);
+                int plannedActivityId = Integer.parseInt(param2);
+                int allocatedHours = Integer.parseInt(param3);
+                controller.allocateTeacherToPlannedActivity(teacherId, plannedActivityId, allocatedHours);
+                System.out.println("Teacher allocated successfully");
+                break;
+            }
+            case DEALLOCATE: {
+                String param1 = parameters.get(0);
+                String param2 = parameters.get(1);
+                if (param1.equals("") || param2.equals("")) {
+                    throw new InvalidParametersException("deallocate teacher_id planned_activity_id",
+                            Command.DEALLOCATE);
+                }
+
+                int teacherId = Integer.parseInt(param1);
+                int plannedActivityId = Integer.parseInt(param2);
+                controller.deallocateTeacherFromPlannedActivity(teacherId, plannedActivityId);
+                System.out.println("Teacher deallocated successfully");
+            }
+            default:
+                System.out.println("Illegal command");
         }
     }
 

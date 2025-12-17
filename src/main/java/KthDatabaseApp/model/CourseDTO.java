@@ -21,5 +21,4 @@ public interface CourseDTO {
     public int getMinStudents();
     public int getMaxStudents();
     public int getCourseLayoutId();
-    public List<PlannedActivityDTO> getPlannedActivities();
 }

@@ -10,8 +10,8 @@ public class Teacher implements TeacherDTO {
     private String lastName;
     private Address address;
     private int salary;
-    private List<TeacherAllocation> allocatedPlannedActivities; // A list of all planned activities allocated to this
-                                                                // teacher along with the amount of allocated hours.
+    private List<TeacherAllocation> teacherAllocations; // A list of all planned activities allocated to this
+                                                        // teacher along with the amount of allocated hours.
 
     /**
      * Contains information about an employee from the employee and person relations
@@ -37,27 +37,36 @@ public class Teacher implements TeacherDTO {
         setFullName(firstName, lastName);
         setAddress(street, zip, city);
         setSalary(salary);
-        allocatedPlannedActivities = new ArrayList<>();
+        teacherAllocations = new ArrayList<>();
     }
 
     /**
      * Allocates the teacher to a planned activity. If adding the activity would
      * result in having the teacher be allocated to more than 4 different course
      * instances in the same study period and study year, the allocation will be
-     * rejected.
+     * rejected. The teacher allocation reference is also added to the planned
+     * activity.
      * 
      * @param plannedActivity The planned activity to allocate
      * @param allocatedHours  The amount of hours the teacher should be allocated to
      *                        the planned activity
-     * @throws TeacherOverallocationException
+     * @throws BusinessConstraintException
      */
-    public void allocatePlannedActivity(PlannedActivityDTO plannedActivity, int allocatedHours)
-            throws TeacherOverallocationException {
-        TeacherAllocation newAllocation = new TeacherAllocation(plannedActivity, allocatedHours);
-        allocatedPlannedActivities.add(newAllocation);
+    public void allocatePlannedActivity(PlannedActivity plannedActivity, int allocatedHours)
+            throws BusinessConstraintException {
+        TeacherAllocation allocation = findTeacherAllocation(plannedActivity);
+        if (allocation != null) {
+            throw new BusinessConstraintException(String.format(
+                    "Cannot allocate teacher (employee_id=%d) to planned activity (id=%d) because they are already allocated.",
+                    getEmployeeId(), plannedActivity.getId()));
+        }
+        allocation = new TeacherAllocation(this, plannedActivity, allocatedHours);
+        teacherAllocations.add(allocation);
+        plannedActivity.addTeacherAllocation(allocation);
         if (getMaxTeachingLoad() > 4) {
-            allocatedPlannedActivities.remove(newAllocation);
-            throw new TeacherOverallocationException("Cannot allocate planned activity id="
+            teacherAllocations.remove(allocation);
+            plannedActivity.removeTeacherAllocation(allocation);
+            throw new BusinessConstraintException("Cannot allocate planned activity id="
                     + plannedActivity.getId()
                     + " to teacher employeeId=" + employeeId
                     + " because the teacher would be allocated to more than 4 different course instances during a particular period.");
@@ -65,16 +74,16 @@ public class Teacher implements TeacherDTO {
     }
 
     /**
-     * Deallocates the teacher from a planned activity if it exists.
+     * Deallocates the teacher from a planned activity if it exists. The teacher
+     * allocation reference is also removed from the planned activity.
      * 
      * @param plannedActivity
      */
-    public void deallocatePlannedActivity(PlannedActivityDTO plannedActivity) {
-        for (TeacherAllocation allocation : allocatedPlannedActivities) {
-            if (allocation.plannedActivity.getId() == plannedActivity.getId()) {
-                allocatedPlannedActivities.remove(allocation);
-                break;
-            }
+    public void deallocatePlannedActivity(PlannedActivity plannedActivity) {
+        TeacherAllocation allocation = findTeacherAllocation(plannedActivity);
+        if (allocation != null) {
+            teacherAllocations.remove(allocation);
+            plannedActivity.removeTeacherAllocation(allocation);
         }
     }
 
@@ -122,7 +131,7 @@ public class Teacher implements TeacherDTO {
     }
 
     public double getAllocatedHoursForPlannedActivity(PlannedActivityDTO plannedActivity) {
-        for (TeacherAllocation allocation : allocatedPlannedActivities) {
+        for (TeacherAllocation allocation : teacherAllocations) {
             if (allocation.plannedActivity.getId() == plannedActivity.getId()) {
                 return plannedActivity.getTotalHours(allocation.allocatedHours);
             }
@@ -131,14 +140,15 @@ public class Teacher implements TeacherDTO {
     }
 
     public List<TeacherAllocation> getTeachingAllocations() {
-        List<TeacherAllocation> clone = new ArrayList<>(allocatedPlannedActivities);
+        List<TeacherAllocation> clone = new ArrayList<>(teacherAllocations);
         return clone;
     }
 
     public int getMaxTeachingLoad() {
         int maxTeachingLoad = 0;
         HashMap<Integer, HashMap<StudyPeriod, List<Integer>>> allocatedCourseInstances = new HashMap<>();
-        for (TeacherAllocation allocation : allocatedPlannedActivities) {
+        System.out.println("Allocation count: " + teacherAllocations.size());
+        for (TeacherAllocation allocation : teacherAllocations) {
             CourseDTO allocatedCourse = allocation.plannedActivity.getCourse();
             int studyYear = allocatedCourse.getStudyYear();
             StudyPeriod studyPeriod = allocatedCourse.getStudyPeriod();
@@ -160,5 +170,14 @@ public class Teacher implements TeacherDTO {
             }
         }
         return maxTeachingLoad;
+    }
+
+    private TeacherAllocation findTeacherAllocation(PlannedActivity plannedActivity) {
+        for (TeacherAllocation allocation : teacherAllocations) {
+            if (allocation.plannedActivity.getId() == plannedActivity.getId()) {
+                return allocation;
+            }
+        }
+        return null;
     }
 }

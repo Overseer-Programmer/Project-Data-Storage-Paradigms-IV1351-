@@ -1,5 +1,8 @@
 package KthDatabaseApp.integration;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection; // help us connect to the database
 import java.sql.DriverManager; // help us manage the connection
 import java.sql.PreparedStatement; // help us create prepared statements
@@ -18,19 +21,22 @@ public class KthDAO {
     private Connection connection;
 
     // a PreparedStatement is a precompiled SQL statement
+    private PreparedStatement findCourseStatement;
+    private PreparedStatement findTeacherStatement;
+    private PreparedStatement findPlannedActivityStatement;
+    private PreparedStatement findAllTeachersStatement;
+    private PreparedStatement findAllPlannedActivitiesStatement;
+    private PreparedStatement getPlannedActivitiesForTeacherStatement;
 
-    // teacher
-    private PreparedStatement getCourseStatement;
-    private PreparedStatement getTeacherStatement;
-    private PreparedStatement getPlannedActivitiesForCourseStatement;
-    private PreparedStatement getTeachersAllocatedToPlannedActivityStatement;
-    private PreparedStatement getAllTeachersStatement;
+    // Task 1 Compute teaching cost
+    private PreparedStatement getPlannedTeachingCostStatement;
+    private PreparedStatement getActualTeachingCostStatement;
 
     // Task 2 modify course instance
     private PreparedStatement UpdateStudentsInCourseStatement;
 
     // Task 3 teacher allocation
-    private PreparedStatement getPlannedActivitiesForTeacher;
+    private PreparedStatement getPlannedActivitiesForTeacherLockingStatement;
     private PreparedStatement allocateTeacherStatement;
     private PreparedStatement deallocateTeacherStatement;
 
@@ -38,7 +44,7 @@ public class KthDAO {
         try {
             connectToDB(dbUsername, dbUserPassword);
             prepareStatements();
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (ClassNotFoundException | SQLException | IOException e) {
             throw new DBException("failed to connect to database", e);
         }
     }
@@ -52,109 +58,72 @@ public class KthDAO {
     }
 
     /**
-     * Gets a course and all its related information.
+     * Finds a course and all its related information.
      * 
      * @param courseId The id column of the course_instance relation which
      *                 you want to gather information from.
-     * @return a Course object.
+     * @return a Course object or null if it was not found.
      * @throws DBException
      */
-    public Course getCourse(int courseInstanceId) throws DBException {
-        final String failureMessage = "Could not get course";
+    public Course findCourse(int courseInstanceId) throws DBException {
+        final String failureMessage = "Could not find course";
         Course course = null;
-        ResultSet result = null;
         try {
-            getCourseStatement.setInt(1, courseInstanceId);
-            result = getCourseStatement.executeQuery();
-            result.next();
-
-            // Get all attributes from course_instance and course_layout
-            course = new Course(
-                    result.getInt("course_instance_id"),
-                    result.getInt("course_layout_id"),
-                    result.getString("instance_id"),
-                    result.getString("course_code"),
-                    result.getString("course_name"),
-                    result.getInt("num_students"),
-                    result.getInt("study_year"),
-                    StudyPeriod.valueOf(result.getString("study_period")),
-                    result.getDouble("hp"),
-                    result.getInt("min_students"),
-                    result.getInt("max_students"));
-
-            // Get all planned activities for the course
-            getPlannedActivitiesForCourseStatement.setInt(1, course.getSurrogateId());
-            result = getPlannedActivitiesForCourseStatement.executeQuery();
-            while (result.next()) {
-                PlannedActivity newPlannedActivity = new PlannedActivity(
-                        result.getInt("plannedActivityId"),
-                        course,
-                        result.getString("activity_name"),
-                        result.getDouble("factor"));
-                int plannedHours = result.getInt("planned_hours");
-                if (plannedHours != 0) {
-                    newPlannedActivity.setPlannedHours(plannedHours);
-                }
-                course.addPlannedActivity(newPlannedActivity);
-            }
-
+            course = findCourseInternal(courseInstanceId);
             connection.commit();
         } catch (SQLException | InvalidRangeException e) {
             handleException(failureMessage, e);
-        } finally {
-            closeResultSet(failureMessage, result);
         }
 
         return course;
     }
 
     /**
-     * Gets a teacher using their employee id
+     * Finds a teacher using their employee id.
      * 
      * @param employeeId The employeeId from the employee table
-     * @return A Teacher object
+     * @return A Teacher object or null if it does not exist
      * @throws DBException
      */
-    public Teacher getTeacher(int employeeId) throws DBException {
-        final String failureMessage = "Could not get teacher";
+    public Teacher findTeacher(int employeeId) throws DBException {
+        final String failureMessage = "Could not find teacher";
         Teacher teacher = null;
-        ResultSet result = null;
         try {
-            teacher = getTeacherInternal(employeeId, result);
+            teacher = findTeacherInternal(employeeId);
             connection.commit();
-        } catch (SQLException e) {
+        } catch (SQLException | InvalidRangeException | BusinessConstraintException e) {
             handleException(failureMessage, e);
-        } finally {
-            closeResultSet(failureMessage, result);
         }
 
         return teacher;
     }
 
-    /**
-     * Returns all teachers allocated to a planned activity.
-     * 
-     * @param plannedActivity
-     * @return A list of Teachers
-     * @throws DBException
-     */
-    public List<Teacher> getTeachersAllocatedToPlannedActivity(PlannedActivityDTO plannedActivity)
-            throws DBException {
-        final String failureMessage = "Could not get get teachers allocated to the planned activity";
+    public PlannedActivity findPlannedActivity(int plannedActivityId) throws DBException {
+        final String failureMessage = "Could not find planned activity";
+        PlannedActivity plannedActivity = null;
+        try {
+            plannedActivity = findPlannedActivityInternal(plannedActivityId);
+            connection.commit();
+        } catch (SQLException | InvalidRangeException e) {
+            handleException(failureMessage, e);
+        }
+        return plannedActivity;
+    }
+
+    public List<Teacher> findAllTeachers() throws DBException {
+        final String failureMessage = "Could not find teachers";
         List<Teacher> teachers = new ArrayList<>();
         ResultSet result = null;
         try {
-            getTeachersAllocatedToPlannedActivityStatement.setInt(1, plannedActivity.getId());
-            result = getTeachersAllocatedToPlannedActivityStatement.executeQuery();
+            result = findAllTeachersStatement.executeQuery();
             while (result.next()) {
-                int employeeId = result.getInt("employeeId");
-                int allocatedHours = result.getInt("allocated_hours");
-                Teacher teacher = getTeacherInternal(employeeId, result);
-                teacher.allocatePlannedActivity(plannedActivity, allocatedHours);
-                teachers.add(teacher);
+                Teacher teacher = findTeacherInternal(result.getInt("id"));
+                if (teacher != null) {
+                    teachers.add(teacher);
+                }
             }
             connection.commit();
-        } catch (SQLException | TeacherOverallocationException e) {
+        } catch (SQLException | InvalidRangeException | BusinessConstraintException e) {
             handleException(failureMessage, e);
         } finally {
             closeResultSet(failureMessage, result);
@@ -162,23 +131,61 @@ public class KthDAO {
         return teachers;
     }
 
-    public List<Teacher> getAllTeachers() throws DBException {
-        final String failureMessage = "Could not get get teachers";
-        List<Teacher> teachers = new ArrayList<>();
+    public List<PlannedActivity> findAllPlannedActivities() throws DBException {
+        final String failureMessage = "Could not find planned activities";
+        List<PlannedActivity> plannedActivities = new ArrayList<>();
         ResultSet result = null;
         try {
-            result = getAllTeachersStatement.executeQuery();
+            result = findAllPlannedActivitiesStatement.executeQuery();
             while (result.next()) {
-                Teacher teacher = getTeacherInternal(result.getInt("employee_id"), result);
-                teachers.add(teacher);
+                int plannedActivityId = result.getInt("planned_activity_id");
+                PlannedActivity plannedActivity = findPlannedActivityInternal(plannedActivityId);
+                if (plannedActivity != null) {
+                    plannedActivities.add(plannedActivity);
+                }
             }
             connection.commit();
-        } catch (SQLException e) {
+        } catch (SQLException | InvalidRangeException e) {
             handleException(failureMessage, e);
         } finally {
             closeResultSet(failureMessage, result);
         }
-        return teachers;
+        return plannedActivities;
+    }
+
+    /**
+     * Executes teaching cost queries to obtain the teaching cost for the specified
+     * course.
+     * 
+     * @param course
+     * @return A TeachingCostDTO object unless an exception was thrown.
+     * @throws DBException
+     */
+    public TeachingCostDTO findTeachingCost(Course course) throws DBException {
+        final String failureMessage = "Could not find teaching cost";
+        ResultSet plannedTeachingCostResult = null;
+        ResultSet actualTeachingCostResult = null;
+        TeachingCostDTO teachingCost = null;
+        try {
+            getPlannedTeachingCostStatement.setInt(1, course.getSurrogateId());
+            plannedTeachingCostResult = getActualTeachingCostStatement.executeQuery();
+            getActualTeachingCostStatement.setInt(1, course.getSurrogateId());
+            actualTeachingCostResult = getActualTeachingCostStatement.executeQuery();
+            teachingCost = new TeachingCostDTO(
+                course.getCourseCode(),
+                course.getInstanceId(),
+                course.getStudyPeriod(),
+                plannedTeachingCostResult.getInt("cost"),
+                actualTeachingCostResult.getInt("cost")
+            );
+            connection.commit();
+        } catch (SQLException e) {
+            handleException(failureMessage, e);
+        } finally {
+            closeResultSet(failureMessage, plannedTeachingCostResult);
+            closeResultSet(failureMessage, actualTeachingCostResult);
+        }
+        return teachingCost;
     }
 
     /**
@@ -195,8 +202,8 @@ public class KthDAO {
         final String failureMessage = "Could not update teacher allocation";
         ResultSet result = null;
         try {
-            getPlannedActivitiesForTeacher.setInt(1, teacher.getEmployeeId());
-            result = getPlannedActivitiesForTeacher.executeQuery();
+            getPlannedActivitiesForTeacherLockingStatement.setInt(1, teacher.getEmployeeId());
+            result = getPlannedActivitiesForTeacherLockingStatement.executeQuery();
             List<TeacherAllocation> updatedAllocations = teacher.getTeachingAllocations();
             List<TeacherAllocation> newAllocations = new ArrayList<>(updatedAllocations);
             while (result.next()) {
@@ -249,18 +256,119 @@ public class KthDAO {
         }
     }
 
-    private Teacher getTeacherInternal(int employeeId, ResultSet result) throws SQLException {
-        getTeacherStatement.setInt(1, employeeId);
-        result = getTeacherStatement.executeQuery();
-        result.next();
-        return new Teacher(
-                result.getInt("employeeId"),
-                result.getString("first_name"),
-                result.getString("last_name"),
-                result.getString("street"),
-                result.getString("zip"),
-                result.getString("city"),
-                result.getInt("salary"));
+    private Course findCourseInternal(int courseInstanceId)
+            throws InvalidRangeException, SQLException {
+        ResultSet result = null;
+        Course course = null;
+        try {
+            findCourseStatement.setInt(1, courseInstanceId);
+            result = findCourseStatement.executeQuery();
+            boolean exists = result.next();
+            if (!exists) {
+                return null;
+            }
+
+            // Get all attributes from course_instance and course_layout
+            course = new Course(
+                    courseInstanceId,
+                    result.getInt("course_layout_id"),
+                    result.getString("instance_id"),
+                    result.getString("course_code"),
+                    result.getString("course_name"),
+                    result.getInt("num_students"),
+                    result.getInt("study_year"),
+                    StudyPeriod.valueOf(result.getString("study_period")),
+                    result.getDouble("hp"),
+                    result.getInt("min_students"),
+                    result.getInt("max_students"));
+        } finally {
+            result.close();
+        }
+
+        return course;
+    }
+
+    private Teacher findTeacherInternal(int employeeId)
+            throws SQLException, DBException, InvalidRangeException, BusinessConstraintException {
+        ResultSet result = null;
+        Teacher teacher = null;
+
+        // Get the teacher attributes
+        try {
+            findTeacherStatement.setInt(1, employeeId);
+            result = findTeacherStatement.executeQuery();
+            boolean exists = result.next();
+            if (!exists) {
+                return null;
+            }
+            teacher = new Teacher(
+                    employeeId,
+                    result.getString("first_name"),
+                    result.getString("last_name"),
+                    result.getString("street"),
+                    result.getString("zip"),
+                    result.getString("city"),
+                    result.getInt("salary"));
+        } finally {
+            result.close();
+        }
+
+        // Find all planned activities allocated to the teacher
+        try {
+            getPlannedActivitiesForTeacherStatement.setInt(1, employeeId);
+            result = getPlannedActivitiesForTeacherStatement.executeQuery();
+            while (result.next()) {
+                int plannedActivityId = result.getInt("planned_activity_id");
+                int allocatedHours = result.getInt("allocated_hours");
+                PlannedActivity plannedActivity = findPlannedActivityInternal(plannedActivityId);
+                if (plannedActivity != null) {
+                    teacher.allocatePlannedActivity(plannedActivity, allocatedHours);
+                }
+            }
+        } finally {
+            result.close();
+        }
+
+        return teacher;
+    }
+
+    private PlannedActivity findPlannedActivityInternal(int plannedActivityId)
+            throws SQLException, DBException, InvalidRangeException {
+        // Find the associated course
+        Course course = findCourseInternal(plannedActivityId);
+        if (course == null) {
+            throw new DBException("Invalid State: planned activity is missing a course instance.");
+        }
+
+        ResultSet result = null;
+        PlannedActivity plannedActivity = null;
+        try {
+            // Find the planned activity
+            findPlannedActivityStatement.setInt(1, plannedActivityId);
+            result = findPlannedActivityStatement.executeQuery();
+            boolean exists = result.next();
+            if (!exists) {
+                return null;
+            }
+            String activityName = result.getString("activity_name");
+            double multiplicationFactor = result.getDouble("factor");
+            int plannedHours = result.getInt("plannedHours");
+            plannedActivity = new PlannedActivity(plannedActivityId, course, activityName, multiplicationFactor);
+
+            // Set the planned hours for derived and non derived teaching activity types
+            if (activityName.equals("Examination")) {
+                plannedActivity.setPlannedHours((int) Math.round(32 + 0.725 * course.getStudentCount()));
+            } else if (activityName.equals("Admin")) {
+                plannedActivity
+                        .setPlannedHours((int) Math.round(2 * course.getHp() + 28 + 0.2 * course.getStudentCount()));
+            } else {
+                plannedActivity.setPlannedHours(plannedHours);
+            }
+        } finally {
+            result.close();
+        }
+
+        return plannedActivity;
     }
 
     private void deallocatePlannedActivityFromTeacher(int employeeId, int plannedActivityId) throws SQLException {
@@ -278,72 +386,31 @@ public class KthDAO {
     }
 
     // all SQL commands goes here
-    private void prepareStatements() throws SQLException {
-        getCourseStatement = connection.prepareStatement(
-                "SELECT ci.id AS course_instance_id, " +
-                        "    ci.course_layout_id, " +
-                        "    ci.instance_id, " +
-                        "    cl.course_code, " +
-                        "    cl.course_name, " +
-                        "    ci.num_students, " +
-                        "    ci.study_year, " +
-                        "    ci.Study_Period, " +
-                        "    cl.hp, " +
-                        "    cl.min_students, " +
-                        "    cl.max_students " +
-                        "FROM course_instance AS ci " +
-                        "JOIN course_layout AS cl ON ci.course_layout_id = cl.id " +
-                        "WHERE ci.id = ?");
-
-        getTeacherStatement = connection.prepareStatement(
-                "SELECT e.id AS employeeId, " +
-                        "    p.first_name, " +
-                        "    p.last_name, " +
-                        "    p.street, " +
-                        "    p.zip, " +
-                        "    p.city, " +
-                        "    e.salary " +
-                        "FROM employee AS e " +
-                        "JOIN person AS p ON e.person_id = p.id " +
-                        "WHERE e.id = ?");
-
-        getAllTeachersStatement = connection.prepareStatement(
-            "SELECT id " +
-            "FROM employee"
-        );
-
-        getPlannedActivitiesForCourseStatement = connection.prepareStatement(
-                "SELECT pa.id AS plannedActivityId, pa.planned_hours, ta.activity_name, ta.factor " +
-                        "FROM planned_activity AS pa " +
-                        "JOIN teaching_activity AS ta ON pa.teaching_activity_id = ta.id " +
-                        "WHERE pa.course_instance_id = ?");
-
-        getTeachersAllocatedToPlannedActivityStatement = connection.prepareStatement(
-                "SELECT employeeId, allocated_hours " +
-                        "FROM employee_planned_activity " +
-                        "WHERE plannedActivityId = ?");
-
-        UpdateStudentsInCourseStatement = connection.prepareStatement(
-                "UPDATE course_instance " +
-                        "SET num_students = ? " +
-                        "WHERE id = ?"
-
-        );
-
-        // Requires exclusive lock to prevent lost update anomaly
-        getPlannedActivitiesForTeacher = connection.prepareStatement(
-                "SELECT plannedActivityId " +
-                        "FROM employee_planned_activity " +
-                        "WHERE employeeId = ? " +
-                        "FOR UPDATE");
-
-        deallocateTeacherStatement = connection.prepareStatement(
-                "DELETE FROM employee_planned_activity " +
-                        "WHERE employeeId = ? AND plannedActivityId = ?");
-
+    private void prepareStatements() throws SQLException, IOException {
+        findCourseStatement = connection.prepareStatement(Files.readString(
+                Path.of("ApplicationQueries/FindCourse.sql")));
+        findTeacherStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/FindTeacher.sql")));
+        findPlannedActivityStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/FindPlannedActivity.sql")));
+        findAllTeachersStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/FindAllTeachers.sql")));
+        findAllPlannedActivitiesStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/FindAllPlannedActivities.sql")));
+        findAllPlannedActivitiesStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/UpdateStudentsInCourse.sql")));
+        getPlannedActivitiesForTeacherStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/GetPlannedActivitiesForTeacher.sql")));
+        getPlannedActivitiesForTeacherLockingStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/GetPlannedActivitiesForTeacherLocking.sql")));
+        getPlannedTeachingCostStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/GetPlannedTeachingCost.sql")));
+        getActualTeachingCostStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/GetActualTeachingCost.sql")));
         allocateTeacherStatement = connection.prepareStatement(
-                "INSERT INTO employee_planned_activity (employeeId, plannedActivityId, allocated_hours) " +
-                        "VALUES (?, ? ,?)");
+                Files.readString(Path.of("ApplicationQueries/AllocateTeacher.sql")));
+        deallocateTeacherStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/DeallocateTeacher.sql")));
     }
 
     private void connectToDB(String user, String password) throws ClassNotFoundException, SQLException {

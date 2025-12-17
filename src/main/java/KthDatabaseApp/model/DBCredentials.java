@@ -29,7 +29,7 @@ public class DBCredentials {
     public static DBCredentials readCredentials() throws IOException, InvalidCredentialsException {
         Path credentialPath = Path.of(CREDENTIAL_STORE_NAME);
         if (!Files.exists(credentialPath)) {
-            throw new InvalidCredentialsException("Please enter valid credentials for the database");   
+            throw new InvalidCredentialsException("Please enter valid credentials for the database");
         }
         List<String> lines = Files.readAllLines(credentialPath);
         String username = lines.get(0);

@@ -7,4 +7,4 @@ SELECT e.id AS employee_id,
     e.salary
 FROM employee AS e
 JOIN person AS p ON e.person_id = p.id
-WHERE e.id = :chosen_teacher_id
+WHERE e.id = ?
