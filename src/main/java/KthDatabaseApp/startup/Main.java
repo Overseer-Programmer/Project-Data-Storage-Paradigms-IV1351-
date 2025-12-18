@@ -3,7 +3,6 @@ package KthDatabaseApp.startup;
 import KthDatabaseApp.view.BlockingInterpreter;
 import KthDatabaseApp.view.Command;
 import KthDatabaseApp.view.InvalidParametersException;
-import KthDatabaseApp.view.InvalidRowLengthException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class Main {
             if (args.length > 0 && args[0].equals("Debug")) {
                 List<String> parameters = new ArrayList<>();
                 try {
-                    interpreter.executeCommand(Command.GET_TEACHERS, parameters);
+                    interpreter.executeCommand(Command.GET_COURSES, parameters);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

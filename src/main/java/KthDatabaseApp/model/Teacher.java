@@ -57,7 +57,7 @@ public class Teacher implements TeacherDTO {
         TeacherAllocation allocation = findTeacherAllocation(plannedActivity);
         if (allocation != null) {
             throw new BusinessConstraintException(String.format(
-                    "Cannot allocate teacher (employee_id=%d) to planned activity (id=%d) because they are already allocated.",
+                    "Cannot allocate teacher (employee_id=%d) to planned activity (id=%d) because they are already allocated to it.",
                     getEmployeeId(), plannedActivity.getId()));
         }
         allocation = new TeacherAllocation(this, plannedActivity, allocatedHours);
@@ -76,11 +76,16 @@ public class Teacher implements TeacherDTO {
      * allocation reference is also removed from the planned activity.
      * 
      * @param plannedActivity
+     * @throws BusinessConstraintException
      */
-    public void deallocatePlannedActivity(PlannedActivity plannedActivity) {
+    public void deallocatePlannedActivity(PlannedActivity plannedActivity) throws BusinessConstraintException {
         TeacherAllocation allocation = findTeacherAllocation(plannedActivity);
         if (allocation != null) {
             teacherAllocations.remove(allocation);
+        } else {
+            throw new BusinessConstraintException(String.format(
+                    "Cannot deallocate: Teacher (employee_id=%s) was not allocated to planned activity (id=%d)",
+                    getEmployeeId(), plannedActivity.getId()));
         }
     }
 
@@ -141,6 +146,12 @@ public class Teacher implements TeacherDTO {
         return clone;
     }
 
+    /**
+     * Returns the maximum amount of courses the teacher is allocated to for a
+     * particular study year and study period. That means if a teacher is allocated
+     * to the most courses at 2025 P3, that would be their max teaching load. A
+     * teacher is allocated to a course indirectly via planned activities.
+     */
     public int getMaxTeachingLoad() {
         int maxTeachingLoad = 0;
         HashMap<Integer, HashMap<StudyPeriod, List<Integer>>> allocatedCourseInstances = new HashMap<>();

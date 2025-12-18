@@ -148,7 +148,7 @@ BEGIN
     employee_list := ARRAY(SELECT id FROM employee);
     all_course_instances := ARRAY(SELECT id FROM course_instance);
     FOREACH current_employee_id IN ARRAY employee_list LOOP
-        FOR i IN 1..(1 + floor(random() * 4)::int) LOOP
+        FOR i IN 1..(1 + floor(random() * 10)::int) LOOP
             -- Find a course instance that has planned activities
             course_instance_belonging_planned_activities := '{}';
             WHILE cardinality(course_instance_belonging_planned_activities) = 0 LOOP
@@ -174,8 +174,13 @@ BEGIN
                 FROM employee_planned_activity
                 WHERE planned_activity_id = chosen_planned_activity_id AND employee_id = current_employee_id;
                 IF existing_allocation IS NULL THEN
-                    INSERT INTO employee_planned_activity (employee_id, planned_activity_id, allocated_hours)
-                    VALUES (current_employee_id, chosen_planned_activity_id, 0);
+                    BEGIN
+                        INSERT INTO employee_planned_activity (employee_id, planned_activity_id, allocated_hours)
+                        VALUES (current_employee_id, chosen_planned_activity_id, 0);
+                    EXCEPTION
+                        WHEN OTHERS THEN
+                            NULL;
+                    END;
                 END IF;
             END LOOP;
         END LOOP;

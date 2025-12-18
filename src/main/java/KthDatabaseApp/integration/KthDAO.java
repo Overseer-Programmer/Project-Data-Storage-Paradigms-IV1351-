@@ -24,6 +24,7 @@ public class KthDAO {
     private PreparedStatement findCourseStatement;
     private PreparedStatement findTeacherStatement;
     private PreparedStatement findPlannedActivityStatement;
+    private PreparedStatement findAllCoursesStatement;
     private PreparedStatement findAllTeachersStatement;
     private PreparedStatement findAllPlannedActivitiesStatement;
     private PreparedStatement getPlannedActivitiesForTeacherStatement;
@@ -98,6 +99,13 @@ public class KthDAO {
         return teacher;
     }
 
+    /**
+     * Finds a planned activity from the planned_activity table
+     * 
+     * @param plannedActivityId The id of the planned activity to find
+     * @return A PlannedActivity object or null if it does not exist
+     * @throws DBException
+     */
     public PlannedActivity findPlannedActivity(int plannedActivityId) throws DBException {
         final String failureMessage = "Could not find planned activity";
         PlannedActivity plannedActivity = null;
@@ -108,6 +116,27 @@ public class KthDAO {
             handleException(failureMessage, e);
         }
         return plannedActivity;
+    }
+
+    public List<Course> findAllCourses() throws DBException {
+        final String failureMessage = "Could not find courses";
+        List<Course> courses = new ArrayList<>();
+        ResultSet result = null;
+        try {
+            result = findAllCoursesStatement.executeQuery();
+            while (result.next()) {
+                Course course = findCourseInternal(result.getInt("id"));
+                if (course != null) {
+                    courses.add(course);
+                }
+            }
+            connection.commit();
+        } catch (SQLException | BusinessConstraintException e) {
+            handleException(failureMessage, e);
+        } finally {
+            closeResultSet(failureMessage, result);
+        }
+        return courses;
     }
 
     public List<Teacher> findAllTeachers() throws DBException {
@@ -208,7 +237,7 @@ public class KthDAO {
             List<TeacherAllocation> updatedAllocations = teacher.getTeachingAllocations();
             List<TeacherAllocation> newAllocations = new ArrayList<>(updatedAllocations);
             while (result.next()) {
-                int currentPlannedActivityId = result.getInt("plannedActivityId");
+                int currentPlannedActivityId = result.getInt("planned_activity_id");
 
                 // Deallocate from all removed allocations
                 boolean plannedActivityFound = false;
@@ -406,6 +435,8 @@ public class KthDAO {
                 Files.readString(Path.of("ApplicationQueries/FindTeacher.sql")));
         findPlannedActivityStatement = connection.prepareStatement(
                 Files.readString(Path.of("ApplicationQueries/FindPlannedActivity.sql")));
+        findAllCoursesStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/FindAllCourses.sql")));
         findAllTeachersStatement = connection.prepareStatement(
                 Files.readString(Path.of("ApplicationQueries/FindAllTeachers.sql")));
         findAllPlannedActivitiesStatement = connection.prepareStatement(

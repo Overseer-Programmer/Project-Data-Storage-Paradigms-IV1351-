@@ -21,6 +21,10 @@ public class Controller {
         database.connectToDatabase(credentials.username, credentials.password);
     }
 
+    public List<? extends CourseDTO> findAllCourses() throws DBException {
+        return database.findAllCourses();
+    }
+
     public List<? extends TeacherDTO> findAllTeachers() throws DBException {
         return database.findAllTeachers();
     }
@@ -29,25 +33,48 @@ public class Controller {
         return database.findAllPlannedActivities();
     }
 
-    public void changeStudentsForCourse(int courseId, int delta) throws DBException, BusinessConstraintException {
+    /**
+     * Gets the teacher specified by id or throws an exception if the teacher does not exist.
+     * @param teacherId
+     * @return
+     * @throws EntityNotFoundException
+     * @throws DBException
+     */
+    public TeacherDTO getTeacher(int teacherId) throws EntityNotFoundException, DBException {
+        Teacher teacher = database.findTeacher(teacherId);
+        if (teacher == null) {
+            throw new EntityNotFoundException(String.format("Teacher of id=%d does not exist.", teacherId));
+        }
+        return teacher;
+    }
+
+    /**
+     * Changes the number of students allocated to the course by the delta.
+     * @param courseId
+     * @param delta
+     * @throws DBException
+     * @throws BusinessConstraintException
+     * @throws EntityNotFoundException
+     */
+    public void changeStudentsForCourse(int courseId, int delta) throws DBException, BusinessConstraintException, EntityNotFoundException {
         Course course = database.findCourse(courseId);
         if (course == null) {
-            throw new DBException(String.format("Course of id=%d does not exist.", courseId));
+            throw new EntityNotFoundException(String.format("Course of id=%d does not exist.", courseId));
         }
         course.setStudentCount(course.getStudentCount() + delta);
         database.updateStudentsForCourse(course);
     }
 
     public void allocateTeacherToPlannedActivity(int teacherId, int plannedActivityId, int allocatedHours)
-            throws DBException, BusinessConstraintException {
+            throws DBException, BusinessConstraintException, EntityNotFoundException {
         // Assert the entities exist
         Teacher teacher = database.findTeacher(teacherId);
         if (teacher == null) {
-            throw new DBException(String.format("Teacher of id=%d does not exist.", teacherId));
+            throw new EntityNotFoundException(String.format("Teacher of id=%d does not exist.", teacherId));
         }
-        PlannedActivity plannedActivity = database.findPlannedActivity(teacherId);
+        PlannedActivity plannedActivity = database.findPlannedActivity(plannedActivityId);
         if (plannedActivity == null) {
-            throw new DBException(String.format("Planned activity of id=%d does not exist.", plannedActivityId));
+            throw new EntityNotFoundException(String.format("Planned activity of id=%d does not exist.", plannedActivityId));
         }
 
         // Update the database
@@ -55,15 +82,15 @@ public class Controller {
         database.updateAllocationForTeacher(teacher);
     }
 
-    public void deallocateTeacherFromPlannedActivity(int teacherId, int plannedActivityId) throws DBException {
+    public void deallocateTeacherFromPlannedActivity(int teacherId, int plannedActivityId) throws DBException, EntityNotFoundException, BusinessConstraintException {
         // Assert the entities exist
         Teacher teacher = database.findTeacher(teacherId);
         if (teacher == null) {
-            throw new DBException(String.format("Teacher of id=%d does not exist.", teacherId));
+            throw new EntityNotFoundException(String.format("Teacher of id=%d does not exist.", teacherId));
         }
-        PlannedActivity plannedActivity = database.findPlannedActivity(teacherId);
+        PlannedActivity plannedActivity = database.findPlannedActivity(plannedActivityId);
         if (plannedActivity == null) {
-            throw new DBException(String.format("Planned activity of id=%d does not exist.", plannedActivityId));
+            throw new EntityNotFoundException(String.format("Planned activity of id=%d does not exist.", plannedActivityId));
         }
 
         // Update the database
@@ -81,11 +108,12 @@ public class Controller {
      *                         from
      * @return A TeachingCostDTO object with all relevant data.
      * @throws DBException
+     * @throws EntityNotFoundException 
      */
-    public TeachingCostDTO getTeachingCost(int courseInstanceId) throws DBException {
+    public TeachingCostDTO getTeachingCost(int courseInstanceId) throws DBException, EntityNotFoundException {
         Course course = database.findCourse(courseInstanceId);
         if (course == null) {
-            throw new DBException(String.format("Course of id=%d does not exist.", courseInstanceId));
+            throw new EntityNotFoundException(String.format("Course of id=%d does not exist.", courseInstanceId));
         }
 
         TeachingCostDTO teachingCost = database.findTeachingCost(course);
