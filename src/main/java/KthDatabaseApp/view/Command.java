@@ -28,14 +28,25 @@ package KthDatabaseApp.view;
  * Defines all commands that can be performed by a user of the chat application.
  */
 public enum Command {
-    HELP, // Leave the chat application.
-    QUIT,
-    GET_COURSES,
-    GET_TEACHERS,
-    GET_PLANNED_ACTIVITIES,
-    COST,
-    INCREASE,
-    ALLOCATE,
-    DEALLOCATE,
-    ILLEGAL_COMMAND // None of the valid commands above was specified.
+    HELP("Get information about how to use all commands."),
+    QUIT("Leave the chat application."),
+    GET_COURSES("Get all courses in the database."),
+    GET_TEACHERS("Get all teachers in the database."),
+    GET_PLANNED_ACTIVITIES("Get all planned activities in the database."),
+    TEACHING_COST("Get the teaching cost for a course specified by course_instance_id."),
+    CHANGE_STUDENT_COUNT("Change the student count of a course by a delta value, which is the amount to add or remove from the current student count."),
+    ALLOCATE("Allocate a planned activity to a teacher along with the amount of allocated hours."),
+    DEALLOCATE("Deallocate a planned activity from a teacher."),
+    ILLEGAL_COMMAND("None of the valid commands above was specified.");
+
+    public static int longestCommand = 22;
+    private final String description;
+
+    Command(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

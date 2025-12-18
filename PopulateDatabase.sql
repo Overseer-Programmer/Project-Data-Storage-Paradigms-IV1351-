@@ -22,7 +22,7 @@ FROM jsonb_populate_recordset(NULL::person, :'content'::jsonb);
 -- Create tables with foreign keys
 \set content `cat DatabaseData/CourseInstance.json`
 INSERT INTO course_instance (instance_id, num_students, study_year, study_period, course_layout_id)
-SELECT ci.instance_id, ci.num_students, ci.study_year, ci.study_period, (
+SELECT ci.instance_id, -1, ci.study_year, ci.study_period, (
     SELECT id FROM course_layout
     WHERE ci.id IS NULL  -- Dummy reference to outer table
     ORDER BY RANDOM() LIMIT 1
@@ -124,6 +124,14 @@ SET supervisor_id = (
     SELECT id FROM employee
     WHERE e.id IS NOT NULL  -- Dummy reference to outer table
     ORDER BY RANDOM() LIMIT 1
+);
+
+-- Set num_students of course_instance to be within the valid range
+UPDATE course_instance AS ci
+SET num_students = (
+    SELECT floor(random() * (cl.max_students - cl.min_students + 1)) + cl.min_students
+    FROM course_layout AS cl
+    WHERE ci.course_layout_id = cl.id
 );
 
 -- Fill the employee_planned_activity cross reference table and assign employees to planned activities

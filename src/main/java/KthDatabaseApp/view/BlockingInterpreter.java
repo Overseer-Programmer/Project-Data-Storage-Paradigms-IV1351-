@@ -89,14 +89,14 @@ public class BlockingInterpreter {
     }
 
     public void executeCommand(Command command, List<String> parameters)
-            throws InvalidParametersException, DBException, BusinessConstraintException {
+            throws InvalidParametersException, DBException, BusinessConstraintException, InvalidRowLengthException {
         switch (command) {
             case HELP: {
                 for (Command currentCommand : Command.values()) {
                     if (currentCommand == Command.ILLEGAL_COMMAND) {
                         continue;
                     }
-                    System.out.println(currentCommand);
+                    System.out.println(String.format("%-" + Command.longestCommand + "s:\t%s", currentCommand.toString(), currentCommand.getDescription()));
                 }
                 break;
             }
@@ -106,51 +106,27 @@ public class BlockingInterpreter {
             }
             case GET_TEACHERS: {
                 List<? extends TeacherDTO> teachers = controller.findAllTeachers();
-                System.out.println(
-                        String.format("| %-10s | %-30s | %-20s |", "Teacher id", "Name", "Max teaching load"));
-                System.out.println("-----------------------------------------------------------------------");
-                int listLength = 0;
+                Table table = new Table("Teacher id", "Name", "Max teaching load");
                 for (TeacherDTO teacher : teachers) {
-                    if (listLength >= MAX_LIST_OUTPUT_LENGTH) {
-                        break;
-                    }
-                    listLength++;
-                    System.out.println(String.format("| %-10d | %-30s | %-20d |", teacher.getEmployeeId(),
-                            teacher.getFullName(), teacher.getMaxTeachingLoad()));
+                    table.addRow(teacher.getEmployeeId(), teacher.getFullName(), teacher.getMaxTeachingLoad());
                 }
-                if (listLength >= MAX_LIST_OUTPUT_LENGTH) {
-                    System.out.println("Capped at " + listLength + " rows");
-                }
+                table.printOut();
                 break;
             }
             case GET_PLANNED_ACTIVITIES: {
                 List<? extends PlannedActivityDTO> plannedActivities = controller.findAllPlannedActivities();
-                System.out.println(
-                        String.format("| %-20s | %-20s | %-20s | %-20s |", "Planned activity id", "Planned hours",
-                                "Activity name",
-                                "Course instance id"));
-                System.out.println(
-                        "----------------------------------------------------------------------------------------------");
-                int listLength = 0;
+                Table table = new Table("Planned activity id", "Planned hours", "Activity name", "Course instance id");
                 for (PlannedActivityDTO plannedActivity : plannedActivities) {
-                    if (listLength >= MAX_LIST_OUTPUT_LENGTH) {
-                        break;
-                    }
-                    listLength++;
-                    System.out.println(
-                            String.format("| %-20d | %-20d | %-20s | %-20d |", plannedActivity.getId(),
-                                    plannedActivity.getPlannedHours(), plannedActivity.getActivityName(),
-                                    plannedActivity.getCourse().getSurrogateId()));
+                    table.addRow(plannedActivity.getId(), plannedActivity.getPlannedHours(),
+                            plannedActivity.getActivityName(), plannedActivity.getCourse().getSurrogateId());
                 }
-                if (listLength >= MAX_LIST_OUTPUT_LENGTH) {
-                    System.out.println("Capped at " + listLength + " rows");
-                }
+                table.printOut();
                 break;
             }
-            case COST: {
+            case TEACHING_COST: {
                 String param = parameters.get(0);
                 if (param.equals("")) {
-                    throw new InvalidParametersException("cost course_instance_id", Command.COST);
+                    throw new InvalidParametersException("teaching_cost [course_instance_id]", Command.TEACHING_COST);
                 }
 
                 int courseId = Integer.parseInt(param);
@@ -162,18 +138,17 @@ public class BlockingInterpreter {
                 System.out.println("actualCost: " + teachingCost.actualCost);
                 break;
             }
-            // GET_COURSES
-            case INCREASE: {
+            case CHANGE_STUDENT_COUNT: {
                 String param1 = parameters.get(0);
                 String param2 = parameters.get(1);
                 if (param1.equals("") || param2.equals("")) {
-                    throw new InvalidParametersException("increase course_instance_id num_students",
-                            Command.INCREASE);
+                    throw new InvalidParametersException("change_student_count [course_instance_id] [delta]",
+                            Command.CHANGE_STUDENT_COUNT);
                 }
 
                 int courseId = Integer.parseInt(param1);
-                int numStudents = Integer.parseInt(param2);
-                controller.addStudentsToCourse(courseId, numStudents);
+                int delta = Integer.parseInt(param2);
+                controller.changeStudentsForCourse(courseId, delta);
                 break;
             }
             case ALLOCATE: {
@@ -182,7 +157,7 @@ public class BlockingInterpreter {
                 String param3 = parameters.get(2);
                 if (param1.equals("") || param2.equals("") || param3.equals("")) {
                     throw new InvalidParametersException(
-                            "allocate teacher_id planned_acitvity_id allocated_hours",
+                            "allocate teacher_id [planned_activity_id] [allocated_hours]",
                             Command.ALLOCATE);
                 }
 
@@ -197,7 +172,7 @@ public class BlockingInterpreter {
                 String param1 = parameters.get(0);
                 String param2 = parameters.get(1);
                 if (param1.equals("") || param2.equals("")) {
-                    throw new InvalidParametersException("deallocate teacher_id planned_activity_id",
+                    throw new InvalidParametersException("deallocate teacher_id [planned_activity_id]",
                             Command.DEALLOCATE);
                 }
 

@@ -71,7 +71,7 @@ public class KthDAO {
         try {
             course = findCourseInternal(courseInstanceId);
             connection.commit();
-        } catch (SQLException | InvalidRangeException e) {
+        } catch (SQLException | BusinessConstraintException e) {
             handleException(failureMessage, e);
         }
 
@@ -104,7 +104,7 @@ public class KthDAO {
         try {
             plannedActivity = findPlannedActivityInternal(plannedActivityId);
             connection.commit();
-        } catch (SQLException | InvalidRangeException e) {
+        } catch (SQLException | BusinessConstraintException e) {
             handleException(failureMessage, e);
         }
         return plannedActivity;
@@ -145,7 +145,7 @@ public class KthDAO {
                 }
             }
             connection.commit();
-        } catch (SQLException | InvalidRangeException e) {
+        } catch (SQLException | BusinessConstraintException e) {
             handleException(failureMessage, e);
         } finally {
             closeResultSet(failureMessage, result);
@@ -245,11 +245,16 @@ public class KthDAO {
         }
     }
 
-    public void addStudentsToCourse(int courseId, int newNumStudents) throws DBException {
+    /**
+     * Takes the updated course object and writes the new student count to the database.
+     * @param course
+     * @throws DBException
+     */
+    public void updateStudentsForCourse(Course course) throws DBException {
         final String failureMessage = "Could not update number of students in course";
         try {
-            UpdateStudentsInCourseStatement.setInt(1, newNumStudents);
-            UpdateStudentsInCourseStatement.setInt(2, courseId);
+            UpdateStudentsInCourseStatement.setInt(1, course.getStudentCount());
+            UpdateStudentsInCourseStatement.setInt(2, course.getSurrogateId());
             UpdateStudentsInCourseStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
@@ -258,7 +263,7 @@ public class KthDAO {
     }
 
     private Course findCourseInternal(int courseInstanceId)
-            throws InvalidRangeException, SQLException {
+            throws SQLException, BusinessConstraintException {
         ResultSet result = null;
         Course course = null;
         try {
@@ -283,7 +288,9 @@ public class KthDAO {
                     result.getInt("min_students"),
                     result.getInt("max_students"));
         } finally {
-            result.close();
+            if (result != null) {
+                result.close();                
+            }
         }
 
         return course;
@@ -311,7 +318,9 @@ public class KthDAO {
                     result.getString("city"),
                     result.getInt("salary"));
         } finally {
-            result.close();
+            if (result != null) {
+                result.close();
+            }
         }
 
         // Find all planned activities allocated to the teacher
@@ -327,14 +336,16 @@ public class KthDAO {
                 }
             }
         } finally {
-            result.close();
+            if (result != null) {
+                result.close();
+            }
         }
 
         return teacher;
     }
 
     private PlannedActivity findPlannedActivityInternal(int plannedActivityId)
-            throws SQLException, DBException, InvalidRangeException {
+            throws SQLException, DBException, BusinessConstraintException {
         ResultSet result = null;
         PlannedActivity plannedActivity = null;
         try {
@@ -365,7 +376,9 @@ public class KthDAO {
                 plannedActivity.setPlannedHours(plannedHours);
             }
         } finally {
-            result.close();
+            if (result != null) {
+                result.close();
+            }
         }
 
         return plannedActivity;

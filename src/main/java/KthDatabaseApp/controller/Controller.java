@@ -29,12 +29,13 @@ public class Controller {
         return database.findAllPlannedActivities();
     }
 
-    public void addStudentsToCourse(int courseId, int addedStudents) throws DBException {
+    public void changeStudentsForCourse(int courseId, int delta) throws DBException, BusinessConstraintException {
         Course course = database.findCourse(courseId);
         if (course == null) {
             throw new DBException(String.format("Course of id=%d does not exist.", courseId));
         }
-        database.addStudentsToCourse(courseId, course.getStudentCount() + addedStudents);
+        course.setStudentCount(course.getStudentCount() + delta);
+        database.updateStudentsForCourse(course);
     }
 
     public void allocateTeacherToPlannedActivity(int teacherId, int plannedActivityId, int allocatedHours)

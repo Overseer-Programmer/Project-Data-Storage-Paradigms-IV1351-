@@ -3,6 +3,7 @@ package KthDatabaseApp.startup;
 import KthDatabaseApp.view.BlockingInterpreter;
 import KthDatabaseApp.view.Command;
 import KthDatabaseApp.view.InvalidParametersException;
+import KthDatabaseApp.view.InvalidRowLengthException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +26,11 @@ public class Main {
             BlockingInterpreter interpreter = new BlockingInterpreter(controller);
             if (args.length > 0 && args[0].equals("Debug")) {
                 List<String> parameters = new ArrayList<>();
-                interpreter.executeCommand(Command.GET_PLANNED_ACTIVITIES, parameters);
+                try {
+                    interpreter.executeCommand(Command.GET_TEACHERS, parameters);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
                 interpreter.handleCmds();
             }

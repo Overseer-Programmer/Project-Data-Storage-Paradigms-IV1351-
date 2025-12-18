@@ -31,7 +31,7 @@ public class Course implements CourseDTO {
      * @param hp             The hp field of course_layout
      * @param minStudents    The min_students field of course_layout
      * @param maxStudents    The max_students field of course_layout
-     * @throws InvalidRangeException
+     * @throws BusinessConstraintException 
      */
     public Course(
         int surrogateId,
@@ -45,16 +45,16 @@ public class Course implements CourseDTO {
         double hp,
         int minStudents,
         int maxStudents
-    ) throws InvalidRangeException {
+    ) throws BusinessConstraintException {
         this.surrogateId = surrogateId;
         this.courseLayoutId = courseLayoutId;
         this.instanceId = instanceId;
         this.courseCode = courseCode;
+        setStudentRange(minStudents, maxStudents);
         setStudentCount(numStudents);
         setCourseName(courseName);
         setStudyTime(studyYear, studyPeriod);
         setHp(hp);
-        setStudentRange(minStudents, maxStudents);
     }
 
     // Setters
@@ -62,7 +62,10 @@ public class Course implements CourseDTO {
         this.courseName = courseName;
     }
 
-    public void setStudentCount(int newCount) {
+    public void setStudentCount(int newCount) throws BusinessConstraintException {
+        if (newCount < minStudents || newCount > maxStudents) {
+            throw new BusinessConstraintException(String.format("Student count %d is outside the student range: [%d, %d]", newCount, minStudents, maxStudents));
+        }
         numStudents = newCount;
     }
 
@@ -77,13 +80,17 @@ public class Course implements CourseDTO {
 
     /**
      * Set the max and min amount of students the course can have.
+     * 
      * @param maxStudents
      * @param minStudents
-     * @throws InvalidRangeException
+     * @throws BusinessConstraintException
      */
-    public void setStudentRange(int minStudents, int maxStudents) throws InvalidRangeException {
+    public void setStudentRange(int minStudents, int maxStudents) throws BusinessConstraintException {
         if (maxStudents < minStudents) {
-            throw new InvalidRangeException("The max student count must be equal or larger than the min count");
+            throw new BusinessConstraintException("The max student count must be equal or larger than the min count");
+        }
+        else if (minStudents < 0 || minStudents == maxStudents) {
+            throw new BusinessConstraintException(String.format("Student range of [%d, %d] is invalid", minStudents, maxStudents));
         }
         this.minStudents = minStudents;
         this.maxStudents = maxStudents;
