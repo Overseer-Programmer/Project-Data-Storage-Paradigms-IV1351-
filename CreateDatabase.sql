@@ -117,16 +117,13 @@ ALTER TABLE employee_planned_activity ADD CONSTRAINT FK_employee_planned_activit
 
 -- Triggers for Application Constraints --
 -- No more than 4 course instances for a teacher/employee
-/*
-    Checks if an employee will is overloaded aka the employee is allocated
-    to more than 4 different course instances for the same study year and study period.
-*/
-CREATE FUNCTION is_employee_overloaded(current_employee_id int)
-RETURNS BOOLEAN AS $$
+
+-- Return the amount of course assignments for the period where the employee has the most course assignments
+CREATE FUNCTION get_max_teaching_allocation(current_employee_id int)
+RETURNS int AS $$
 DECLARE
     most_intense_study_period record;
 BEGIN
-    -- Find a period where the employee is assigned to the most course instances
     SELECT COUNT(DISTINCT pa.course_instance_id) AS course_assignments, ci.study_year, ci.study_period
     INTO most_intense_study_period
     FROM employee_planned_activity AS epa
@@ -136,9 +133,23 @@ BEGIN
     GROUP BY ci.study_year, ci.study_period
     ORDER BY course_assignments DESC
     Limit 1;
+    IF most_intense_study_period IS NULL THEN
+        RETURN 0;
+    ELSE
+        RETURN most_intense_study_period.course_assignments;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
 
+/*
+    Checks if an employee will is overloaded aka the employee is allocated
+    to more than 4 different course instances for the same study year and study period.
+*/
+CREATE FUNCTION is_employee_overloaded(current_employee_id int)
+RETURNS BOOLEAN AS $$
+BEGIN
     -- If the most intense period has more then 4 course assignments, then we know the employee is overloaded
-    IF most_intense_study_period.course_assignments > 4 THEN
+    IF get_max_teaching_allocation(current_employee_id) > 4 THEN
         RETURN true;
     ELSE
         RETURN false;
