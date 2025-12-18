@@ -274,29 +274,47 @@ BEGIN
         RETURN NEW;
     END IF;
 
-    -- Find a course instance with at least one allocated teacher and add a planned activity of type 'Exercise' for it
-    SELECT *
+    -- Find a course instance for the new planned activity.
+    SELECT id
     INTO target_course_instance_id
-    
+    FROM course_instance
+    ORDER BY RANDOM()
+    LIMIT 1;
+
     IF target_course_instance_id != NULL THEN
         RAISE EXCEPTION 'Unable to find course instance with at least one employee allocated to it for teaching activity "Exercise"';
         RETURN OLD;
     END IF;
 
+    INSERT INTO 
+
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE FUNCTION check_exercise_teaching_activity_constraint()
+CREATE OR REPLACE FUNCTION check_exercise_teaching_activity_constraint()
 RETURNS trigger AS $$
-DECLARE
-    target_course_instance_id int;
 BEGIN
     -- Find all planned activities with activity_name 'Exercise'
     -- Check If all planned activities have at least one teacher allocated to the course instance, otherwise raise exception
 
+        IF EXISTS (
+        SELECT *
+        FROM planned_activity pa
+        JOIN teaching_activity ta ON pa.teaching_activity_id = ta.id
+        LEFT JOIN employee_planned_activity emp ON emp.planned_activity_id = pa.id
+        WHERE ta.activity_name = 'Exercise' AND emp.employee_id IS NULL
+        LIMIT 1
+        )THEN 
+            RAISE EXCEPTION  'All planned_activity "Exercise" must have at least one teacher allocated to corresponding course_instance';
+        END if;
 
-    RETURN NEW;
+    IF TG_OP = 'DELETE' THEN
+        RETURN OLD;
+    ELSE 
+        RETURN NEW;
+    END IF;
+
 END;
 $$ LANGUAGE plpgsql;
 
@@ -304,16 +322,18 @@ CREATE TRIGGER on_teaching_activity_added
 BEFORE INSERT
 ON teaching_activity
 FOR EACH ROW
-EXECUTE FUNCTION handle_teaching_activity_addition_request
+EXECUTE FUNCTION handle_teaching_activity_addition_request();
 
-CREATE TRIGGER on_planned_activity_removed
-AFTER DELETE
+CREATE CONSTRAINT TRIGGER on_planned_activity_removed
+AFTER INSERT OR DELETE OR UPDATE
 ON planned_activity
+DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW
-EXECUTE FUNCTION check_exercise_teaching_activity_constraint
+EXECUTE FUNCTION check_exercise_teaching_activity_constraint();
 
-CREATE TRIGGER on_teaching_de_or_reallocation
-AFTER UPDATE OR DELETE
+CREATE CONSTRAINT TRIGGER on_teaching_de_or_reallocation
+AFTER INSERT OR UPDATE OR DELETE
 ON employee_planned_activity
+DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW
-EXECUTE FUNCTION check_exercise_teaching_activity_constraint
+EXECUTE FUNCTION check_exercise_teaching_activity_constraint();
