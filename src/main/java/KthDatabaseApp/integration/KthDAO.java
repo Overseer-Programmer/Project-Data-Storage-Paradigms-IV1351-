@@ -33,6 +33,10 @@ public class KthDAO {
     private PreparedStatement getPlannedActivitiesForTeacher;
     private PreparedStatement allocateTeacherStatement;
     private PreparedStatement deallocateTeacherStatement;
+    
+    //task4
+    private PreparedStatement getAllTeachingActivitiesStatement;
+    private PreparedStatement updateAllTeachingActivitiesStatement;
 
     public void connectToDatabase(String dbUsername, String dbUserPassword) throws DBException {
         try {
@@ -237,6 +241,53 @@ public class KthDAO {
         }
     }
 
+    public void addPlannedActivity(CourseDTO course, String activityName, int plannedHours) throws DBException {
+        final String failureMessage = "Could not add teaching activity";
+        ResultSet result;
+        try {
+            
+            result = getAllTeachingActivitiesStatement.executeQuery();
+            boolean teachingActivityFound = false;
+            int matchingTeachingActivityId = -1; 
+            double multiplicationFactor = 1; // Default value
+
+            while(result.next()) 
+            {
+                if (result.getString("activity_name").equals(activityName)) {
+                    teachingActivityFound = true;
+                    matchingTeachingActivityId = result.getInt("id");
+                    multiplicationFactor = result.getDouble(matchingTeachingActivityId);
+                    break;
+                }
+            }
+            if (!teachingActivityFound) {
+                updateAllTeachingActivitiesStatement.setString(0, activityName);
+                updateAllTeachingActivitiesStatement.setDouble(1, multiplicationFactor);
+                updateAllTeachingActivitiesStatement.executeUpdate();
+
+            }
+
+
+            
+            /**
+             * Find all teaching activities and check if the the given teaching activity
+             * with activityName exists. If it does not exist, add it. Finally, make sure
+             * you have the id of the chose teaching activity.
+             */
+            // Add a planned activity to the planned_activity table with the activityName
+            // and get the id of the new planned activity
+            PlannedActivity newPlannedActivity = findPlannedActivityInternal(newPlannedActivityId);
+            if (newPlannedActivity == null) {
+                throw new DBException("Failed to add planned activity for unknown cause");
+            }
+            connection.commit();
+        } catch (SQLException e) {
+            handleException(failureMessage, e);
+        } finally {
+            closeResultSet(failureMessage, result);
+        }
+    }
+
     public void addStudentsToCourse(int courseId, int newNumStudents) throws DBException {
         final String failureMessage = "Could not update number of students in course";
         try {
@@ -308,9 +359,8 @@ public class KthDAO {
                         "WHERE e.id = ?");
 
         getAllTeachersStatement = connection.prepareStatement(
-            "SELECT id " +
-            "FROM employee"
-        );
+                "SELECT id " +
+                        "FROM employee");
 
         getPlannedActivitiesForCourseStatement = connection.prepareStatement(
                 "SELECT pa.id AS plannedActivityId, pa.planned_hours, ta.activity_name, ta.factor " +
@@ -344,6 +394,14 @@ public class KthDAO {
         allocateTeacherStatement = connection.prepareStatement(
                 "INSERT INTO employee_planned_activity (employeeId, plannedActivityId, allocated_hours) " +
                         "VALUES (?, ? ,?)");
+
+        getAllTeachingActivitiesStatement = connection.prepareStatement( 
+            "SELECT id, activity_name, factor " + 
+            "FROM teaching_activities;");
+
+        updateAllTeachingActivitiesStatement = connection.prepareStatement(
+        "INSERT INTO teaching_activities (activity_name, factor) " +
+        "VALUES(?,?)");
     }
 
     private void connectToDB(String user, String password) throws ClassNotFoundException, SQLException {

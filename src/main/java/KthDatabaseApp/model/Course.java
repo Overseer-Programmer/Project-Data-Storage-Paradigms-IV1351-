@@ -69,6 +69,7 @@ public class Course implements CourseDTO {
         } else if (activityName.equals("Admin")) {
             plannedActivity.setPlannedHours((int) Math.round(2 * hp + 28 + 0.2 * numStudents));
         }
+        
         plannedActivities.add(plannedActivity);
     }
 

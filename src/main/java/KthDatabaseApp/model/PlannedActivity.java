@@ -24,6 +24,13 @@ public class PlannedActivity implements PlannedActivityDTO {
         setTeachingActivityFactor(multiplicationFactor);
     }
 
+    public PlannedActivity(CourseDTO course, String activityName, double multiplicationFactor) {
+        this.id = -1; // id does not exist here
+        this.course = course;
+        this.activityName = activityName;
+        setTeachingActivityFactor(multiplicationFactor);
+    }
+
     /**
      * @param plannedHours the planned_hours attribute of the planned_activity table
      */
