@@ -1,22 +1,15 @@
 package KthDatabaseApp.model;
 
-import java.util.List;
-
 public class TeachingActivity implements TeachingActivityDTO {
     private final String activityName;
-    private int multiplicationFactor;
+    private double multiplicationFactor;
 
-    public TeachingActivity(String activityName, int multiplicationFactor, List<Course> allCourses) throws BusinessConstraintException {
+    public TeachingActivity(String activityName, double multiplicationFactor) {
         this.activityName = activityName;
         setMultiplicationFactor(multiplicationFactor);
-
-        // Satisfy "Exercise" teaching activity business constraint
-        if (activityName == "Exercise") {
-            // if a valid course is not found, throw BusinessConstraintException
-        }
     }
 
-    public void setMultiplicationFactor(int multiplicationFactor) {
+    public void setMultiplicationFactor(double multiplicationFactor) {
         this.multiplicationFactor = multiplicationFactor;
     }
 
@@ -24,7 +17,7 @@ public class TeachingActivity implements TeachingActivityDTO {
         return activityName;
     }
 
-    public int getMultiplicationFactor() {
+    public double getMultiplicationFactor() {
         return multiplicationFactor;
     }
 }

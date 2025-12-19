@@ -10,7 +10,7 @@ public class Teacher implements TeacherDTO {
     private String lastName;
     private Address address;
     private int salary;
-    private List<TeacherAllocation> teacherAllocations; // A list of all planned activities allocated to this
+    private List<TeacherAllocationDTO> teacherAllocations; // A list of all planned activities allocated to this
                                                         // teacher along with the amount of allocated hours.
 
     /**
@@ -54,13 +54,13 @@ public class Teacher implements TeacherDTO {
      */
     public void allocatePlannedActivity(PlannedActivity plannedActivity, int allocatedHours)
             throws BusinessConstraintException {
-        TeacherAllocation allocation = findTeacherAllocation(plannedActivity);
+        TeacherAllocationDTO allocation = findTeacherAllocation(plannedActivity);
         if (allocation != null) {
             throw new BusinessConstraintException(String.format(
                     "Cannot allocate teacher (employee_id=%d) to planned activity (id=%d) because they are already allocated to it.",
                     getEmployeeId(), plannedActivity.getId()));
         }
-        allocation = new TeacherAllocation(this, plannedActivity, allocatedHours);
+        allocation = new TeacherAllocationDTO(this, plannedActivity, allocatedHours);
         teacherAllocations.add(allocation);
         if (getMaxTeachingLoad() > 4) {
             teacherAllocations.remove(allocation);
@@ -79,7 +79,7 @@ public class Teacher implements TeacherDTO {
      * @throws BusinessConstraintException
      */
     public void deallocatePlannedActivity(PlannedActivity plannedActivity) throws BusinessConstraintException {
-        TeacherAllocation allocation = findTeacherAllocation(plannedActivity);
+        TeacherAllocationDTO allocation = findTeacherAllocation(plannedActivity);
         if (allocation != null) {
             teacherAllocations.remove(allocation);
         } else {
@@ -128,21 +128,8 @@ public class Teacher implements TeacherDTO {
         return salary;
     }
 
-    public double getHourlyWage() {
-        return (double) salary / (30.0 * 24);
-    }
-
-    public double getAllocatedHoursForPlannedActivity(PlannedActivityDTO plannedActivity) {
-        for (TeacherAllocation allocation : teacherAllocations) {
-            if (allocation.plannedActivity.getId() == plannedActivity.getId()) {
-                return plannedActivity.getTotalHours(allocation.allocatedHours);
-            }
-        }
-        return 0;
-    }
-
-    public List<TeacherAllocation> getTeachingAllocations() {
-        List<TeacherAllocation> clone = new ArrayList<>(teacherAllocations);
+    public List<TeacherAllocationDTO> getTeachingAllocations() {
+        List<TeacherAllocationDTO> clone = new ArrayList<>(teacherAllocations);
         return clone;
     }
 
@@ -155,10 +142,9 @@ public class Teacher implements TeacherDTO {
     public int getMaxTeachingLoad() {
         int maxTeachingLoad = 0;
         HashMap<Integer, HashMap<StudyPeriod, List<Integer>>> allocatedCourseInstances = new HashMap<>();
-        for (TeacherAllocation allocation : teacherAllocations) {
-            CourseDTO allocatedCourse = allocation.plannedActivity.getCourse();
-            int studyYear = allocatedCourse.getStudyYear();
-            StudyPeriod studyPeriod = allocatedCourse.getStudyPeriod();
+        for (TeacherAllocationDTO allocation : teacherAllocations) {
+            int studyYear = allocation.getAllocatedCourseStudyYear();
+            StudyPeriod studyPeriod = allocation.getAllocatedCourseStudyPeriod();
             if (!allocatedCourseInstances.containsKey(studyYear)) {
                 allocatedCourseInstances.put(studyYear, new HashMap<>());
             }
@@ -168,7 +154,7 @@ public class Teacher implements TeacherDTO {
                 allocatedCourseInstancesCurrentPeriod = new ArrayList<>();
                 allocatedCourseInstances.get(studyYear).put(studyPeriod, allocatedCourseInstancesCurrentPeriod);
             }
-            int allocatedCourseInstanceId = allocatedCourse.getSurrogateId();
+            int allocatedCourseInstanceId = allocation.getAllocatedCourseSurrogateId();
             if (!allocatedCourseInstancesCurrentPeriod.contains(allocatedCourseInstanceId)) {
                 allocatedCourseInstancesCurrentPeriod.add(allocatedCourseInstanceId);
                 if (allocatedCourseInstancesCurrentPeriod.size() > maxTeachingLoad) {
@@ -179,9 +165,9 @@ public class Teacher implements TeacherDTO {
         return maxTeachingLoad;
     }
 
-    private TeacherAllocation findTeacherAllocation(PlannedActivity plannedActivity) {
-        for (TeacherAllocation allocation : teacherAllocations) {
-            if (allocation.plannedActivity.getId() == plannedActivity.getId()) {
+    private TeacherAllocationDTO findTeacherAllocation(PlannedActivity plannedActivity) {
+        for (TeacherAllocationDTO allocation : teacherAllocations) {
+            if (allocation.getPlannedActivityId() == plannedActivity.getId()) {
                 return allocation;
             }
         }

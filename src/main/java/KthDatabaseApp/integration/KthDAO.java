@@ -20,7 +20,7 @@ public class KthDAO {
     private final String url = "jdbc:postgresql://localhost:5432/" + database_name;
     private Connection connection;
 
-    // a PreparedStatement is a precompiled SQL statement
+    // A PreparedStatement is a precompiled SQL statement
     private PreparedStatement findCourseStatement;
     private PreparedStatement findTeacherStatement;
     private PreparedStatement findPlannedActivityStatement;
@@ -33,13 +33,17 @@ public class KthDAO {
     private PreparedStatement getPlannedTeachingCostStatement;
     private PreparedStatement getActualTeachingCostStatement;
 
-    // Task 2 modify course instance
-    private PreparedStatement UpdateStudentsInCourseStatement;
+    // Task 2 Modify course instance
+    private PreparedStatement updateStudentsInCourseStatement;
 
-    // Task 3 teacher allocation
+    // Task 3 Teacher allocation
     private PreparedStatement getPlannedActivitiesForTeacherLockingStatement;
     private PreparedStatement allocateTeacherStatement;
     private PreparedStatement deallocateTeacherStatement;
+
+    // Task 4 Create teaching activity and read results from it's creation
+    private PreparedStatement createTeachingActivityStatement;
+    private PreparedStatement findTeachersAllocatedToTeachingActivityStatement;
 
     public void connectToDatabase(String dbUsername, String dbUserPassword) throws DBException {
         try {
@@ -189,7 +193,7 @@ public class KthDAO {
      * @return A TeachingCostDTO object unless an exception was thrown.
      * @throws DBException
      */
-    public TeachingCostDTO findTeachingCost(Course course) throws DBException {
+    public TeachingCostDTO findTeachingCost(CourseDTO course) throws DBException {
         final String failureMessage = "Could not find teaching cost";
         ResultSet plannedTeachingCostResult = null;
         ResultSet actualTeachingCostResult = null;
@@ -202,12 +206,11 @@ public class KthDAO {
             actualTeachingCostResult = getActualTeachingCostStatement.executeQuery();
             actualTeachingCostResult.next();
             teachingCost = new TeachingCostDTO(
-                course.getCourseCode(),
-                course.getInstanceId(),
-                course.getStudyPeriod(),
-                plannedTeachingCostResult.getInt("cost"),
-                actualTeachingCostResult.getInt("cost")
-            );
+                    course.getCourseCode(),
+                    course.getInstanceId(),
+                    course.getStudyPeriod(),
+                    plannedTeachingCostResult.getInt("cost"),
+                    actualTeachingCostResult.getInt("cost"));
             connection.commit();
         } catch (SQLException e) {
             handleException(failureMessage, e);
@@ -216,6 +219,36 @@ public class KthDAO {
             closeResultSet(failureMessage, actualTeachingCostResult);
         }
         return teachingCost;
+    }
+
+    /**
+     * Returns a list of all teachers who are allocated to planned activities of
+     * with the specified teaching activity name.
+     * 
+     * @param activityName
+     * @return
+     * @throws DBException
+     */
+    public List<Teacher> findTeachersAllocatedToTeachingActivity(String activityName) throws DBException {
+        final String failureMessage = "Could not find teachers allocated to teaching activity: " + activityName;
+        List<Teacher> teachers = new ArrayList<>();
+        ResultSet result = null;
+        try {
+            findTeachersAllocatedToTeachingActivityStatement.setString(1, activityName);
+            result = findTeachersAllocatedToTeachingActivityStatement.executeQuery();
+            while (result.next()) {
+                Teacher teacher = findTeacherInternal(result.getInt("employee_id"));
+                if (teacher != null) {
+                    teachers.add(teacher);
+                }
+            }
+            connection.commit();
+        } catch (SQLException | BusinessConstraintException | InvalidRangeException e) {
+            handleException(failureMessage, e);
+        } finally {
+            closeResultSet(failureMessage, result);
+        }
+        return teachers;
     }
 
     /**
@@ -234,15 +267,15 @@ public class KthDAO {
         try {
             getPlannedActivitiesForTeacherLockingStatement.setInt(1, teacher.getEmployeeId());
             result = getPlannedActivitiesForTeacherLockingStatement.executeQuery();
-            List<TeacherAllocation> updatedAllocations = teacher.getTeachingAllocations();
-            List<TeacherAllocation> newAllocations = new ArrayList<>(updatedAllocations);
+            List<TeacherAllocationDTO> updatedAllocations = teacher.getTeachingAllocations();
+            List<TeacherAllocationDTO> newAllocations = new ArrayList<>(updatedAllocations);
             while (result.next()) {
                 int currentPlannedActivityId = result.getInt("planned_activity_id");
 
                 // Deallocate from all removed allocations
                 boolean plannedActivityFound = false;
-                for (TeacherAllocation allocation : updatedAllocations) {
-                    if (allocation.plannedActivity.getId() == currentPlannedActivityId) {
+                for (TeacherAllocationDTO allocation : updatedAllocations) {
+                    if (allocation.getPlannedActivityId() == currentPlannedActivityId) {
                         plannedActivityFound = true;
                         break;
                     }
@@ -252,8 +285,8 @@ public class KthDAO {
                 }
 
                 // Remove already existing allocations from the list of new allocations
-                for (TeacherAllocation allocation : newAllocations) {
-                    if (allocation.plannedActivity.getId() == currentPlannedActivityId) {
+                for (TeacherAllocationDTO allocation : newAllocations) {
+                    if (allocation.getPlannedActivityId() == currentPlannedActivityId) {
                         newAllocations.remove(allocation);
                         break;
                     }
@@ -261,9 +294,9 @@ public class KthDAO {
             }
 
             // Add the actual new allocations to the database
-            for (TeacherAllocation allocation : newAllocations) {
-                allocatePlannedActivityToTeacher(teacher.getEmployeeId(), allocation.plannedActivity.getId(),
-                        allocation.allocatedHours);
+            for (TeacherAllocationDTO allocation : newAllocations) {
+                allocatePlannedActivityToTeacher(teacher.getEmployeeId(), allocation.getPlannedActivityId(),
+                        allocation.getAllocatedHours());
             }
 
             connection.commit();
@@ -275,16 +308,37 @@ public class KthDAO {
     }
 
     /**
-     * Takes the updated course object and writes the new student count to the database.
+     * Takes the updated course object and writes the new student count to the
+     * database.
+     * 
      * @param course
      * @throws DBException
      */
-    public void updateStudentsForCourse(Course course) throws DBException {
+    public void updateStudentsForCourse(CourseDTO course) throws DBException {
         final String failureMessage = "Could not update number of students in course";
         try {
-            UpdateStudentsInCourseStatement.setInt(1, course.getStudentCount());
-            UpdateStudentsInCourseStatement.setInt(2, course.getSurrogateId());
-            UpdateStudentsInCourseStatement.executeUpdate();
+            updateStudentsInCourseStatement.setInt(1, course.getStudentCount());
+            updateStudentsInCourseStatement.setInt(2, course.getSurrogateId());
+            updateStudentsInCourseStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            handleException(failureMessage, e);
+        }
+    }
+
+    /**
+     * Creates a teaching activity based on the specified TeachingActivity object
+     * and it's properties.
+     * 
+     * @param teachingActivity
+     * @throws DBException
+     */
+    public void createTeachingActivity(TeachingActivityDTO teachingActivity) throws DBException {
+        final String failureMessage = "Could not create teaching activity";
+        try {
+            createTeachingActivityStatement.setString(1, teachingActivity.getActivityName());
+            createTeachingActivityStatement.setDouble(2, teachingActivity.getMultiplicationFactor());
+            createTeachingActivityStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
             handleException(failureMessage, e);
@@ -318,7 +372,7 @@ public class KthDAO {
                     result.getInt("max_students"));
         } finally {
             if (result != null) {
-                result.close();                
+                result.close();
             }
         }
 
@@ -441,7 +495,7 @@ public class KthDAO {
                 Files.readString(Path.of("ApplicationQueries/FindAllTeachers.sql")));
         findAllPlannedActivitiesStatement = connection.prepareStatement(
                 Files.readString(Path.of("ApplicationQueries/FindAllPlannedActivities.sql")));
-        UpdateStudentsInCourseStatement = connection.prepareStatement(
+        updateStudentsInCourseStatement = connection.prepareStatement(
                 Files.readString(Path.of("ApplicationQueries/UpdateStudentsInCourse.sql")));
         getPlannedActivitiesForTeacherStatement = connection.prepareStatement(
                 Files.readString(Path.of("ApplicationQueries/GetPlannedActivitiesForTeacher.sql")));
@@ -455,6 +509,10 @@ public class KthDAO {
                 Files.readString(Path.of("ApplicationQueries/AllocateTeacher.sql")));
         deallocateTeacherStatement = connection.prepareStatement(
                 Files.readString(Path.of("ApplicationQueries/DeallocateTeacher.sql")));
+        createTeachingActivityStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/CreateTeachingActivity.sql")));
+        findTeachersAllocatedToTeachingActivityStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/FindTeachersAllocatedToTeachingActivity.sql")));
     }
 
     private void connectToDB(String user, String password) throws ClassNotFoundException, SQLException {

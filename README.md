@@ -3,7 +3,7 @@ This is the repository used to store and share all files used in the project for
 
 ## Requirements
 You must create the database and perform queries on it in a linux environment or use Windows Subsystem for Linux (WSL).
-PostgreSQL 18.1 was used and the sql scripts might not function for earlier versions.
+PostgreSQL 18.1 was used and the sql scripts might not function for earlier versions. For task 3 you will also need to have Maven installed.
 
 ## How to use
 Firstly, make sure to enter a terminal in this project folder and open up a database in ```psql```.
@@ -69,3 +69,24 @@ Then you can run the query:
 ```bash
 \i TaskQueries/Query4.sql
 ```
+
+### Run task 3 application queries
+
+To start this application you must first have a role in PostgreSQL with a username and password (You will later have to enter these credentials). Then you must have a database in your role called ```kth_group15```. You can create this database by running:
+```sql
+CREATE DATABASE kth_group15;
+```
+
+Once this is set up, you can enter your credentials by running:
+
+```bash
+mvn exec:java -Dexec.args="EnterCredentials"
+```
+
+Then you can run the program by running:
+
+```bash
+mvn exec:java
+```
+
+In the terminal you can do the following...

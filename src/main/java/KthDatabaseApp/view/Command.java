@@ -33,14 +33,16 @@ public enum Command {
     GET_COURSES("Get all courses in the database."),
     GET_TEACHERS("Get all teachers in the database."),
     GET_PLANNED_ACTIVITIES("Get all planned activities in the database."),
+    GET_TEACHERS_FOR_ACTIVITY("Get all teachers allocated to the specified teaching activity by activity name."),
     TEACHING_COST("Get the teaching cost for a course specified by course_instance_id."),
     CHANGE_STUDENT_COUNT("Change the student count of a course by a delta value, which is the amount to add or remove from the current student count."),
     GET_TEACHER_ALLOCATIONS("Get the maximum number of courses the teacher is assigned in a particular period and see all planned activities the teacher is allocated to."),
     ALLOCATE("Allocate a planned activity to a teacher along with the amount of allocated hours."),
     DEALLOCATE("Deallocate a planned activity from a teacher."),
+    CREATE_ACTIVITY("Create a new teaching activity by specifying activity name and the multiplication factor."),
     ILLEGAL_COMMAND("None of the valid commands above was specified.");
 
-    public static int longestCommand = 23;
+    public static int longestCommand = 25;
     private final String description;
 
     Command(String description) {

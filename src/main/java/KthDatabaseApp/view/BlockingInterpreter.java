@@ -149,9 +149,27 @@ public class BlockingInterpreter {
                             plannedActivity.getId(),
                             plannedActivity.getPlannedHours(),
                             plannedActivity.getActivityName(),
-                            plannedActivity.getCourse().getSurrogateId(),
-                            plannedActivity.getCourse().getStudyYear(),
-                            plannedActivity.getCourse().getStudyPeriod());
+                            plannedActivity.getCourseSurrogateId(),
+                            plannedActivity.getCourseStudyYear(),
+                            plannedActivity.getCourseStudyPeriod());
+                }
+                table.printOut();
+                break;
+            }
+            case GET_TEACHERS_FOR_ACTIVITY: {
+                final InvalidParametersException exception = new InvalidParametersException(
+                        "get_teachers_for_activity [activity_name]", Command.GET_TEACHERS_FOR_ACTIVITY);
+                String activityName = getStringParameter(parameters, 0, exception);
+                List<TeacherAllocationDTO> allocations = controller.findTeacherAllocationsForTeachingActivity(activityName);
+                Table table = new Table("Course instance id", "Course name", "Teacher id", "Teacher Name", "Activity name");
+                for (TeacherAllocationDTO allocation : allocations) {
+                    table.addRow(
+                        allocation.getAllocatedCourseSurrogateId(),
+                        allocation.getAllocatedCourseName(),
+                        allocation.getTeacherId(),
+                        allocation.getTeacherFullName(),
+                        allocation.getActivityName()
+                    );
                 }
                 table.printOut();
                 break;
@@ -162,11 +180,15 @@ public class BlockingInterpreter {
                 int courseId = getIntParameter(parameters, 0, exception);
 
                 TeachingCostDTO teachingCost = controller.getTeachingCost(courseId);
-                System.out.println("courseCode: " + teachingCost.courseCode);
-                System.out.println("instanceId: " + teachingCost.instanceId);
-                System.out.println("studyPeriod: " + teachingCost.studyPeriod);
-                System.out.println("plannedCost: " + teachingCost.plannedCost);
-                System.out.println("actualCost: " + teachingCost.actualCost);
+                Table table = new Table("Course code", "Instance id", "Study Period", "Planned cost", "Actual cost");
+                table.addRow(
+                        teachingCost.courseCode,
+                        teachingCost.instanceId,
+                        teachingCost.studyPeriod,
+                        teachingCost.plannedCost,
+                        teachingCost.actualCost
+                );
+                table.printOut();
                 break;
             }
             case CHANGE_STUDENT_COUNT: {
@@ -188,14 +210,14 @@ public class BlockingInterpreter {
                 System.out.println("Max course assignments at a particular period: " + teacher.getMaxTeachingLoad());
                 Table table = new Table("Planned activity id", "Planned hours", "Allocated hours", "Course instance id",
                         "Study year", "Study period");
-                for (TeacherAllocation allocation : teacher.getTeachingAllocations()) {
+                for (TeacherAllocationDTO allocation : teacher.getTeachingAllocations()) {
                     table.addRow(
-                            allocation.plannedActivity.getId(),
-                            allocation.plannedActivity.getPlannedHours(),
-                            allocation.allocatedHours,
-                            allocation.plannedActivity.getCourse().getSurrogateId(),
-                            allocation.plannedActivity.getCourse().getStudyYear(),
-                            allocation.plannedActivity.getCourse().getStudyPeriod());
+                            allocation.getPlannedActivityId(),
+                            allocation.getPlannedHours(),
+                            allocation.getAllocatedHours(),
+                            allocation.getAllocatedCourseSurrogateId(),
+                            allocation.getAllocatedCourseStudyYear(),
+                            allocation.getAllocatedCourseStudyPeriod());
                 }
                 table.printOut();
                 break;
@@ -223,6 +245,15 @@ public class BlockingInterpreter {
                 System.out.println("Teacher deallocated successfully");
                 break;
             }
+            case CREATE_ACTIVITY: {
+                final InvalidParametersException exception = new InvalidParametersException(
+                        "create_activity [activity_name] [multiplication_factor]", Command.CREATE_ACTIVITY);
+                String activityName = getStringParameter(parameters, 0, exception);
+                double multiplicationFactor = getDoubleParameter(parameters, 1, exception);
+                controller.createTeachingActivity(activityName, multiplicationFactor);
+                System.out.println("Successfully added teaching activity " + activityName + ".");
+                break;
+            }
             default:
                 System.out.println("Illegal command");
         }
@@ -241,9 +272,7 @@ public class BlockingInterpreter {
 
     private int getIntParameter(List<String> parameters, int parameterIndex, InvalidParametersException exception)
             throws InvalidParametersException {
-        if (parameters.size() - 1 < parameterIndex) {
-            throw exception;
-        }
+        assertParameters(parameters, parameterIndex, exception);
         int value;
         try {
             value = Integer.parseInt(parameters.get(parameterIndex));
@@ -251,6 +280,29 @@ public class BlockingInterpreter {
             throw exception;
         }
         return value;
+    }
+
+    private String getStringParameter(List<String> parameters, int parameterIndex, InvalidParametersException exception) throws InvalidParametersException {
+        assertParameters(parameters, parameterIndex, exception);
+        return parameters.get(parameterIndex);
+    }
+
+    private double getDoubleParameter(List<String> parameters, int parameterIndex, InvalidParametersException exception) throws InvalidParametersException {
+        assertParameters(parameters, parameterIndex, exception);
+        double value;
+        try {
+            value = Double.parseDouble(parameters.get(parameterIndex));
+        } catch (Exception e) {
+            throw exception;
+        }
+        return value;
+
+    }
+
+    private void assertParameters(List<String> parameters, int parameterIndex, InvalidParametersException exception) throws InvalidParametersException {
+        if (parameters.size() - 1 < parameterIndex) {
+            throw exception;
+        }
     }
 
     private String readNextCommand() {

@@ -9,7 +9,6 @@ public interface TeacherDTO {
     public String getFullName();
     public Address getAddress();
     public int getSalary();
-    public double getHourlyWage();
     /**
      * Gets the amount of hours the teacher is allocated to the planned activity,
      * accounting for multiplication factor.
@@ -18,7 +17,6 @@ public interface TeacherDTO {
      * @return The allocated hours, is 0 if the teacher was not allocated to the
      *         planned activity.
      */
-    public double getAllocatedHoursForPlannedActivity(PlannedActivityDTO plannedActivity);
-    public List<TeacherAllocation> getTeachingAllocations();
+    public List<TeacherAllocationDTO> getTeachingAllocations();
     public int getMaxTeachingLoad();
 }

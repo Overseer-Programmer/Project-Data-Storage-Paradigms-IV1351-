@@ -163,8 +163,6 @@ DECLARE
     affected_employee_list int[];
     affected_employee_id int;
 BEGIN
-RAISE NOTICE 'prevent_teaching_overload_on_planned_activity_update';
-
     -- On update the application constraint cannot be violated if course_instance_id has not been changed
     IF NEW.course_instance_id = OLD.course_instance_id THEN
         RETURN NEW;
@@ -258,7 +256,6 @@ DECLARE
 
     teaching_activity_name VARCHAR(250);
 BEGIN
-RAISE NOTICE 'assert_legal_planned_activity_modified';
     SELECT ta.activity_name
     INTO teaching_activity_name
     FROM planned_activity AS pa
@@ -334,18 +331,16 @@ $$ LANGUAGE plpgsql;
     teacher allocated them and that the teaching activity exercise is
     associated with at least one course instance, otherwise raise exception.
 */
-CREATE OR REPLACE FUNCTION check_exercise_teaching_activity_constraint()
+CREATE FUNCTION check_exercise_teaching_activity_constraint()
 RETURNS trigger AS $$
 BEGIN
     -- If teaching activity "Exercise" does not exist, nothing has to be done.
-    RAISE NOTICE 'id to remove:%' OLD.id;
     IF EXISTS (
         SELECT *
         FROM teaching_activity
         WHERE activity_name = 'Exercise'
     )
     THEN
-        RAISE NOTICE 'Was exercise';
         -- Assert teaching activity "Exercise" is associated with at least one course instance
         IF NOT EXISTS (
             SELECT *
@@ -354,7 +349,7 @@ BEGIN
             WHERE ta.activity_name = 'Exercise'
         )
         THEN
-            RAISE EXCEPTION 'Teaching activity "Exercise" must be associated with at least one course instance.'
+            RAISE EXCEPTION 'Teaching activity "Exercise" must be associated with at least one course instance.';
         END IF;
 
         -- Assert all planned activities of type "Exercise" have a teacher allocated to them
@@ -380,19 +375,28 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- Make sure a planned activity of type "Exercise" is created when a teaching activity of type "Exercise" is created.
 CREATE TRIGGER on_teaching_activity_added
 AFTER INSERT
 ON teaching_activity
 FOR EACH ROW
 EXECUTE FUNCTION handle_teaching_activity_addition_request();
 
+/*
+    Make sure planned activities of type "Exercise" always has a teacher allocated to them.
+    This can be violated when planned activities are deleted, inserted and updated and when
+    allocations for teachers are updated or deleted which is why these triggers exist.
+    However they are constraint trigger of type DEFERRABLE INITIALLY DEFERRED which makes
+    it possible to create a transaction that both creates a planned activity of type
+    "Exercise" and assigns a teacher to them, making sure "Exercise" planned activities
+    are not blocked from being created.
+*/
 CREATE CONSTRAINT TRIGGER on_planned_activity_changed_2
 AFTER INSERT OR DELETE OR UPDATE
 ON planned_activity
 DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW
 EXECUTE FUNCTION check_exercise_teaching_activity_constraint();
-
 CREATE CONSTRAINT TRIGGER on_teaching_de_or_reallocation
 AFTER UPDATE OR DELETE
 ON employee_planned_activity

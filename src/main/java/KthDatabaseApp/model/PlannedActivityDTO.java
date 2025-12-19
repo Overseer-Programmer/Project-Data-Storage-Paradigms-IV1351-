@@ -2,7 +2,6 @@ package KthDatabaseApp.model;
 
 public interface PlannedActivityDTO {
     public int getId();
-    public CourseDTO getCourse();
     public String getActivityName();
 
     /**
@@ -18,4 +17,8 @@ public interface PlannedActivityDTO {
      * @return
      */
     public double getTotalHours(int hours);
+    public int getCourseSurrogateId();
+    public int getCourseStudyYear();
+    public StudyPeriod getCourseStudyPeriod();
+    public String getCourseName();
 }

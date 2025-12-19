@@ -39,8 +39,20 @@ public class PlannedActivity implements PlannedActivityDTO {
         return id;
     }
 
-    public Course getCourse() {
-        return course;
+    public int getCourseSurrogateId() {
+        return course.getSurrogateId();
+    }
+
+    public int getCourseStudyYear() {
+        return course.getStudyYear();
+    }
+
+    public StudyPeriod getCourseStudyPeriod() {
+        return course.getStudyPeriod();
+    }
+
+    public String getCourseName() {
+        return course.getCourseName();
     }
 
     public String getActivityName() {

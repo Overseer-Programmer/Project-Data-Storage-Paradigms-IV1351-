@@ -1,7 +1,5 @@
 package KthDatabaseApp.model;
 
-import java.util.List;
-
 public interface CourseDTO {
     /**
      * @return the surrogate "id" Primary key for the course_instance table
