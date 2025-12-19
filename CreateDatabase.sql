@@ -163,6 +163,8 @@ DECLARE
     affected_employee_list int[];
     affected_employee_id int;
 BEGIN
+RAISE NOTICE 'prevent_teaching_overload_on_planned_activity_update';
+
     -- On update the application constraint cannot be violated if course_instance_id has not been changed
     IF NEW.course_instance_id = OLD.course_instance_id THEN
         RETURN NEW;
@@ -187,7 +189,7 @@ CREATE FUNCTION prevent_teaching_overload_on_employee_allocation()
 RETURNS trigger AS $$
 BEGIN
     IF is_employee_overloaded(NEW.employee_id) THEN
-        RAISE EXCEPTION 'Cannot allocate teaching activity (id=%) to employee (id=%) because that would be too much work for the employee.', NEW.planned_activity_id, NEW.employee_id;
+        RAISE EXCEPTION 'Cannot allocate planned activity (id=%) to employee (id=%) because that would be too much work for the employee.', NEW.planned_activity_id, NEW.employee_id;
         RETURN OLD;
     END IF;
     RETURN NEW;
@@ -256,6 +258,7 @@ DECLARE
 
     teaching_activity_name VARCHAR(250);
 BEGIN
+RAISE NOTICE 'assert_legal_planned_activity_modified';
     SELECT ta.activity_name
     INTO teaching_activity_name
     FROM planned_activity AS pa
@@ -265,7 +268,11 @@ BEGIN
         RAISE EXCEPTION 'Cannot modify the teaching activities of "Examination" or "Admin"';
         RETURN OLD;
     END IF;
-    RETURN NEW;
+    IF TG_OP = 'DELETE' THEN
+        RETURN OLD;
+    ELSE
+        RETURN NEW;
+    END IF;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -280,51 +287,115 @@ CREATE FUNCTION handle_teaching_activity_addition_request()
 RETURNS trigger AS $$
 DECLARE
     target_course_instance_id int;
+    target_employee_id int;
+    target_hours int := 10;
+    create_planned_activity_id int;
 BEGIN
     IF NEW.activity_name != 'Exercise' THEN
         RETURN NEW;
     END IF;
 
-    -- Find a course instance with at least one allocated teacher and add a planned activity of type 'Exercise' for it
-    SELECT *
+    -- Find a course instance for the new planned activity
+    SELECT id
     INTO target_course_instance_id
-    
-    IF target_course_instance_id != NULL THEN
+    FROM course_instance
+    ORDER BY RANDOM()
+    LIMIT 1;
+    IF target_course_instance_id IS NULL THEN
         RAISE EXCEPTION 'Unable to find course instance with at least one employee allocated to it for teaching activity "Exercise"';
-        RETURN OLD;
     END IF;
+
+
+    --Create a planned activity
+    INSERT INTO planned_activity (planned_hours, course_instance_id, teaching_activity_id)
+    VALUES(target_hours, target_course_instance_id, NEW.id)
+    RETURNING id INTO  create_planned_activity_id;
+    
+    -- Find a teacher
+    SELECT id 
+    INTO  target_employee_id
+    FROM employee
+    ORDER BY get_max_teaching_allocation(id) ASC
+    LIMIT 1;
+    IF target_employee_id IS NULL THEN
+        RAISE EXCEPTION 'Could not find employee allocate to teacher activity "Exercise"';
+    END IF;
+
+    -- Connect employee to the created planned_activity
+    INSERT INTO employee_planned_activity(employee_id, planned_activity_id, allocated_hours)
+    VALUES (target_employee_id, create_planned_activity_id, target_hours);
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE FUNCTION check_exercise_teaching_activity_constraint()
+/*
+    Check If all planned activities of type "Exercise" have at least one
+    teacher allocated them and that the teaching activity exercise is
+    associated with at least one course instance, otherwise raise exception.
+*/
+CREATE OR REPLACE FUNCTION check_exercise_teaching_activity_constraint()
 RETURNS trigger AS $$
-DECLARE
-    target_course_instance_id int;
 BEGIN
-    -- Find all planned activities with activity_name 'Exercise'
-    -- Check If all planned activities have at least one teacher allocated to the course instance, otherwise raise exception
+    -- If teaching activity "Exercise" does not exist, nothing has to be done.
+    RAISE NOTICE 'id to remove:%' OLD.id;
+    IF EXISTS (
+        SELECT *
+        FROM teaching_activity
+        WHERE activity_name = 'Exercise'
+    )
+    THEN
+        RAISE NOTICE 'Was exercise';
+        -- Assert teaching activity "Exercise" is associated with at least one course instance
+        IF NOT EXISTS (
+            SELECT *
+            FROM planned_activity AS pa
+            JOIN teaching_activity AS ta ON pa.teaching_activity_id = ta.id
+            WHERE ta.activity_name = 'Exercise'
+        )
+        THEN
+            RAISE EXCEPTION 'Teaching activity "Exercise" must be associated with at least one course instance.'
+        END IF;
 
+        -- Assert all planned activities of type "Exercise" have a teacher allocated to them
+        IF EXISTS (
+            SELECT *
+            FROM planned_activity pa
+            JOIN teaching_activity ta ON pa.teaching_activity_id = ta.id
+            LEFT JOIN employee_planned_activity emp ON emp.planned_activity_id = pa.id
+            WHERE ta.activity_name = 'Exercise' AND emp.employee_id IS NULL
+            LIMIT 1
+        )
+        THEN 
+            RAISE EXCEPTION 'All planned activities of type "Exercise" must have a teacher allocated to them.';
+        END if;
+    END IF;
 
-    RETURN NEW;
+    -- Allow deletes to pass through
+    IF TG_OP = 'DELETE' THEN
+        RETURN OLD;
+    ELSE
+        RETURN NEW;
+    END IF;
 END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER on_teaching_activity_added
-BEFORE INSERT
+AFTER INSERT
 ON teaching_activity
 FOR EACH ROW
-EXECUTE FUNCTION handle_teaching_activity_addition_request
+EXECUTE FUNCTION handle_teaching_activity_addition_request();
 
-CREATE TRIGGER on_planned_activity_removed
-AFTER DELETE
+CREATE CONSTRAINT TRIGGER on_planned_activity_changed_2
+AFTER INSERT OR DELETE OR UPDATE
 ON planned_activity
+DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW
-EXECUTE FUNCTION check_exercise_teaching_activity_constraint
+EXECUTE FUNCTION check_exercise_teaching_activity_constraint();
 
-CREATE TRIGGER on_teaching_de_or_reallocation
+CREATE CONSTRAINT TRIGGER on_teaching_de_or_reallocation
 AFTER UPDATE OR DELETE
 ON employee_planned_activity
+DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW
-EXECUTE FUNCTION check_exercise_teaching_activity_constraint
+EXECUTE FUNCTION check_exercise_teaching_activity_constraint();
