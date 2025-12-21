@@ -72,9 +72,9 @@ Then you can run the query:
 
 ### Run task 3 application queries
 
-To start this application you must first have a role in PostgreSQL with a username and password (You will later have to enter these credentials). Then you must have a database in your role called ```kth_group15```. You can create this database by running:
+To start this application you must first have a role in PostgreSQL with a username and password (You will later have to enter these credentials). Then you must have a database in your role called ```kth_group15```. You can create this database, it's schema and populate it by running:
 ```sql
-CREATE DATABASE kth_group15;
+\i SetupDatabase.sql
 ```
 
 Once this is set up, you can enter your credentials by running:
