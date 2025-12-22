@@ -149,6 +149,13 @@ Run the following command to perform the allocation
 ALLOCATE <teacher_id> <planned_activity_id> <allocated hours>
 ```
 
+To view a teacher allocations, run: 
+
+```bash
+GET_TEACHER_ALLOCATIONS <teacher_id>
+```
+
+
 #### How to deallocate
 
 To deallocate a teaching load, the same parameters are used:
