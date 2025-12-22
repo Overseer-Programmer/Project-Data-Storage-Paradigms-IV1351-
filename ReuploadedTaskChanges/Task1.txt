@@ -1,0 +1,10 @@
+Changes to database:
+
+Added allocated_hours for employee_planned_activity
+Added "Exercise" business constraint to conceptual model
+
+Changes to report:
+
+Added explanation about business constraints and allocated_hours attribute in result section
+Added discussion about ENUM being used for study period discussion section
+Added discussion about derived attributes in discussion section
