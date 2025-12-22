@@ -22,6 +22,7 @@ public class KthDAO {
 
     // A PreparedStatement is a precompiled SQL statement
     private PreparedStatement findCourseStatement;
+    private PreparedStatement findCourseLockingStatement;
     private PreparedStatement findTeacherStatement;
     private PreparedStatement findPlannedActivityStatement;
     private PreparedStatement findAllCoursesStatement;
@@ -30,14 +31,12 @@ public class KthDAO {
     private PreparedStatement getPlannedActivitiesForTeacherStatement;
 
     // Task 1 Compute teaching cost
-    private PreparedStatement getPlannedTeachingCostStatement;
-    private PreparedStatement getActualTeachingCostStatement;
+    private PreparedStatement getTeachingCostStatement;
 
     // Task 2 Modify course instance
     private PreparedStatement updateStudentsInCourseStatement;
 
     // Task 3 Teacher allocation
-    private PreparedStatement getPlannedActivitiesForTeacherLockingStatement;
     private PreparedStatement allocateTeacherStatement;
     private PreparedStatement deallocateTeacherStatement;
 
@@ -65,17 +64,24 @@ public class KthDAO {
     /**
      * Finds a course and all its related information.
      * 
-     * @param courseId The id column of the course_instance relation which
-     *                 you want to gather information from.
+     * @param courseInstanceId The id column of the course_instance relation which
+     *                         you want to gather information from.
+     * @param lockExclusive    Whether an exclusive lock should be placed the table
+     *                         rows selected from the database to obtain this
+     *                         course.
+     *                         This will also stop the transaction from committing,
+     *                         requiring it to be committed elsewhere.
      * @return a Course object or null if it was not found.
      * @throws DBException
      */
-    public Course findCourse(int courseInstanceId) throws DBException {
+    public Course findCourse(int courseInstanceId, boolean lockExclusive) throws DBException {
         final String failureMessage = "Could not find course";
         Course course = null;
         try {
-            course = findCourseInternal(courseInstanceId);
-            connection.commit();
+            course = findCourseInternal(courseInstanceId, lockExclusive);
+            if (!lockExclusive) {
+                connection.commit();
+            }
         } catch (SQLException | BusinessConstraintException e) {
             handleException(failureMessage, e);
         }
@@ -129,7 +135,7 @@ public class KthDAO {
         try {
             result = findAllCoursesStatement.executeQuery();
             while (result.next()) {
-                Course course = findCourseInternal(result.getInt("id"));
+                Course course = findCourseInternal(result.getInt("id"), false);
                 if (course != null) {
                     courses.add(course);
                 }
@@ -189,34 +195,32 @@ public class KthDAO {
     /**
      * Finds the teaching cost for the specified course.
      * 
-     * @param course
+     * @param courseInstanceId The course_instance_id of course
      * @return A TeachingCostDTO object unless an exception was thrown.
      * @throws DBException
      */
-    public TeachingCostDTO findTeachingCost(CourseDTO course) throws DBException {
+    public TeachingCostDTO findTeachingCost(int courseInstanceId) throws DBException {
         final String failureMessage = "Could not find teaching cost";
-        ResultSet plannedTeachingCostResult = null;
-        ResultSet actualTeachingCostResult = null;
+        ResultSet result = null;
         TeachingCostDTO teachingCost = null;
         try {
-            getPlannedTeachingCostStatement.setInt(1, course.getSurrogateId());
-            plannedTeachingCostResult = getPlannedTeachingCostStatement.executeQuery();
-            plannedTeachingCostResult.next();
-            getActualTeachingCostStatement.setInt(1, course.getSurrogateId());
-            actualTeachingCostResult = getActualTeachingCostStatement.executeQuery();
-            actualTeachingCostResult.next();
+            getTeachingCostStatement.setInt(1, courseInstanceId);
+            result = getTeachingCostStatement.executeQuery();
+            boolean courseExists = result.next();
+            if (!courseExists) {
+                throw new DBException(String.format("Course with course_instance_id=%d not found", courseInstanceId));
+            }
             teachingCost = new TeachingCostDTO(
-                    course.getCourseCode(),
-                    course.getInstanceId(),
-                    course.getStudyPeriod(),
-                    plannedTeachingCostResult.getInt("cost"),
-                    actualTeachingCostResult.getInt("cost"));
+                    result.getString("course_code"),
+                    result.getString("instance_id"),
+                    StudyPeriod.valueOf(result.getString("study_period")),
+                    result.getInt("planned_cost"),
+                    result.getInt("actual_cost"));
             connection.commit();
         } catch (SQLException e) {
             handleException(failureMessage, e);
         } finally {
-            closeResultSet(failureMessage, plannedTeachingCostResult);
-            closeResultSet(failureMessage, actualTeachingCostResult);
+            closeResultSet(failureMessage, result);
         }
         return teachingCost;
     }
@@ -252,58 +256,45 @@ public class KthDAO {
     }
 
     /**
-     * Updates the allocation for a teacher on the database to match the allocation
-     * of the specified teacher object. Will acquire an exclusive lock on the
-     * current allocated rows for the teacher in the database. Note that this method
-     * only supports inserting and deleting allocations for the teacher, it does not
-     * support updating the allocated hours of existing allocations.
+     * Creates an allocation in the employee_planned_activity table for the database
+     * to allocate a teacher to a planned_activity.
      * 
-     * @param teacher the updated teacher object to read from.
+     * @param employeeId The id of the employee to allocate.
+     * @param plannedActivityId The id of the planned activity to allocate to the employee
+     * @param allocatedHours The amount of hours to allocate the employee to the planned activity.
      * @throws DBException
      */
-    public void updateAllocationForTeacher(TeacherDTO teacher) throws DBException {
-        final String failureMessage = "Could not update teacher allocation";
-        ResultSet result = null;
+    public void createAllocationForTeacher(int employeeId, int plannedActivityId, int allocatedHours)
+            throws DBException {
+        final String failureMessage = "Could not create teacher allocation";
         try {
-            getPlannedActivitiesForTeacherLockingStatement.setInt(1, teacher.getEmployeeId());
-            result = getPlannedActivitiesForTeacherLockingStatement.executeQuery();
-            List<TeacherAllocationDTO> updatedAllocations = teacher.getTeachingAllocations();
-            List<TeacherAllocationDTO> newAllocations = new ArrayList<>(updatedAllocations);
-            while (result.next()) {
-                int currentPlannedActivityId = result.getInt("planned_activity_id");
-
-                // Deallocate from all removed allocations
-                boolean plannedActivityFound = false;
-                for (TeacherAllocationDTO allocation : updatedAllocations) {
-                    if (allocation.getPlannedActivityId() == currentPlannedActivityId) {
-                        plannedActivityFound = true;
-                        break;
-                    }
-                }
-                if (!plannedActivityFound) {
-                    deallocatePlannedActivityFromTeacher(teacher.getEmployeeId(), currentPlannedActivityId);
-                }
-
-                // Remove already existing allocations from the list of new allocations
-                for (TeacherAllocationDTO allocation : newAllocations) {
-                    if (allocation.getPlannedActivityId() == currentPlannedActivityId) {
-                        newAllocations.remove(allocation);
-                        break;
-                    }
-                }
-            }
-
-            // Add the actual new allocations to the database
-            for (TeacherAllocationDTO allocation : newAllocations) {
-                allocatePlannedActivityToTeacher(teacher.getEmployeeId(), allocation.getPlannedActivityId(),
-                        allocation.getAllocatedHours());
-            }
-
+            allocateTeacherStatement.setInt(1, employeeId);
+            allocateTeacherStatement.setInt(2, plannedActivityId);
+            allocateTeacherStatement.setInt(3, allocatedHours);
+            allocateTeacherStatement.executeUpdate();
             connection.commit();
-        } catch (SQLException ex) {
-            handleException(failureMessage, ex);
-        } finally {
-            closeResultSet(failureMessage, result);
+        } catch (SQLException e) {
+            handleException(failureMessage, e);
+        }
+    }
+
+    /**
+     * Deletes an allocation in the employee_planned_activity for the database to
+     * deallocate a teacher from a planned_activity.
+     * 
+     * @param employeeId The employee to deallocate.
+     * @param plannedActivityId The planned activity to deallocate the employee from.
+     * @throws DBException
+     */
+    public void deleteAllocationFromTeacher(int employeeId, int plannedActivityId) throws DBException {
+        final String failureMessage = "Could not create teacher allocation";
+        try {
+            deallocateTeacherStatement.setInt(1, employeeId);
+            deallocateTeacherStatement.setInt(2, plannedActivityId);
+            deallocateTeacherStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            handleException(failureMessage, e);
         }
     }
 
@@ -345,13 +336,19 @@ public class KthDAO {
         }
     }
 
-    private Course findCourseInternal(int courseInstanceId)
+    private Course findCourseInternal(int courseInstanceId, boolean lockExclusive)
             throws SQLException, BusinessConstraintException {
         ResultSet result = null;
         Course course = null;
         try {
-            findCourseStatement.setInt(1, courseInstanceId);
-            result = findCourseStatement.executeQuery();
+            PreparedStatement targetStatement;
+            if (lockExclusive) {
+                targetStatement = findCourseLockingStatement;
+            } else {
+                targetStatement = findCourseStatement;
+            }
+            targetStatement.setInt(1, courseInstanceId);
+            result = targetStatement.executeQuery();
             boolean exists = result.next();
             if (!exists) {
                 return null;
@@ -408,6 +405,7 @@ public class KthDAO {
 
         // Find all planned activities allocated to the teacher
         try {
+
             getPlannedActivitiesForTeacherStatement.setInt(1, employeeId);
             result = getPlannedActivitiesForTeacherStatement.executeQuery();
             while (result.next()) {
@@ -443,7 +441,7 @@ public class KthDAO {
             double multiplicationFactor = result.getDouble("factor");
             int plannedHours = result.getInt("planned_hours");
             int courseInstanceId = result.getInt("course_instance_id");
-            Course course = findCourseInternal(courseInstanceId); // Find the associated course
+            Course course = findCourseInternal(courseInstanceId, false); // Find the associated course
             if (course == null) {
                 throw new DBException("Invalid State: planned activity is missing a course instance.");
             }
@@ -451,10 +449,11 @@ public class KthDAO {
 
             // Set the planned hours for derived and non derived teaching activity types
             if (activityName.equals("Examination")) {
-                plannedActivity.setPlannedHours((int) Math.round(32 + 0.725 * course.getStudentCount()));
+                plannedActivity.setPlannedHours(
+                        (int) Math.round(32 + 0.725 * course.getStudentCount()));
             } else if (activityName.equals("Admin")) {
-                plannedActivity
-                        .setPlannedHours((int) Math.round(2 * course.getHp() + 28 + 0.2 * course.getStudentCount()));
+                plannedActivity.setPlannedHours(
+                        (int) Math.round(2 * course.getHp() + 28 + 0.2 * course.getStudentCount()));
             } else {
                 plannedActivity.setPlannedHours(plannedHours);
             }
@@ -467,24 +466,12 @@ public class KthDAO {
         return plannedActivity;
     }
 
-    private void deallocatePlannedActivityFromTeacher(int employeeId, int plannedActivityId) throws SQLException {
-        deallocateTeacherStatement.setInt(1, employeeId);
-        deallocateTeacherStatement.setInt(2, plannedActivityId);
-        deallocateTeacherStatement.executeUpdate();
-    }
-
-    private void allocatePlannedActivityToTeacher(int employeeId, int plannedActivityId, int allocatedHours)
-            throws SQLException {
-        allocateTeacherStatement.setInt(1, employeeId);
-        allocateTeacherStatement.setInt(2, plannedActivityId);
-        allocateTeacherStatement.setInt(3, allocatedHours);
-        allocateTeacherStatement.executeUpdate();
-    }
-
     // all SQL commands goes here
     private void prepareStatements() throws SQLException, IOException {
-        findCourseStatement = connection.prepareStatement(Files.readString(
-                Path.of("ApplicationQueries/FindCourse.sql")));
+        String findCourseSql = Files.readString(
+                Path.of("ApplicationQueries/FindCourse.sql"));
+        findCourseStatement = connection.prepareStatement(findCourseSql);
+        findCourseLockingStatement = connection.prepareStatement(findCourseSql + " FOR UPDATE");
         findTeacherStatement = connection.prepareStatement(
                 Files.readString(Path.of("ApplicationQueries/FindTeacher.sql")));
         findPlannedActivityStatement = connection.prepareStatement(
@@ -499,12 +486,8 @@ public class KthDAO {
                 Files.readString(Path.of("ApplicationQueries/UpdateStudentsInCourse.sql")));
         getPlannedActivitiesForTeacherStatement = connection.prepareStatement(
                 Files.readString(Path.of("ApplicationQueries/GetPlannedActivitiesForTeacher.sql")));
-        getPlannedActivitiesForTeacherLockingStatement = connection.prepareStatement(
-                Files.readString(Path.of("ApplicationQueries/GetPlannedActivitiesForTeacherLocking.sql")));
-        getPlannedTeachingCostStatement = connection.prepareStatement(
-                Files.readString(Path.of("ApplicationQueries/GetPlannedTeachingCost.sql")));
-        getActualTeachingCostStatement = connection.prepareStatement(
-                Files.readString(Path.of("ApplicationQueries/GetActualTeachingCost.sql")));
+        getTeachingCostStatement = connection.prepareStatement(
+                Files.readString(Path.of("ApplicationQueries/GetTeachingCost.sql")));
         allocateTeacherStatement = connection.prepareStatement(
                 Files.readString(Path.of("ApplicationQueries/AllocateTeacher.sql")));
         deallocateTeacherStatement = connection.prepareStatement(

@@ -30,8 +30,11 @@ public class Main {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
-                interpreter.handleCmds();
+            } else if(args.length > 0 && args[0].equals("DebugApp")) {
+                interpreter.handleCmds(true);
+            }
+            else {
+                interpreter.handleCmds(false);
             }
         }
     }

@@ -64,8 +64,10 @@ public class BlockingInterpreter {
      * Interprets and performs user commands. This method will not return until the
      * UI has been stopped. The UI is stopped either when the user gives the
      * "quit" command, or when the method <code>stop()</code> is called.
+     * 
+     * @param includeStacktrace Whether a stacktrace should be printed for errors or not
      */
-    public void handleCmds() {
+    public void handleCmds(boolean includeStacktrace) {
         keepReceivingCmds = true;
         while (keepReceivingCmds) {
             try {
@@ -81,10 +83,15 @@ public class BlockingInterpreter {
                 executeCommand(cmdLine.getCmd(), parameters);
             } catch (Exception e) {
                 System.out.println("Operation failed");
-                System.out.println(e.getMessage());
-                if (!(e instanceof InvalidParametersException || e instanceof BusinessConstraintException
-                        || e instanceof EntityNotFoundException)) {
+                if (includeStacktrace) {
+                    System.out.println(e.getMessage());
                     e.printStackTrace();
+                }
+                else if (e.getCause() != null) {
+                    System.out.println(e.getMessage() + ": " + e.getCause());
+                }
+                else {
+                    System.out.println(e.getMessage());
                 }
             }
         }

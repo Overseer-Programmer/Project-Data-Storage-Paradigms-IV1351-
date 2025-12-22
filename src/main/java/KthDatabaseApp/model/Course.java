@@ -62,9 +62,19 @@ public class Course implements CourseDTO {
         this.courseName = courseName;
     }
 
+    /**
+     * Changes the current student count by a delta value.
+     * @param delta The delta value to change student count with. 
+     * @throws BusinessConstraintException
+     */
+    public void changeStudentCount(int delta) throws BusinessConstraintException {
+        setStudentCount(numStudents + delta);
+    }
+
     public void setStudentCount(int newCount) throws BusinessConstraintException {
         if (newCount < minStudents || newCount > maxStudents) {
-            throw new BusinessConstraintException(String.format("Student count %d is outside the student range: [%d, %d]", newCount, minStudents, maxStudents));
+            throw new BusinessConstraintException(String.format(
+                    "Student count %d is outside the student range: [%d, %d]", newCount, minStudents, maxStudents));
         }
         numStudents = newCount;
     }
