@@ -93,7 +93,7 @@ mvn exec:java
 To list all available commands and usage instruction, enter
 
 ```bash
-'HELP
+HELP
 ```
 
 ### Task 3.1 - Computing the teaching cost for a specific course
@@ -118,10 +118,10 @@ TEACHING_COST <course_instance_id>
 
 To increase the number of registered students, specify the course instance by its ID. The course instance can be the same as the one used in the previous step.
 
-The student count is updated using the following command: 
+The student count is updated with a delta value using the following command: 
 
 ```bash
-CHANGE_STUDENT_COUNT <course_instance_id> <number_of_students>
+CHANGE_STUDENT_COUNT <course_instance_id> <delta>
 ```
 
 The system enforces constraints on the student count for a course instance. If the updated number of students exceeds the permitted range, the command will result in an error. 
@@ -161,7 +161,7 @@ GET_TEACHER_ALLOCATIONS <teacher_id>
 To deallocate a teaching load, the same parameters are used:
 
 ```bash
-DEALLOCATE <teacher_id> <planned_activity_id> <allocated hours>
+DEALLOCATE <teacher_id> <planned_activity_id>
 ```
 
 ### Task 3.4 - Add a new teaching activity called "Exercise"
@@ -169,7 +169,7 @@ DEALLOCATE <teacher_id> <planned_activity_id> <allocated hours>
 A new teaching acitvity named 'Exercise' is added to the system using the following command:
 
 ```bash
-CREATE ACTIVITY <activity_name> <multiplicationfactor> 
+CREATE_ACTIVITY <activity_name> <multiplicationfactor> 
 ```
 
 When the command is executed, the database automatically handles the remaining logic.
