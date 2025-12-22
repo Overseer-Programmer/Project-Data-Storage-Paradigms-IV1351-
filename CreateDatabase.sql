@@ -79,7 +79,7 @@ ALTER TABLE course_instance ADD CONSTRAINT PK_course_instance PRIMARY KEY (id);
 
 CREATE TABLE planned_activity (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
- planned_hours INT NOT NULL,
+ planned_hours INT,
  course_instance_id INT NOT NULL,
  teaching_activity_id INT NOT NULL
 );
@@ -117,16 +117,13 @@ ALTER TABLE employee_planned_activity ADD CONSTRAINT FK_employee_planned_activit
 
 -- Triggers for Application Constraints --
 -- No more than 4 course instances for a teacher/employee
-/*
-    Checks if an employee will is overloaded aka the employee is allocated
-    to more than 4 different course instances for the same study year and study period.
-*/
-CREATE FUNCTION is_employee_overloaded(current_employee_id int)
-RETURNS BOOLEAN AS $$
+
+-- Return the amount of course assignments for the period where the employee has the most course assignments
+CREATE FUNCTION get_max_teaching_allocation(current_employee_id int)
+RETURNS int AS $$
 DECLARE
     most_intense_study_period record;
 BEGIN
-    -- Find a period where the employee is assigned to the most course instances
     SELECT COUNT(DISTINCT pa.course_instance_id) AS course_assignments, ci.study_year, ci.study_period
     INTO most_intense_study_period
     FROM employee_planned_activity AS epa
@@ -136,9 +133,23 @@ BEGIN
     GROUP BY ci.study_year, ci.study_period
     ORDER BY course_assignments DESC
     Limit 1;
+    IF most_intense_study_period IS NULL THEN
+        RETURN 0;
+    ELSE
+        RETURN most_intense_study_period.course_assignments;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
 
+/*
+    Checks if an employee will is overloaded aka the employee is allocated
+    to more than 4 different course instances for the same study year and study period.
+*/
+CREATE FUNCTION is_employee_overloaded(current_employee_id int)
+RETURNS BOOLEAN AS $$
+BEGIN
     -- If the most intense period has more then 4 course assignments, then we know the employee is overloaded
-    IF most_intense_study_period.course_assignments > 4 THEN
+    IF get_max_teaching_allocation(current_employee_id) > 4 THEN
         RETURN true;
     ELSE
         RETURN false;
@@ -176,7 +187,7 @@ CREATE FUNCTION prevent_teaching_overload_on_employee_allocation()
 RETURNS trigger AS $$
 BEGIN
     IF is_employee_overloaded(NEW.employee_id) THEN
-        RAISE EXCEPTION 'Cannot allocate teaching activity (id=%) to employee (id=%) because that would be too much work for the employee.', NEW.planned_activity_id, NEW.employee_id;
+        RAISE EXCEPTION 'Cannot allocate planned activity (id=%) to employee (id=%) because that would be too much work for the employee.', NEW.planned_activity_id, NEW.employee_id;
         RETURN OLD;
     END IF;
     RETURN NEW;
@@ -225,9 +236,9 @@ BEGIN
     ON ci.course_layout_id = cl.id
     WHERE ci.id = NEW.id;
     INSERT INTO planned_activity (planned_hours, course_instance_id, teaching_activity_id)
-    VALUES (32 + 0.725 * NEW.num_students, NEW.id, exam_teaching_activity_id);
+    VALUES (NULL, NEW.id, exam_teaching_activity_id);
     INSERT INTO planned_activity (planned_hours, course_instance_id, teaching_activity_id)
-    VALUES (2 * course_hp + 28 + 0.2 * NEW.num_students, NEW.id, admin_teaching_activity_id);
+    VALUES (NULL, NEW.id, admin_teaching_activity_id);
 
     RETURN NEW;
 END;
@@ -238,3 +249,157 @@ AFTER INSERT
 ON course_instance
 FOR EACH ROW
 EXECUTE FUNCTION add_exam_and_admin();
+
+CREATE FUNCTION assert_legal_planned_activity_modified()
+RETURNS trigger AS $$
+DECLARE
+
+    teaching_activity_name VARCHAR(250);
+BEGIN
+    SELECT ta.activity_name
+    INTO teaching_activity_name
+    FROM planned_activity AS pa
+    JOIN teaching_activity AS ta ON pa.teaching_activity_id = ta.id
+    WHERE pa.id = OLD.id;
+    IF teaching_activity_name = 'Examination' OR teaching_activity_name = 'Admin' THEN
+        RAISE EXCEPTION 'Cannot modify the teaching activities of "Examination" or "Admin"';
+        RETURN OLD;
+    END IF;
+    IF TG_OP = 'DELETE' THEN
+        RETURN OLD;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER on_planned_activity_changed
+BEFORE INSERT OR UPDATE OR DELETE
+ON planned_activity
+FOR EACH ROW
+EXECUTE FUNCTION assert_legal_planned_activity_modified();
+
+-- Teaching activity "Exercise" business constraint
+CREATE FUNCTION handle_teaching_activity_addition_request()
+RETURNS trigger AS $$
+DECLARE
+    target_course_instance_id int;
+    target_employee_id int;
+    target_hours int := 10;
+    create_planned_activity_id int;
+BEGIN
+    IF NEW.activity_name != 'Exercise' THEN
+        RETURN NEW;
+    END IF;
+
+    -- Find a course instance for the new planned activity
+    SELECT id
+    INTO target_course_instance_id
+    FROM course_instance
+    ORDER BY RANDOM()
+    LIMIT 1;
+    IF target_course_instance_id IS NULL THEN
+        RAISE EXCEPTION 'Unable to find course instance with at least one employee allocated to it for teaching activity "Exercise"';
+    END IF;
+
+
+    --Create a planned activity
+    INSERT INTO planned_activity (planned_hours, course_instance_id, teaching_activity_id)
+    VALUES(target_hours, target_course_instance_id, NEW.id)
+    RETURNING id INTO  create_planned_activity_id;
+    
+    -- Find a teacher
+    SELECT id 
+    INTO  target_employee_id
+    FROM employee
+    ORDER BY get_max_teaching_allocation(id) ASC
+    LIMIT 1;
+    IF target_employee_id IS NULL THEN
+        RAISE EXCEPTION 'Could not find employee allocate to teacher activity "Exercise"';
+    END IF;
+
+    -- Connect employee to the created planned_activity
+    INSERT INTO employee_planned_activity(employee_id, planned_activity_id, allocated_hours)
+    VALUES (target_employee_id, create_planned_activity_id, target_hours);
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+/*
+    Check If all planned activities of type "Exercise" have at least one
+    teacher allocated them and that the teaching activity exercise is
+    associated with at least one course instance, otherwise raise exception.
+*/
+CREATE FUNCTION check_exercise_teaching_activity_constraint()
+RETURNS trigger AS $$
+BEGIN
+    -- If teaching activity "Exercise" does not exist, nothing has to be done.
+    IF EXISTS (
+        SELECT *
+        FROM teaching_activity
+        WHERE activity_name = 'Exercise'
+    )
+    THEN
+        -- Assert teaching activity "Exercise" is associated with at least one course instance
+        IF NOT EXISTS (
+            SELECT *
+            FROM planned_activity AS pa
+            JOIN teaching_activity AS ta ON pa.teaching_activity_id = ta.id
+            WHERE ta.activity_name = 'Exercise'
+        )
+        THEN
+            RAISE EXCEPTION 'Teaching activity "Exercise" must be associated with at least one course instance.';
+        END IF;
+
+        -- Assert all planned activities of type "Exercise" have a teacher allocated to them
+        IF EXISTS (
+            SELECT *
+            FROM planned_activity pa
+            JOIN teaching_activity ta ON pa.teaching_activity_id = ta.id
+            LEFT JOIN employee_planned_activity emp ON emp.planned_activity_id = pa.id
+            WHERE ta.activity_name = 'Exercise' AND emp.employee_id IS NULL
+            LIMIT 1
+        )
+        THEN 
+            RAISE EXCEPTION 'All planned activities of type "Exercise" must have a teacher allocated to them.';
+        END if;
+    END IF;
+
+    -- Allow deletes to pass through
+    IF TG_OP = 'DELETE' THEN
+        RETURN OLD;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Make sure a planned activity of type "Exercise" is created when a teaching activity of type "Exercise" is created.
+CREATE TRIGGER on_teaching_activity_added
+AFTER INSERT
+ON teaching_activity
+FOR EACH ROW
+EXECUTE FUNCTION handle_teaching_activity_addition_request();
+
+/*
+    Make sure planned activities of type "Exercise" always has a teacher allocated to them.
+    This can be violated when planned activities are deleted, inserted and updated and when
+    allocations for teachers are updated or deleted which is why these triggers exist.
+    However they are constraint trigger of type DEFERRABLE INITIALLY DEFERRED which makes
+    it possible to create a transaction that both creates a planned activity of type
+    "Exercise" and assigns a teacher to them, making sure "Exercise" planned activities
+    are not blocked from being created.
+*/
+CREATE CONSTRAINT TRIGGER on_planned_activity_changed_2
+AFTER INSERT OR DELETE OR UPDATE
+ON planned_activity
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW
+EXECUTE FUNCTION check_exercise_teaching_activity_constraint();
+CREATE CONSTRAINT TRIGGER on_teaching_de_or_reallocation
+AFTER UPDATE OR DELETE
+ON employee_planned_activity
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW
+EXECUTE FUNCTION check_exercise_teaching_activity_constraint();

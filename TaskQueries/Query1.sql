@@ -8,9 +8,9 @@ SELECT cl.course_code AS "Course Code",
     SUM(CASE WHEN ta.activity_name = 'Lab' THEN pa.planned_hours * ta.factor ELSE 0 END) AS "Lab Hours",
     SUM(CASE WHEN ta.activity_name = 'Seminar' THEN pa.planned_hours * ta.factor ELSE 0 END) AS "Seminar Hours",
     SUM(CASE WHEN ta.activity_name = 'Other' THEN pa.planned_hours * ta.factor ELSE 0 END) AS "Other Overhead Hours",
-    SUM(CASE WHEN ta.activity_name = 'Examination' THEN pa.planned_hours ELSE 0 END) AS "Exam",
-    SUM(CASE WHEN ta.activity_name = 'Admin' THEN pa.planned_hours ELSE 0 END) AS "Admin",
-    SUM(pa.planned_hours * ta.factor) AS "Total Hours"
+    32 + 0.725 * ci.num_students AS "Exam",
+    2 * cl.hp + 28 + 0.2 * ci.num_students AS "Admin",
+    SUM(pa.planned_hours * ta.factor) + 32 + 0.725 * ci.num_students + 2 * cl.hp + 28 + 0.2 * ci.num_students AS "Total Hours"
 
 FROM course_instance AS ci
 INNER JOIN course_layout AS cl ON ci.course_layout_id = cl.id
