@@ -1,5 +1,7 @@
 package KthDatabaseApp.model;
 
+import java.util.Objects;
+
 public class Course implements CourseDTO {
     private final int surrogateId; // The id field of course_instance
     private final int courseLayoutId;
@@ -46,10 +48,10 @@ public class Course implements CourseDTO {
         int minStudents,
         int maxStudents
     ) throws BusinessConstraintException {
-        this.surrogateId = surrogateId;
-        this.courseLayoutId = courseLayoutId;
-        this.instanceId = instanceId;
-        this.courseCode = courseCode;
+        this.surrogateId = Objects.requireNonNull(surrogateId);
+        this.courseLayoutId = Objects.requireNonNull(courseLayoutId);
+        this.instanceId = Objects.requireNonNull(instanceId);
+        this.courseCode = Objects.requireNonNull(courseCode);
         setStudentRange(minStudents, maxStudents);
         setStudentCount(numStudents);
         setCourseName(courseName);
@@ -59,7 +61,7 @@ public class Course implements CourseDTO {
 
     // Setters
     public void setCourseName(String courseName) {
-        this.courseName = courseName;
+        this.courseName = Objects.requireNonNull(courseName);
     }
 
     /**
@@ -72,6 +74,7 @@ public class Course implements CourseDTO {
     }
 
     public void setStudentCount(int newCount) throws BusinessConstraintException {
+        Objects.requireNonNull(newCount);
         if (newCount < minStudents || newCount > maxStudents) {
             throw new BusinessConstraintException(String.format(
                     "Student count %d is outside the student range: [%d, %d]", newCount, minStudents, maxStudents));
@@ -80,12 +83,12 @@ public class Course implements CourseDTO {
     }
 
     public void setStudyTime(int studyYear, StudyPeriod studyPeriod) {
-        this.studyYear = studyYear;
-        this.studyPeriod = studyPeriod;
+        this.studyYear = Objects.requireNonNull(studyYear);
+        this.studyPeriod = Objects.requireNonNull(studyPeriod);
     }
 
     public void setHp(double hp) {
-        this.hp = hp;
+        this.hp = Objects.requireNonNull(hp);
     }
 
     /**
@@ -96,6 +99,8 @@ public class Course implements CourseDTO {
      * @throws BusinessConstraintException
      */
     public void setStudentRange(int minStudents, int maxStudents) throws BusinessConstraintException {
+        Objects.requireNonNull(minStudents);
+        Objects.requireNonNull(maxStudents);
         if (maxStudents < minStudents) {
             throw new BusinessConstraintException("The max student count must be equal or larger than the min count");
         }

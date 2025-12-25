@@ -31,7 +31,7 @@ public enum Command {
     HELP("Get information about how to use all commands."),
     QUIT("Leave the chat application."),
     GET_COURSES("Get all courses in the database."),
-    GET_TEACHERS("Get all teachers in the database."),
+    GET_TEACHERS("Get all teachers in the database along with their max teaching load. It represents the maximum number of distinct course instances the teacher is assigned to during a particular period."),
     GET_PLANNED_ACTIVITIES("Get all planned activities in the database."),
     GET_TEACHERS_FOR_ACTIVITY("Get all teachers allocated to the specified teaching activity by activity name."),
     TEACHING_COST("Get the teaching cost for a course specified by course_instance_id."),

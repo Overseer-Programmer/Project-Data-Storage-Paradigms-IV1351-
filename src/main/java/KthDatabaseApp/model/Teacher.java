@@ -3,6 +3,7 @@ package KthDatabaseApp.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class Teacher implements TeacherDTO {
     private final int employeeId;
@@ -10,20 +11,22 @@ public class Teacher implements TeacherDTO {
     private String lastName;
     private Address address;
     private int salary;
-    private List<TeacherAllocationDTO> teacherAllocations; // A list of all planned activities allocated to this
-                                                        // teacher along with the amount of allocated hours.
+    private List<TeacherAllocation> teacherAllocations; // A list of all planned activities allocated to this
+                                                           // teacher along with the amount of allocated hours.
 
     /**
      * Contains information about an employee from the employee and person relations
      * of the conceptual model.
      * 
-     * @param employeeId The employee_id attribute of the employee table
-     * @param firstName  The first_name attribute of the person table
-     * @param lastName   The last_name attribute of the person table
-     * @param street     The street attribute of the person table
-     * @param zip        The zip attribute of the person table
-     * @param city       The city attribute of the person table
-     * @param salary     The salary attribute of the employee table
+     * @param employeeId         The employee_id attribute of the employee table
+     * @param firstName          The first_name attribute of the person table
+     * @param lastName           The last_name attribute of the person table
+     * @param street             The street attribute of the person table
+     * @param zip                The zip attribute of the person table
+     * @param city               The city attribute of the person table
+     * @param salary             The salary attribute of the employee table
+     * @param teacherAllocations A list of all planned activities allocated to this
+     *                           teacher along with the amount of allocated hours.
      */
     public Teacher(
             int employeeId,
@@ -32,67 +35,24 @@ public class Teacher implements TeacherDTO {
             String street,
             String zip,
             String city,
-            int salary) {
-        this.employeeId = employeeId;
+            int salary,
+            List<TeacherAllocation> teacherAllocations) {
+        this.employeeId = Objects.requireNonNull(employeeId);
         setFullName(firstName, lastName);
         setAddress(street, zip, city);
         setSalary(salary);
-        teacherAllocations = new ArrayList<>();
-    }
-
-    /**
-     * Allocates the teacher to a planned activity. If adding the activity would
-     * result in having the teacher be allocated to more than 4 different course
-     * instances in the same study period and study year, the allocation will be
-     * rejected. The teacher allocation reference is also added to the planned
-     * activity.
-     * 
-     * @param plannedActivity The planned activity to allocate
-     * @param allocatedHours  The amount of hours the teacher should be allocated to
-     *                        the planned activity
-     * @throws BusinessConstraintException
-     */
-    public void allocatePlannedActivity(PlannedActivity plannedActivity, int allocatedHours)
-            throws BusinessConstraintException {
-        TeacherAllocationDTO allocation = findTeacherAllocation(plannedActivity);
-        if (allocation != null) {
-            throw new BusinessConstraintException(String.format(
-                    "Cannot allocate teacher (employee_id=%d) to planned activity (id=%d) because they are already allocated to it.",
-                    getEmployeeId(), plannedActivity.getId()));
-        }
-        allocation = new TeacherAllocationDTO(this, plannedActivity, allocatedHours);
-        teacherAllocations.add(allocation);
-        if (getMaxTeachingLoad() > 4) {
-            teacherAllocations.remove(allocation);
-            throw new BusinessConstraintException("Cannot allocate planned activity id="
-                    + plannedActivity.getId()
-                    + " to teacher employeeId=" + employeeId
-                    + " because the teacher would be allocated to more than 4 different course instances during a particular period.");
-        }
-    }
-
-    /**
-     * Deallocates the teacher from a planned activity if it exists. The teacher
-     * allocation reference is also removed from the planned activity.
-     * 
-     * @param plannedActivity
-     * @throws BusinessConstraintException
-     */
-    public void deallocatePlannedActivity(PlannedActivity plannedActivity) throws BusinessConstraintException {
-        TeacherAllocationDTO allocation = findTeacherAllocation(plannedActivity);
-        if (allocation != null) {
-            teacherAllocations.remove(allocation);
-        } else {
-            throw new BusinessConstraintException(String.format(
-                    "Cannot deallocate: Teacher (employee_id=%s) was not allocated to planned activity (id=%d)",
-                    getEmployeeId(), plannedActivity.getId()));
+        this.teacherAllocations = new ArrayList<>();
+        if (teacherAllocations != null) {
+            for (TeacherAllocation allocation : teacherAllocations) {
+                this.teacherAllocations.add(new TeacherAllocation(this, allocation.plannedActivity, allocation.allocatedHours));
+            }
         }
     }
 
     // Setters
     public void setFullName(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstName = Objects.requireNonNull(firstName);
+        this.lastName = Objects.requireNonNull(lastName);
     }
 
     public void setAddress(String street, String zip, String city) {
@@ -100,7 +60,7 @@ public class Teacher implements TeacherDTO {
     }
 
     public void setSalary(int salary) {
-        this.salary = salary;
+        this.salary = Objects.requireNonNull(salary);
     }
 
     // Getters
@@ -128,8 +88,8 @@ public class Teacher implements TeacherDTO {
         return salary;
     }
 
-    public List<TeacherAllocationDTO> getTeachingAllocations() {
-        List<TeacherAllocationDTO> clone = new ArrayList<>(teacherAllocations);
+    public List<? extends TeacherAllocationDTO> getTeachingAllocations() {
+        List<TeacherAllocation> clone = new ArrayList<>(teacherAllocations);
         return clone;
     }
 
@@ -142,7 +102,7 @@ public class Teacher implements TeacherDTO {
     public int getMaxTeachingLoad() {
         int maxTeachingLoad = 0;
         HashMap<Integer, HashMap<StudyPeriod, List<Integer>>> allocatedCourseInstances = new HashMap<>();
-        for (TeacherAllocationDTO allocation : teacherAllocations) {
+        for (TeacherAllocation allocation : teacherAllocations) {
             int studyYear = allocation.getAllocatedCourseStudyYear();
             StudyPeriod studyPeriod = allocation.getAllocatedCourseStudyPeriod();
             if (!allocatedCourseInstances.containsKey(studyYear)) {
@@ -163,14 +123,5 @@ public class Teacher implements TeacherDTO {
             }
         }
         return maxTeachingLoad;
-    }
-
-    private TeacherAllocationDTO findTeacherAllocation(PlannedActivity plannedActivity) {
-        for (TeacherAllocationDTO allocation : teacherAllocations) {
-            if (allocation.getPlannedActivityId() == plannedActivity.getId()) {
-                return allocation;
-            }
-        }
-        return null;
     }
 }

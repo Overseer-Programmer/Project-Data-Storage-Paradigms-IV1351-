@@ -17,6 +17,6 @@ public interface TeacherDTO {
      * @return The allocated hours, is 0 if the teacher was not allocated to the
      *         planned activity.
      */
-    public List<TeacherAllocationDTO> getTeachingAllocations();
+    public List<? extends TeacherAllocationDTO> getTeachingAllocations();
     public int getMaxTeachingLoad();
 }

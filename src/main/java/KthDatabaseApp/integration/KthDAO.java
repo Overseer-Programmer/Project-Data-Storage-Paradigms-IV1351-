@@ -196,7 +196,7 @@ public class KthDAO {
      * Finds the teaching cost for the specified course.
      * 
      * @param courseInstanceId The course_instance_id of course
-     * @return A TeachingCostDTO object unless an exception was thrown.
+     * @return A TeachingCostDTO object or null if the course does not exist.
      * @throws DBException
      */
     public TeachingCostDTO findTeachingCost(int courseInstanceId) throws DBException {
@@ -208,7 +208,7 @@ public class KthDAO {
             result = getTeachingCostStatement.executeQuery();
             boolean courseExists = result.next();
             if (!courseExists) {
-                throw new DBException(String.format("Course with course_instance_id=%d not found", courseInstanceId));
+                return null;
             }
             teachingCost = new TeachingCostDTO(
                     result.getString("course_code"),
@@ -259,9 +259,11 @@ public class KthDAO {
      * Creates an allocation in the employee_planned_activity table for the database
      * to allocate a teacher to a planned_activity.
      * 
-     * @param employeeId The id of the employee to allocate.
-     * @param plannedActivityId The id of the planned activity to allocate to the employee
-     * @param allocatedHours The amount of hours to allocate the employee to the planned activity.
+     * @param employeeId        The id of the employee to allocate.
+     * @param plannedActivityId The id of the planned activity to allocate to the
+     *                          employee
+     * @param allocatedHours    The amount of hours to allocate the employee to the
+     *                          planned activity.
      * @throws DBException
      */
     public void createAllocationForTeacher(int employeeId, int plannedActivityId, int allocatedHours)
@@ -282,8 +284,9 @@ public class KthDAO {
      * Deletes an allocation in the employee_planned_activity for the database to
      * deallocate a teacher from a planned_activity.
      * 
-     * @param employeeId The employee to deallocate.
-     * @param plannedActivityId The planned activity to deallocate the employee from.
+     * @param employeeId        The employee to deallocate.
+     * @param plannedActivityId The planned activity to deallocate the employee
+     *                          from.
      * @throws DBException
      */
     public void deleteAllocationFromTeacher(int employeeId, int plannedActivityId) throws DBException {
@@ -368,9 +371,7 @@ public class KthDAO {
                     result.getInt("min_students"),
                     result.getInt("max_students"));
         } finally {
-            if (result != null) {
-                result.close();
-            }
+            closeResultSet(result);
         }
 
         return course;
@@ -381,8 +382,21 @@ public class KthDAO {
         ResultSet result = null;
         Teacher teacher = null;
 
-        // Get the teacher attributes
         try {
+            // Find all planned activities allocated to the teacher
+            List<TeacherAllocation> teacherAllocations = new ArrayList<>();
+            getPlannedActivitiesForTeacherStatement.setInt(1, employeeId);
+            result = getPlannedActivitiesForTeacherStatement.executeQuery();
+            while (result.next()) {
+                int plannedActivityId = result.getInt("planned_activity_id");
+                int allocatedHours = result.getInt("allocated_hours");
+                PlannedActivity plannedActivity = findPlannedActivityInternal(plannedActivityId);
+                TeacherAllocation allocation = new TeacherAllocation(plannedActivity, allocatedHours);
+                teacherAllocations.add(allocation);
+            }
+            result.close();
+
+            // Get the teacher attributes
             findTeacherStatement.setInt(1, employeeId);
             result = findTeacherStatement.executeQuery();
             boolean exists = result.next();
@@ -396,30 +410,10 @@ public class KthDAO {
                     result.getString("street"),
                     result.getString("zip"),
                     result.getString("city"),
-                    result.getInt("salary"));
+                    result.getInt("salary"),
+                    teacherAllocations);
         } finally {
-            if (result != null) {
-                result.close();
-            }
-        }
-
-        // Find all planned activities allocated to the teacher
-        try {
-
-            getPlannedActivitiesForTeacherStatement.setInt(1, employeeId);
-            result = getPlannedActivitiesForTeacherStatement.executeQuery();
-            while (result.next()) {
-                int plannedActivityId = result.getInt("planned_activity_id");
-                int allocatedHours = result.getInt("allocated_hours");
-                PlannedActivity plannedActivity = findPlannedActivityInternal(plannedActivityId);
-                if (plannedActivity != null) {
-                    teacher.allocatePlannedActivity(plannedActivity, allocatedHours);
-                }
-            }
-        } finally {
-            if (result != null) {
-                result.close();
-            }
+            closeResultSet(result);
         }
 
         return teacher;
@@ -445,22 +439,10 @@ public class KthDAO {
             if (course == null) {
                 throw new DBException("Invalid State: planned activity is missing a course instance.");
             }
-            plannedActivity = new PlannedActivity(plannedActivityId, course, activityName, multiplicationFactor);
-
-            // Set the planned hours for derived and non derived teaching activity types
-            if (activityName.equals("Examination")) {
-                plannedActivity.setPlannedHours(
-                        (int) Math.round(32 + 0.725 * course.getStudentCount()));
-            } else if (activityName.equals("Admin")) {
-                plannedActivity.setPlannedHours(
-                        (int) Math.round(2 * course.getHp() + 28 + 0.2 * course.getStudentCount()));
-            } else {
-                plannedActivity.setPlannedHours(plannedHours);
-            }
+            plannedActivity = new PlannedActivity(plannedActivityId, course, activityName, multiplicationFactor,
+                    plannedHours);
         } finally {
-            if (result != null) {
-                result.close();
-            }
+            closeResultSet(result);
         }
 
         return plannedActivity;
@@ -522,11 +504,15 @@ public class KthDAO {
 
     private void closeResultSet(String failureMsg, ResultSet result) throws DBException {
         try {
-            if (result != null) {
-                result.close();
-            }
+            closeResultSet(result);
         } catch (Exception e) {
             throw new DBException(failureMsg + " Could not close result set.", e);
+        }
+    }
+
+    private void closeResultSet(ResultSet result) throws SQLException {
+        if (result != null) {
+            result.close();
         }
     }
 }

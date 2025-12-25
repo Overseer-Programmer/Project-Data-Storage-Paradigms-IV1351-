@@ -133,7 +133,11 @@ public class Controller {
      * @throws EntityNotFoundException
      */
     public TeachingCostDTO getTeachingCost(int courseInstanceId) throws DBException, EntityNotFoundException {
-        return database.findTeachingCost(courseInstanceId);
+        TeachingCostDTO teachingCost = database.findTeachingCost(courseInstanceId);
+        if (teachingCost == null) {
+            throw new EntityNotFoundException(String.format("Course with courseInstanceId=%d not found", courseInstanceId));
+        }
+        return teachingCost;
     }
 
     public void createTeachingActivity(String activityName, double multiplicationFactor) throws DBException {

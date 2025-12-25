@@ -88,6 +88,14 @@ Then you can run the program by running:
 ```bash
 mvn exec:java
 ```
+
+Or
+
+```bash
+mvn exec:java -Dexec.args="DebugApp"
+```
+
+For stacktrace outputs.
 ### Terminal
 
 To list all available commands and usage instruction, enter
