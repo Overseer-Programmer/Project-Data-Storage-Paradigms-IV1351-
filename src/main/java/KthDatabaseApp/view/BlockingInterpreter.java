@@ -168,14 +168,15 @@ public class BlockingInterpreter {
                         "get_teachers_for_activity [activity_name]", Command.GET_TEACHERS_FOR_ACTIVITY);
                 String activityName = getStringParameter(parameters, 0, exception);
                 List<TeacherAllocationDTO> allocations = controller.findTeacherAllocationsForTeachingActivity(activityName);
-                Table table = new Table("Course instance id", "Course name", "Teacher id", "Teacher Name", "Activity name");
+                Table table = new Table("Course instance id", "Course name", "Teacher id", "Teacher Name", "Activity name", "Allocated Hours");
                 for (TeacherAllocationDTO allocation : allocations) {
                     table.addRow(
                         allocation.getAllocatedCourseSurrogateId(),
                         allocation.getAllocatedCourseName(),
                         allocation.getTeacherId(),
                         allocation.getTeacherFullName(),
-                        allocation.getActivityName()
+                        allocation.getActivityName(),
+                        allocation.getAllocatedHours()
                     );
                 }
                 table.printOut();
